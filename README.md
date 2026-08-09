@@ -26,7 +26,7 @@ sensors (parallel)              strategist              check
 **Claude Code** (plugin with parallel agents):
 
 ```
-/plugin marketplace add <path-or-git-url-of-this-repo>
+/plugin marketplace add jananthan30/distribution-god
 /plugin install distribution-god@distribution-god
 ```
 
