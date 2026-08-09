@@ -23,6 +23,11 @@ then red-teams its own answer before showing you.
 First thing it ever ran on: its own repo. The verdict, unedited — from
 [STRATEGY.md](STRATEGY.md):
 
+<img src="assets/strategy-card.png" alt="Strategy card: Bigness 17/25, Moat today 1/25 — nothing defensible yet" width="680">
+
+Every run generates one of these cards (`assets/strategy-card.svg`) alongside
+the report — the shareable verdict for your README or launch post.
+
 | | |
 |---|---|
 | **Bigness** | 17/25 — Strong business possible (confidence: Medium) |
@@ -89,7 +94,7 @@ this plan"), `@distribution-god:repo-intel`, `@distribution-god:market-scout`.
 ```
 skills/distribution-god/   orchestrator + reference library (the methodology)
   references/              moats · channel playbooks · AI-era channels ·
-                           scoring rubrics · report template
+                           scoring rubrics · report template · strategy card
 skills/gap-scan/           fast local audit
 agents/                    repo-intel · market-scout · rival-scout · red-team
 .claude-plugin/            plugin + marketplace manifests

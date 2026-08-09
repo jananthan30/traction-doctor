@@ -13,6 +13,8 @@ evidence as links.
 
 ## Verdict
 
+![Strategy card](assets/strategy-card.svg)
+
 | | |
 |---|---|
 | **What this is** | <one-liner: category + delivery form> |

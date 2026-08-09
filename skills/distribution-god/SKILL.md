@@ -44,6 +44,7 @@ load all upfront):
 | `references/ai-era-distribution.md` | Phase 3 |
 | `references/moat-frameworks.md` | Phase 4 |
 | `references/report-template.md` | Phase 5 |
+| `references/strategy-card.md` | Phase 5, after STRATEGY.md |
 
 ## Execution modes
 
@@ -152,7 +153,14 @@ channel underperforms, why the moat never compounds, what an incumbent does in
 response. Keep what survives.
 
 Then load `references/report-template.md` and write `STRATEGY.md` to the repo
-root. End your reply with the verdict box and the five next actions inline in
+root.
+
+**Strategy card:** after the report, generate `assets/strategy-card.svg` from
+`references/strategy-card.md` (exact template — fill slots only) and link it
+under the Verdict heading. It is the report's shareable artifact; skip only
+if the user declines.
+
+End your reply with the verdict box and the five next actions inline in
 chat — the user should not have to open the file to know the answer.
 
 ## Guardrails
