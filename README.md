@@ -2,6 +2,11 @@
 
 **Point it at any repo. Get an investor-grade strategy report.**
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-plugin-blueviolet)](https://code.claude.com/docs/en/plugins)
+[![Codex](https://img.shields.io/badge/Codex-skill-black)](https://agentskills.io)
+[![Agent Skills](https://img.shields.io/badge/Agent%20Skills-standard-blue)](https://agentskills.io)
+
 A repo-native AI strategist for Claude Code and OpenAI Codex. It reads your
 codebase like a data room — license, dependencies, telemetry, onboarding,
 release cadence are all strategy evidence — then researches your live market
@@ -12,6 +17,21 @@ distribution plan, a prioritized gap table, a moat roadmap, and a calibrated
 Not another GTM prompt pack. Existing packs help revenue teams write emails.
 This one starts from your code and tells you what business it can become —
 then red-teams its own answer before showing you.
+
+## It analyzed itself
+
+First thing it ever ran on: its own repo. The verdict, unedited — from
+[STRATEGY.md](STRATEGY.md):
+
+| | |
+|---|---|
+| **Bigness** | 17/25 — Strong business possible (confidence: Medium) |
+| **Moat today** | **1/25 — nothing defensible yet.** One point for counter-positioning; every other power is 0 |
+| **The crux** | Recurring use: do builders re-run this monthly, or once as a novelty? |
+| **Falsifier** | GitHub code search for the report fingerprint, counted weekly. Free, 60 days to signal |
+
+A strategy tool that flatters you is worthless. This one is built to say
+"this is a feature, not a company" — even about itself.
 
 ```
 sensors (parallel)              strategist              check
