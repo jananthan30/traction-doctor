@@ -8,7 +8,12 @@ physically work. Rank channels with the rubric, then commit to ONE primary.
 
 Score each candidate channel 0–5 on four axes; sum /20:
 
-1. **Reach** — are there enough ICPs actually present in this channel?
+1. **Reach** — are there enough of the wedge's ICPs actually present in
+   this channel, and not yet reached? Score every channel for the wedge
+   buyer. For a channel the product has already won (it's in every package
+   manager, it tops the marketplace), score all four axes on what more
+   effort there would return — a `claimed` row is kept for the record, not
+   ranked against the primary.
 2. **Economics** — CAC this channel implies vs. plausible revenue per user
    (rule of thumb: self-serve <$100/yr products cannot afford outbound or paid;
    $10k+/yr products cannot rely on virality alone).
@@ -16,9 +21,18 @@ Score each candidate channel 0–5 on four axes; sum /20:
    docs supports SEO/GEO; a product with no landing page supports nothing yet.)
 4. **Founder fit** — can the actual team execute it? (No audience → cold-start
    content is slow; strong engineering → build-the-tool-that-markets-the-tool.)
+   Base it on what the user has said about the team plus repo evidence
+   (contributors, linked profiles). When analyzing someone else's repo,
+   infer it from public evidence (maintainer count, their audience, launch
+   history) and say so. If nothing is known, score 3 for every channel and
+   say so — never invent a founder profile.
 
 Recommend: 1 primary (where 80% of effort goes), 1 secondary (compounding,
 low-maintenance), and name 2–3 channels explicitly deferred with the reason.
+The Call column uses exactly: `PRIMARY`, `secondary`, `defer`, `claimed`
+(already won — keep it maintained, no new effort), or `ignition` (a one-off
+launch event, not an ongoing channel). **Ties:** pick the channel whose
+results most directly test the crux, and say that's why.
 Spreading across four channels pre-traction is the most common distribution
 failure — the report must forbid it.
 
@@ -26,9 +40,18 @@ failure — the report must forbid it.
 
 ### Developer tools / CLIs / libraries / plugins
 - **Default primary:** marketplace + registry presence (npm, PyPI, VS Code,
-  JetBrains, Claude Code / ChatGPT plugin stores, Homebrew) — the install
-  command IS the funnel. Optimize the listing like a landing page: first
-  screenshot, first 10 words, keywords.
+  JetBrains, Homebrew, MCP registries, agent plugin marketplaces) — the
+  install command IS the funnel. Optimize the listing like a landing page:
+  first screenshot, first 10 words, keywords.
+- **Claude Code plugins specifically:** a self-hosted marketplace gives the
+  author no usage data at all — Claude Code reports nothing back
+  ([docs](https://code.claude.com/docs/en/plugins/measure)). Anthropic's
+  directory (submitted from claude.ai/directory/manage; needs a paid
+  claude.ai plan and passes a review) reaches claude.ai, Cowork, and Claude
+  Code with one listing ([docs](https://code.claude.com/docs/en/plugins/publish))
+  and comes with install and usage tracking
+  ([Track published plugin usage](https://claude.com/docs/connectors/building/after-publishing#track-published-plugin-usage)). Treat it as
+  both a channel and the measurement surface.
 - **Secondary:** technical content with proof (benchmarks, postmortems,
   "how X works internally") targeted at high-intent comparison and
   how-to queries; GitHub SEO (topics, description, social preview, README
@@ -79,6 +102,10 @@ failure — the report must forbid it.
   without a named atomic network is a P0 gap.
 
 ## Sequencing: 10 → 100 → 1,000
+
+For a product that already has distribution, count the wedge's units
+instead — the first 10 / 100 / 1,000 paying teams, or owners of the new
+segment — not total users.
 
 - **First 10 users:** hand-to-hand. DMs to people you can name, communities
   you're already in, personal network. Goal is not revenue — it's watching

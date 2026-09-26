@@ -1,0 +1,28 @@
+# distribution-god
+
+> Repo-native AI strategist for Claude Code and OpenAI Codex. Point it at any repository and it writes STRATEGY.md — positioning, market and competitor research, a ranked distribution plan, a gap table, a moat roadmap, and a calibrated Bigness /25 and Moat /25 verdict with crux, falsifier, and kill criteria — plus a shareable strategy-card SVG. MIT licensed. Current version: 0.2.0.
+
+Install in Claude Code: `/plugin marketplace add jananthan30/distribution-god` then `/plugin install distribution-god@distribution-god`, then run `/distribution-god` (full run, needs web access) or `/gap-scan` (a quick local audit, no web research).
+
+Install in Codex: `codex plugin marketplace add jananthan30/distribution-god` then `codex plugin add distribution-god@distribution-god`; start Codex with `codex --search` for live web research.
+
+## Docs
+
+- [README](https://github.com/jananthan30/distribution-god/blob/main/README.md): install, usage, what the output contains
+- [Orchestrator skill](https://github.com/jananthan30/distribution-god/blob/main/skills/distribution-god/SKILL.md): phases, execution modes, output contract
+- [Scoring rubrics](https://github.com/jananthan30/distribution-god/blob/main/skills/distribution-god/references/scoring-rubrics.md): Bigness and Moat anchors, bands, calibration rules
+- [Report template](https://github.com/jananthan30/distribution-god/blob/main/skills/distribution-god/references/report-template.md): STRATEGY.md structure
+- [Design document](https://github.com/jananthan30/distribution-god/blob/main/docs/DESIGN.md): architecture and decisions
+- [Changelog](https://github.com/jananthan30/distribution-god/blob/main/CHANGELOG.md)
+
+## Examples
+
+- [Self-analysis](https://github.com/jananthan30/distribution-god/blob/main/STRATEGY.md): the tool run on its own repository
+- [Example reports](https://github.com/jananthan30/distribution-god/tree/main/examples): runs on other public repositories
+
+## Optional
+
+- [Moat frameworks](https://github.com/jananthan30/distribution-god/blob/main/skills/distribution-god/references/moat-frameworks.md)
+- [Channel playbooks](https://github.com/jananthan30/distribution-god/blob/main/skills/distribution-god/references/channel-playbooks.md)
+- [AI-era distribution](https://github.com/jananthan30/distribution-god/blob/main/skills/distribution-god/references/ai-era-distribution.md)
+- [Gap scan skill](https://github.com/jananthan30/distribution-god/blob/main/skills/gap-scan/SKILL.md)

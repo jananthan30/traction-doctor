@@ -12,7 +12,8 @@ starting later cannot catch?**
 
 ## The 7 Powers, translated to software reality
 
-(Hamilton Helmer, "7 Powers" — each power = a benefit to you + a barrier to them.)
+(Hamilton Helmer, "7 Powers" — each power = a benefit to you + a barrier to them.
+Understand all seven; score them on the five rows of the Moat rubric.)
 
 1. **Network economies.** Product improves as users join.
    - Real versions: marketplaces (liquidity), collaboration tools (coworkers),
@@ -77,7 +78,12 @@ If the repo is OSS, evaluate explicitly:
 
 ## Moat roadmap format (what the report must produce)
 
-1. **Today:** Moat score /25 with one line per power (most will be 0 — fine).
+1. **Today:** the Moat today table — the five rubric rows in
+   `scoring-rubrics.md`, each 0–5 with one line of evidence (most will be
+   0 — fine). The seven powers above map onto those five rows:
+   counter-positioning and cornered resource share one row (score the
+   stronger), and process power folds into scale economies only with
+   evidence. The total is out of 25, with its band label.
 2. **Buildable:** the 1–2 powers this product can realistically develop, with
    the mechanism named.
 3. **The compounding loop:** one diagram-in-text:

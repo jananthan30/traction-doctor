@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1540" width="1200" height="1540" role="img" aria-label="Strategy card for Umami: Bigness 14 of 25, Moat 8 of 25">
+  <style>
+    text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, "Liberation Sans", sans-serif; }
+    .kicker { font-size: 20px; letter-spacing: 2.4px; font-weight: 600; fill: #898781; }
+    .h1 { font-size: 56px; font-weight: 750; fill: #ffffff; letter-spacing: -0.5px; }
+    .sub { font-size: 25px; fill: #c3c2b7; }
+    .sub-b { font-size: 25px; font-weight: 650; fill: #ffffff; }
+    .label { font-size: 19px; letter-spacing: 2.2px; font-weight: 600; fill: #898781; }
+    .conf { font-size: 16px; letter-spacing: 1.6px; font-weight: 600; fill: #898781; }
+    .hero { font-size: 88px; font-weight: 750; fill: #ffffff; }
+    .hero-d { font-size: 36px; font-weight: 600; fill: #898781; }
+    .band { font-size: 22px; fill: #c3c2b7; }
+    .note { font-size: 19px; fill: #898781; }
+    .note-c { font-size: 19px; font-weight: 650; fill: #d03b3b; }
+    .crux { font-size: 27px; fill: #c3c2b7; }
+    .crux-b { font-size: 27px; font-weight: 650; fill: #ffffff; }
+    .row { font-size: 22px; fill: #c3c2b7; }
+    .num { font-size: 22px; font-weight: 650; fill: #ffffff; }
+    .bh-a { font-size: 18px; letter-spacing: 2px; font-weight: 650; fill: #3987e5; }
+    .bh-k { font-size: 18px; letter-spacing: 2px; font-weight: 650; fill: #d03b3b; }
+    .body { font-size: 21px; fill: #c3c2b7; }
+    .body-b { font-size: 21px; font-weight: 650; fill: #ffffff; }
+    .mono { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 21px; fill: #ffffff; }
+    .mono-d { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 21px; fill: #898781; }
+    .fp { font-size: 18px; fill: #898781; }
+    .fp-b { font-size: 18px; font-weight: 650; fill: #c3c2b7; }
+  </style>
+  <rect width="1200" height="1540" fill="#1a1a19"/>
+
+  <text x="80" y="92" class="kicker">STRATEGY REPORT · WEB ANALYTICS · OPEN-SOURCE SAAS</text>
+  <text x="80" y="162" class="h1">Umami</text>
+  <text x="80" y="212" class="sub">Privacy-first web analytics, MIT-licensed, self-hosted or cloud</text>
+  <text x="80" y="248" class="sub-b">39k stars; the revenue is in orgs that self-host it</text>
+
+  <g>
+    <rect x="80" y="300" width="510" height="330" rx="16" fill="none" stroke="#ffffff" stroke-opacity="0.10"/>
+    <text x="116" y="366" class="label">BIGNESS</text>
+    <text x="554" y="366" class="conf" text-anchor="end">MEDIUM CONFIDENCE</text>
+    <text x="116" y="466" class="hero">14<tspan class="hero-d">/25</tspan></text>
+    <text x="116" y="512" class="band">Strong business possible</text>
+    <rect x="116" y="540" width="430" height="10" rx="5" fill="#2c2c2a"/>
+    <rect x="116" y="540" width="241" height="10" rx="5" fill="#3987e5"/>
+    <text x="116" y="590" class="note">Huge reach, unproven paid layer</text>
+
+    <rect x="610" y="300" width="510" height="330" rx="16" fill="none" stroke="#ffffff" stroke-opacity="0.10"/>
+    <text x="646" y="366" class="label">MOAT TODAY</text>
+    <text x="646" y="466" class="hero">8<tspan class="hero-d">/25</tspan></text>
+    <text x="646" y="512" class="band">Early edge</text>
+    <rect x="646" y="540" width="430" height="10" rx="5" fill="#2c2c2a"/>
+    <rect x="646" y="540" width="138" height="10" rx="5" fill="#d03b3b"/>
+    <text x="646" y="590" class="note-c">Brand + MIT edge; no network effect</text>
+  </g>
+
+  <rect x="80" y="676" width="4" height="132" fill="#383835"/>
+  <text x="112" y="712" class="crux">The crux: <tspan class="crux-b">Will orgs self-hosting a free MIT build</tspan></text>
+  <text x="112" y="756" class="crux-b">pay for SSO, audit logs and an SLA?</text>
+  <text x="112" y="800" class="crux">Falsifier: 12 months of sales@ asks + a 60-day CTA test</text>
+
+  <text x="80" y="886" class="label">BIGNESS BREAKDOWN</text>
+  <g>
+    <text x="80" y="936" class="row">Why-now force</text>
+    <rect x="380" y="926" width="560" height="8" rx="4" fill="#2c2c2a"/>
+    <rect x="380" y="926" width="336" height="8" rx="4" fill="#3987e5"/>
+    <text x="1120" y="936" class="num" text-anchor="end">3/5</text>
+
+    <text x="80" y="982" class="row">Wedge sharpness</text>
+    <rect x="380" y="972" width="560" height="8" rx="4" fill="#2c2c2a"/>
+    <rect x="380" y="972" width="336" height="8" rx="4" fill="#3987e5"/>
+    <text x="1120" y="982" class="num" text-anchor="end">3/5</text>
+
+    <text x="80" y="1028" class="row">Expansion path</text>
+    <rect x="380" y="1018" width="560" height="8" rx="4" fill="#2c2c2a"/>
+    <rect x="380" y="1018" width="336" height="8" rx="4" fill="#3987e5"/>
+    <text x="1120" y="1028" class="num" text-anchor="end">3/5</text>
+
+    <text x="80" y="1074" class="row">Delivery leverage</text>
+    <rect x="380" y="1064" width="560" height="8" rx="4" fill="#2c2c2a"/>
+    <rect x="380" y="1064" width="336" height="8" rx="4" fill="#3987e5"/>
+    <text x="1120" y="1074" class="num" text-anchor="end">3/5</text>
+
+    <text x="80" y="1120" class="row">Market headroom</text>
+    <rect x="380" y="1110" width="560" height="8" rx="4" fill="#2c2c2a"/>
+    <rect x="380" y="1110" width="224" height="8" rx="4" fill="#3987e5"/>
+    <text x="1120" y="1120" class="num" text-anchor="end">2/5</text>
+  </g>
+
+  <g>
+    <rect x="80" y="1180" width="510" height="180" rx="16" fill="none" stroke="#ffffff" stroke-opacity="0.10"/>
+    <text x="112" y="1228" class="bh-a">PRIMARY CHANNEL</text>
+    <text x="112" y="1266" class="body-b">In-product enterprise path</text>
+    <text x="112" y="1298" class="body">Buyers already run Umami</text>
+    <text x="112" y="1330" class="body">This week: count self-host sales asks</text>
+
+    <rect x="610" y="1180" width="510" height="180" rx="16" fill="none" stroke="#d03b3b" stroke-opacity="0.45"/>
+    <text x="646" y="1228" class="bh-k">KILL CRITERIA</text>
+    <text x="646" y="1266" class="body-b">&lt;3 paid pilots by 2026-12-31</text>
+    <text x="646" y="1298" class="body">&lt;10 inbound leads/mo by 2027-01-31</text>
+    <text x="646" y="1330" class="body">→ stop; push Cloud Business instead</text>
+  </g>
+
+  <line x1="80" y1="1396" x2="1120" y2="1396" stroke="#383835"/>
+  <rect x="80" y="1416" width="1040" height="56" rx="10" fill="#0d0d0d" stroke="#ffffff" stroke-opacity="0.10"/>
+  <text x="102" y="1452" class="mono"><tspan class="mono-d">$</tspan> docker pull docker.umami.is/umami-software/umami:latest</text>
+  <text x="80" y="1510" class="fp">Generated by distribution-god v0.2.0 · 2026-09-26</text>
+  <text x="1120" y="1510" class="fp-b" text-anchor="end">github.com/umami-software/umami</text>
+</svg>

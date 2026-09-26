@@ -1,0 +1,61 @@
+{
+  "product": "acme-cli",
+  "kicker": "Developer tools · CLI",
+  "date": "2026-09-25",
+  "version": "0.2.0",
+  "tagline": [
+    "Fast local-first deploys for small teams",
+    "Scored, red-teamed, falsifiable"
+  ],
+  "bigness": {
+    "score": 12,
+    "confidence": "Medium",
+    "note": "Real pain, crowded field, thin expansion",
+    "breakdown": [
+      {
+        "label": "Market headroom",
+        "score": 2
+      },
+      {
+        "label": "Why-now force",
+        "score": 3
+      },
+      {
+        "label": "Wedge sharpness",
+        "score": 3
+      },
+      {
+        "label": "Expansion path",
+        "score": 2
+      },
+      {
+        "label": "Delivery leverage",
+        "score": 2
+      }
+    ]
+  },
+  "moat": {
+    "score": 2,
+    "note": "Counter-positioning only"
+  },
+  "crux": [
+    "Do teams keep deploying with it",
+    "after the first week?",
+    "Retention decides everything below."
+  ],
+  "primary_channel": [
+    "Homebrew + GitHub listing",
+    "Install command is the funnel",
+    "This week: rewrite the README hero"
+  ],
+  "kill_criteria": [
+    "<100 installs/wk by 2026-12-31",
+    "<10% week-4 retention",
+    "→ stop, open-source as reputation"
+  ],
+  "install": {
+    "prefix": "$",
+    "command": "brew install acme-cli"
+  },
+  "repo_url": "github.com/acme/acme-cli"
+}

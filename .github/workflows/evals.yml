@@ -1,0 +1,40 @@
+name: evals
+
+# Model-graded evals cost API credits, so they run on demand, not per push.
+on:
+  workflow_dispatch:
+    inputs:
+      runs:
+        description: Runs per case
+        default: "1"
+
+permissions:
+  contents: read
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+      - name: Install Claude Code and the sandbox it needs to grant Bash
+        run: |
+          npm install -g @anthropic-ai/claude-code
+          sudo apt-get update -q
+          sudo apt-get install -y -q bubblewrap socat
+          # Ubuntu 24.04 blocks the unprivileged user namespaces bubblewrap uses.
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+      - name: claude plugin eval
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          RUNS: ${{ inputs.runs }}
+        run: |
+          claude plugin eval . --trust-plugin --scaffold --allow-tools Bash Write Edit WebSearch WebFetch \
+            --runs "$RUNS" --threshold 0.8 --no-publish --report eval-report.html
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: eval-report
+          path: eval-report.html

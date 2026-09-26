@@ -1,3 +1,10 @@
 # Local working files — not part of the published plugin
 launch-posts.md
 .DS_Store
+
+# claude plugin eval run output
+evals/results/
+eval-report.html
+
+# Python bytecode from tests/scripts
+__pycache__/

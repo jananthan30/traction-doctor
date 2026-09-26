@@ -1,0 +1,48 @@
+name: Verdict check
+description: Report how a distribution-god verdict held up — calibration is the product.
+title: "Verdict check: <repo>"
+labels: [verdict-check]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        distribution-god promises verdicts that age well. Tell us how yours did —
+        right or wrong, both are useful. Public repos only; nothing here is required
+        beyond the repo and the scores.
+  - type: input
+    id: repo
+    attributes:
+      label: Repository analyzed
+      placeholder: https://github.com/owner/repo
+    validations:
+      required: true
+  - type: input
+    id: scores
+    attributes:
+      label: Scores you received
+      description: "Copy the Verdict box, or the `<!-- dg: ... -->` line from STRATEGY.md."
+      placeholder: "Bigness 12/25 (Medium), Moat 2/25, run on 2026-09-25 with v0.2.0"
+    validations:
+      required: true
+  - type: textarea
+    id: acted
+    attributes:
+      label: What you acted on
+      description: The primary channel, next actions, or kill criteria you actually followed.
+  - type: dropdown
+    id: horizon
+    attributes:
+      label: Time since the report
+      options: ["30 days", "60 days", "90 days", "6 months+"]
+  - type: textarea
+    id: outcome
+    attributes:
+      label: What happened
+      description: Numbers beat adjectives — installs, users, revenue, the kill-criteria metric.
+    validations:
+      required: true
+  - type: dropdown
+    id: calibration
+    attributes:
+      label: In hindsight the verdict was…
+      options: ["About right", "Too optimistic", "Too pessimistic", "Right score, wrong reasons"]

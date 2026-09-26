@@ -1,0 +1,35 @@
+name: traffic
+
+# GitHub keeps traffic data for 14 days only; this appends it weekly to
+# metrics/traffic.csv so the adoption signal survives. Needs a repository
+# secret TRAFFIC_TOKEN: a fine-grained token for this repo with
+# "Administration: read" (the default GITHUB_TOKEN cannot read traffic).
+on:
+  schedule:
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  log:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Append traffic
+        env:
+          GH_TOKEN: ${{ secrets.TRAFFIC_TOKEN }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then echo "TRAFFIC_TOKEN secret not set; skipping"; exit 0; fi
+          python3 .github/scripts/log_traffic.py "${{ github.repository }}" metrics/traffic.csv
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add metrics/traffic.csv
+          git diff --cached --quiet || git commit -m "metrics: weekly traffic snapshot"
+          git push

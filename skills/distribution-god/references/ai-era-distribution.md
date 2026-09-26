@@ -7,13 +7,17 @@ land-grab channels where early movers compound.
 ## 1. GEO — Generative Engine Optimization
 
 Buyers increasingly get one synthesized answer with citations, not ten blue
-links. Being the cited answer is the new ranking. Key facts (verify freshness
-when applying — this file was written 2026-08):
+links. Being the cited answer is the new ranking.
 
-- Significant share of pages cited by AI assistants have little or no Google
-  visibility (Ahrefs 2025/26 data: ~28% of ChatGPT's most-cited pages had zero
-  organic Google presence) — meaning GEO is a **separate, still-open game**,
-  not SEO's afterthought. The GEO market is growing ~50% CAGR.
+Figures in this file are background, not citations: before putting any
+number from here into a report, re-verify it by search and cite what you
+find (this file was last checked 2026-09).
+
+- A significant share of pages cited by AI assistants have little or no
+  Google visibility — Ahrefs' study of the 1,000 most-cited pages in ChatGPT
+  found ~28% had zero organic Google visibility
+  ([Ahrefs, Oct 2025](https://x.com/thinking_slow/status/1983184678954627538)).
+  GEO is a **separate, still-open game**, not SEO's afterthought.
 - What gets cited: structured, extractable content (direct answers high on the
   page, tables, steps), entity clarity (the product is a well-defined "thing"
   with consistent naming across sources), third-party corroboration
@@ -39,7 +43,10 @@ and install it without a human clicking anything.
 - **MCP server** — makes the product callable by Claude, ChatGPT, and IDE
   agents; listed in MCP registries.
 - **Claude Code plugin / Codex skill** (Agent Skills standard) — installable
-  into the developer's terminal loop.
+  into the developer's terminal loop. One repo can serve both: Codex installs
+  plugins from a Claude-format `.claude-plugin/marketplace.json`. For Claude
+  plugins, Anthropic's directory adds reach (claude.ai and Cowork) and is the
+  only source of install and usage numbers — see `channel-playbooks.md`.
 - **ChatGPT apps / GPT store, Claude connectors** where user-facing.
 - Classic registries agents already search: npm, PyPI, Homebrew, VS Code
   marketplace.

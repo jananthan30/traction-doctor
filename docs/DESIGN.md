@@ -1,7 +1,7 @@
 # Distribution God — Design Document
 
-**Date:** 2026-08-09
-**Status:** v1 shipped
+**Date:** 2026-08-09 (updated 2026-09-25 for v0.2.0)
+**Status:** v0.2.0
 
 ## What it is
 
@@ -12,7 +12,8 @@ moat can realistically be built. It thinks distribution-first: product gaps only
 matter if they block a channel.
 
 Works in **Claude Code** (as a full plugin with parallel subagents) and in
-**OpenAI Codex** (via the shared open Agent Skills standard, sequential mode).
+**OpenAI Codex** (native plugin install from the same marketplace file; the
+sensor methods run as generic sub-agents or in sequence).
 
 ## Why this design
 
@@ -29,8 +30,10 @@ Works in **Claude Code** (as a full plugin with parallel subagents) and in
    (repo) and `~/.agents/skills/` (user), invoked with `$skill-name`.
    One skill body can serve both tools.
 3. **AI-era channels are the fresh content.** GEO (generative engine
-   optimization) is growing ~50% CAGR; 28% of ChatGPT's most-cited pages have
-   zero Google visibility. "Being recommendable/installable by AI agents"
+   optimization) is a separate game from SEO: ~28% of ChatGPT's 1,000
+   most-cited pages had zero Google organic visibility
+   ([Ahrefs, Oct 2025](https://x.com/thinking_slow/status/1983184678954627538)).
+   "Being recommendable/installable by AI agents"
    (MCP servers, plugin marketplaces, llms.txt) is a new distribution channel
    most strategy content ignores. Encoding this is a differentiator.
 
@@ -39,7 +42,7 @@ Works in **Claude Code** (as a full plugin with parallel subagents) and in
 | Approach | Verdict |
 |---|---|
 | **A. Single flat skill** (one SKILL.md does everything inline) | Rejected: shallow analysis, context bloat, no parallelism, weak evidence gathering. |
-| **B. Plugin: parallel sensor agents + main-loop synthesis + red-team pass** | **Chosen.** Evidence gathering is independent → fan out. Synthesis needs full context → main loop. Adversarial pass kills sycophantic verdicts. Degrades gracefully to sequential in Codex. |
+| **B. Plugin: parallel sensor agents + main-loop synthesis + red-team pass** | **Chosen.** Evidence gathering is independent → fan out. Synthesis needs full context → main loop. Adversarial pass kills sycophantic verdicts. Degrades to generic sub-agents or sequential phases in Codex. |
 | **C. Standalone MCP server / CLI** | Rejected for v1: heavier build + maintenance, and the value is in prompting methodology, not compute. Can be added later as productization. |
 
 ### Architecture (chosen)
@@ -50,9 +53,9 @@ Works in **Claude Code** (as a full plugin with parallel subagents) and in
         +-------------------+-------------------+
         v                   v                   v
    repo-intel          market-scout        rival-scout      <- parallel "sensors"
-  (reads the repo)    (web: market,       (web: rivals,        (subagents in
-                       trends, timing)     channels, gaps)      Claude Code;
-        |                   |                   |               sequential in Codex)
+  (reads the repo)    (web: market,       (web: rivals,        (plugin agents,
+                       trends, timing)     channels, gaps)      generic sub-agents,
+        |                   |                   |               or sequential)
         +-------------------+-------------------+
                             v
                  MAIN LOOP SYNTHESIS
@@ -62,6 +65,8 @@ Works in **Claude Code** (as a full plugin with parallel subagents) and in
                         red-team          <- adversarial subagent attacks the draft
                             v
                        STRATEGY.md        <- written into the analyzed repo
+                            v
+             check_report.py + strategy_card.py   <- deterministic checks
 ```
 
 Design principle: **subagents are sensors, the main loop is the strategist,
@@ -69,20 +74,44 @@ the red team is the check.** Synthesis stays where full context lives.
 
 ## Components
 
-- `skills/distribution-god/SKILL.md` — orchestrator: phases, agent dispatch
-  (or sequential fallback), output contract.
+- `skills/distribution-god/SKILL.md` — orchestrator: phases, execution modes
+  (`parallel` / `generic-subagents` / `sequential`), red-team disposition,
+  output contract.
 - `skills/distribution-god/references/` — the actual IP:
   - `moat-frameworks.md` — 7 Powers mapped to software reality, moat sequencing
   - `channel-playbooks.md` — channel–product-fit matrix by product type
   - `ai-era-distribution.md` — GEO, agent-installability, 2026 channels
-  - `scoring-rubrics.md` — Bigness /25, Moat /25, gap severity, calibration rules
-  - `report-template.md` — STRATEGY.md structure
+  - `scoring-rubrics.md` — anchored Bigness /25 and Moat /25, bands, gap
+    severity, calibration rules
+  - `report-template.md` — STRATEGY.md structure, including the `dg` line
+  - `strategy-card.md` — the shareable card's data schema and steps
+  - `sensors/` — the method for each sensor and the red team; the single
+    source of truth for every mode
+- `skills/distribution-god/scripts/` — `strategy_card.py` renders the card
+  from JSON (escaping, width budgets, rubric bands); `check_report.py` lints
+  STRATEGY.md against the contract.
+- `skills/distribution-god/assets/strategy-card.template.svg` — card template.
 - `skills/gap-scan/SKILL.md` — fast local-only gap check (no web), for iteration.
-- `agents/` (Claude Code only) — `repo-intel`, `market-scout`, `rival-scout`,
-  `red-team`.
+- `agents/` (Claude Code) — `repo-intel`, `market-scout`, `rival-scout`,
+  `red-team`: thin wrappers that load their method from `references/sensors/`
+  via `${CLAUDE_PLUGIN_ROOT}`.
 - `.claude-plugin/plugin.json` + `marketplace.json` — repo doubles as its own
-  marketplace.
-- `install-codex.sh` — symlinks skills into `~/.agents/skills/`.
+  marketplace; Codex reads the same marketplace file.
+- `install-codex.sh` — fallback: symlinks skills into `~/.agents/skills/`.
+- `tests/`, `evals/`, `.github/workflows/` — unit tests and fixtures,
+  `claude plugin eval` suites, CI (validate, on-demand evals, weekly traffic
+  log to `metrics/traffic.csv`).
+
+### Decisions added in v0.2.0
+
+- **Deterministic where it can be.** SVG escaping, meter math, band labels,
+  and report consistency are code, not prompt instructions — the model
+  writes values, scripts enforce the contract.
+- **One method, many runtimes.** Sensor methods live under the skill (which
+  every install path ships) instead of in `agents/` (which only Claude Code
+  loads), so Codex runs get the same rigor.
+- **Version is a release gate.** Installs pin to `plugin.json`'s version; CI
+  fails any change to `skills/` or `agents/` that doesn't bump it.
 
 ## Non-negotiable product values
 
