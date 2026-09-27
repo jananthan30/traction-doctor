@@ -5,6 +5,32 @@ All notable changes to distribution-god. The version in
 the cached copy until it changes, so every release that touches `skills/` or
 `agents/` bumps it (CI enforces this).
 
+## [0.3.0] — 2026-09-27
+
+### Added
+- **`/close-gaps`** (Codex: `$distribution-god:close-gaps`): the prescription
+  after the diagnosis. It reads a distribution-god `STRATEGY.md`, sorts the
+  report's weak points into known fixes (*Just do it*), structural limits
+  (*Can't move now*), and open questions, and researches up to three open
+  ones through current trends, papers (arXiv, OpenAlex, Hugging Face Papers,
+  all keyless), and products that closed the same weakness. It writes
+  `CLOSE-GAPS.md`: at most five ideas, each scored /20 on Impact, Proof, Fit
+  and Cheap (any 0 cuts it), with a linked precedent, a first test of at
+  most five working days, a dated success metric, and a stop signal.
+- `gap-researcher` and `pragmatist` agents. The pragmatist runs six checks
+  (proof, transfer, a test that can't fail, hidden costs, score gaming,
+  missed idea); its serious objections are applied or rebutted in Dissent.
+- `skills/close-gaps/scripts/check_ideas.py` enforces the `CLOSE-GAPS.md`
+  contract: sections, the machine-readable `cg` line, complete idea cards,
+  score arithmetic, Kind/Proof rules, date windows, and the top-five rules.
+- Evals `close-gaps-web`, `close-gaps-offline` and `close-gaps-no-report`.
+
+### Changed
+- The full run's closing message offers `/close-gaps`.
+- `install-codex.sh` installs the new skill.
+- `check_report.py` exposes its template-slot check as `unfilled_slots()`,
+  shared with `check_ideas.py`.
+
 ## [0.2.0] — 2026-09-25
 
 ### Added

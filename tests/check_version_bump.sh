@@ -28,7 +28,7 @@ if [[ "${old}" == "${new}" ]]; then
   echo "error: skills/ or agents/ changed but plugin.json version is still ${new}:" >&2
   while IFS= read -r path; do echo "  ${path}" >&2; done <<< "${changed}"
   echo "bump the version in .claude-plugin/plugin.json, then everywhere it is pinned:" >&2
-  echo "  skills/distribution-god/SKILL.md, CHANGELOG.md, llms.txt," >&2
+  echo "  skills/distribution-god/SKILL.md, skills/close-gaps/SKILL.md, CHANGELOG.md, llms.txt," >&2
   echo "  skills/distribution-god/references/scoring-rubrics.md, scripts/strategy_card.py EXAMPLE" >&2
   echo "  (python3 -m unittest discover -s tests fails until they all agree)" >&2
   exit 1

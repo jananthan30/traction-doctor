@@ -2,11 +2,13 @@
 # Install distribution-god skills into OpenAI Codex (Agent Skills standard).
 #
 # Preferred: Codex's native plugin install (see README), which needs no clone.
-# This script is the fallback for a local clone: it links (or copies) both
+# This script is the fallback for a local clone: it links (or copies) the
 # skills into ~/.agents/skills, where every Codex session discovers them.
 # Codex follows a link back into this clone, sees .claude-plugin/ above it, and
-# names the skills $distribution-god:distribution-god / $distribution-god:gap-scan;
-# a --copy has no manifest above it, so its names are $distribution-god / $gap-scan.
+# names the skills $distribution-god:distribution-god / $distribution-god:gap-scan /
+# $distribution-god:close-gaps; a --copy has no manifest above it, so its names
+# are $distribution-god / $gap-scan / $close-gaps. close-gaps reads files from
+# the distribution-god skill next to it, so the skills install together.
 #
 # It only ever replaces or removes entries it created itself: a symlink into
 # this clone, or a copy carrying the marker file below. Anything else already
@@ -17,7 +19,7 @@ set -euo pipefail
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TARGET_DIR="${HOME}/.agents/skills"
 BACKUP_DIR="${HOME}/.agents/skills-backup"
-SKILLS=(distribution-god gap-scan)
+SKILLS=(distribution-god gap-scan close-gaps)
 MARKER=".installed-by-distribution-god"
 
 usage() {
@@ -102,11 +104,13 @@ done
 # The dollar signs are literal Codex invocation syntax, not shell expansions.
 # shellcheck disable=SC2016
 if [[ "${mode}" == "copy" ]]; then
-  full='$distribution-god' scan='$gap-scan'
+  full='$distribution-god' scan='$gap-scan' gaps='$close-gaps'
 else
   full='$distribution-god:distribution-god' scan='$distribution-god:gap-scan'
+  gaps='$distribution-god:close-gaps'
 fi
-printf '\nDone. In Codex, invoke with:\n  %-36s full strategist run (needs web access)\n  %-36s fast local-only gap audit\n' "${full}" "${scan}"
+printf '\nDone. In Codex, invoke with:\n  %-36s full strategist run (needs web access)\n  %-36s fast local-only gap audit\n  %-36s research fixes for the weakest points in STRATEGY.md (needs web access)\n' \
+  "${full}" "${scan}" "${gaps}"
 
 cat <<'EOF'
 
@@ -114,6 +118,6 @@ For the full run, start Codex with live web search — `codex --search`, or set
 web_search = "live" in ~/.codex/config.toml. The default cached search
 returns pre-indexed results, so figures come out stale or `unverified`.
 
-The skill uses Codex sub-agents when they are available and otherwise runs
-its phases one after another, with the same method either way.
+The skills use Codex sub-agents when they are available and otherwise run
+their phases one after another, with the same method either way.
 EOF

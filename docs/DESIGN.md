@@ -1,7 +1,7 @@
 # Distribution God — Design Document
 
-**Date:** 2026-08-09 (updated 2026-09-25 for v0.2.0)
-**Status:** v0.2.0
+**Date:** 2026-08-09 (updated 2026-09-25 for v0.2.0, 2026-09-27 for v0.3.0)
+**Status:** v0.3.0
 
 ## What it is
 
@@ -92,9 +92,15 @@ the red team is the check.** Synthesis stays where full context lives.
   STRATEGY.md against the contract.
 - `skills/distribution-god/assets/strategy-card.template.svg` — card template.
 - `skills/gap-scan/SKILL.md` — fast local-only gap check (no web), for iteration.
+- `skills/close-gaps/` (v0.3.0) — the research stage. `SKILL.md` orchestrates
+  triage → one `gap-researcher` per weakness → ranking → `pragmatist`;
+  `references/idea-rubric.md` holds the target ids, triage, the /20 idea
+  score and the top-five rules; `references/ideas-template.md` the output;
+  `scripts/check_ideas.py` enforces the `CLOSE-GAPS.md` contract. Full
+  design: `docs/superpowers/specs/2026-09-27-close-gaps-design.md`.
 - `agents/` (Claude Code) — `repo-intel`, `market-scout`, `rival-scout`,
-  `red-team`: thin wrappers that load their method from `references/sensors/`
-  via `${CLAUDE_PLUGIN_ROOT}`.
+  `red-team`, `gap-researcher`, `pragmatist`: thin wrappers that load their
+  method from their skill's `references/sensors/` via `${CLAUDE_PLUGIN_ROOT}`.
 - `.claude-plugin/plugin.json` + `marketplace.json` — repo doubles as its own
   marketplace; Codex reads the same marketplace file.
 - `install-codex.sh` — fallback: symlinks skills into `~/.agents/skills/`.
@@ -112,6 +118,38 @@ the red team is the check.** Synthesis stays where full context lives.
   loads), so Codex runs get the same rigor.
 - **Version is a release gate.** Installs pin to `plugin.json`'s version; CI
   fails any change to `skills/` or `agents/` that doesn't bump it.
+
+### Decisions added in v0.3.0
+
+```
+/close-gaps   STRATEGY.md ──► triage ──► gap-researcher × ≤3 ──► rank ──► pragmatist ──► CLOSE-GAPS.md
+                             │           (trends · papers ·                            + check_ideas.py
+                             │            look-alikes)
+                             ├──► Just do it       (known fixes: no research)
+                             └──► Can't move now   (scores the market sets)
+```
+
+- **Diagnosis and prescription are separate commands.** `/close-gaps` reads
+  a finished report instead of extending the full run: the full run stays
+  at 15–20 minutes, users can correct the diagnosis before paying for
+  research, re-run one weakness at a time, and have a reason to come back —
+  the self-report's crux is recurring use.
+- **Research only unknown fixes.** Triage sends known fixes to *Just do it*
+  and market-set scores to *Can't move now*; the research budget goes to
+  open questions, ranked by whether closing them moves the verdict band.
+- **One researcher per weakness, three lenses each** (trends, papers,
+  look-alikes), rather than one researcher per source: every idea is born
+  attached to a weakness and its rubric anchor, and a researcher can follow
+  a lead from a paper to the product that shipped it.
+- **Pragmatism is a contract.** Ideas are scored /20 on Impact, Proof, Fit
+  and Cheap; any 0 cuts. `check_ideas.py` rejects a card without a linked
+  precedent, a first test of one to five steps, or dates within 28 days. A
+  separate pragmatist checks what code can't: whether a source says what
+  the card claims, whether it transfers to this stage, and whether an idea
+  moves a real outcome or only a score.
+- **Keyless paper search.** arXiv, OpenAlex and Hugging Face Papers answer
+  without API keys (checked 2026-09-27); Semantic Scholar refuses keyless
+  calls and is left out.
 
 ## Non-negotiable product values
 

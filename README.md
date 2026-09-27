@@ -30,7 +30,10 @@ codebase like a data room — license, dependencies, telemetry, onboarding,
 release cadence are all strategy evidence — then researches your live market
 and competitors on the web, and writes `STRATEGY.md`: positioning, a ranked
 distribution plan, a prioritized gap table, a moat roadmap, and a calibrated
-"how big can this get" verdict with explicit kill criteria.
+"how big can this get" verdict with explicit kill criteria. Then
+`/close-gaps` turns the diagnosis into a prescription: it researches
+current trends, papers, and products that fixed the same weakness, and keeps
+only ideas you can test within a week.
 
 Not another GTM prompt pack. Existing packs help revenue teams write emails.
 This one starts from your code and tells you what business it can become —
@@ -64,6 +67,10 @@ sensors (parallel)              strategist              check
 ├─ market-scout  ─┼──►  synthesis in main loop  ──►  red-team  ──►  STRATEGY.md
 └─ rival-scout   ─┘     (positioning, channels,                     + strategy card
                          gaps, moat, verdict)
+
+then, on request — /close-gaps
+STRATEGY.md ──► triage ──► gap-researcher × ≤3 ──► ranking ──► pragmatist ──► CLOSE-GAPS.md
+                           (trends · papers · look-alikes)
 ```
 
 ## Use
@@ -71,18 +78,21 @@ sensors (parallel)              strategist              check
 | Command | What you get | Time |
 |---|---|---|
 | `/distribution-god` (Codex: `$distribution-god:distribution-god`) | Full run: market + rivals research, distribution plan, gaps, moat, verdict → `STRATEGY.md` + `assets/strategy-card.svg` | ~15–20 min (measured in sequential mode on four repos; parallel is faster) |
+| `/close-gaps` (Codex: `$distribution-god:close-gaps`) | After a full run: researches trends, papers, and look-alike products for the report's weakest points → `CLOSE-GAPS.md`, at most five ideas, each with a linked precedent, a one-week test, and a stop signal | ~10–15 min (ESTIMATE until measured) |
 | `/gap-scan` (Codex: `$distribution-god:gap-scan`) | Local-only audit of your distribution surface — prioritized gap table in chat | about a minute on a small repo, a few on a large one |
 
 Also usable piecemeal in Claude Code: `@agent-distribution-god:rival-scout`
 ("who competes with X and how do they grow"), `@agent-distribution-god:red-team`
 ("attack this plan"), `@agent-distribution-god:repo-intel`,
-`@agent-distribution-god:market-scout` — or type `@` and pick the agent from
-the list.
+`@agent-distribution-god:market-scout`, `@agent-distribution-god:gap-researcher`
+("find proven ways to fix X"), `@agent-distribution-god:pragmatist` ("attack
+these ideas") — or type `@` and pick the agent from the list.
 
 ### Before you run
 
 - **Web permissions.** The full run makes roughly 20–30 web searches plus a
-  similar number of page fetches. For an unattended run, choose "don't ask
+  similar number of page fetches; `/close-gaps` makes roughly 40–90 web calls
+  across its researchers (ESTIMATE). For an unattended run, choose "don't ask
   again" on the first WebSearch/WebFetch prompt, or allow both in
   `~/.claude/settings.json`:
   `"permissions": {"allow": ["WebSearch", "WebFetch"]}`. Without web access
@@ -98,9 +108,11 @@ the list.
   Files it didn't create are never overwritten: next to your own
   `STRATEGY.md` it writes `STRATEGY.distribution-god.md`, and next to your
   own card `assets/strategy-card.distribution-god.svg`. Its own previous
-  report and card are archived to `docs/strategy-history/`.
+  report and card are archived to `docs/strategy-history/`. `/close-gaps`
+  writes only `CLOSE-GAPS.md` (or `CLOSE-GAPS.distribution-god.md` beside your
+  own file) and archives its previous run the same way.
 - **Privacy.** Search queries include a one-line description of your
-  product. For a stealth project, use `/gap-scan`: it does no web research
+  product (and, for `/close-gaps`, the weakness being researched). For a stealth project, use `/gap-scan`: it does no web research
   (at most it reads your repo's own GitHub metadata with `gh`).
 
 ### Update
@@ -157,6 +169,9 @@ skills/distribution-god/   orchestrator skill
   scripts/                 strategy_card.py (renders the card) · check_report.py
   assets/                  strategy-card template
 skills/gap-scan/           fast local audit
+skills/close-gaps/         research stage: triage → gap-researchers → pragmatist
+  references/              idea rubric · CLOSE-GAPS.md template · sensor methods
+  scripts/                 check_ideas.py (the CLOSE-GAPS.md contract)
 agents/                    Claude Code subagents (thin wrappers over the sensor methods)
 .claude-plugin/            plugin + marketplace manifests (Codex reads these too)
 examples/                  reports on other public repos

@@ -9,8 +9,8 @@ You are running a full strategist analysis of the repository the user is working
 in. Your output is `STRATEGY.md` in the repo root, following
 `references/report-template.md`, plus `assets/strategy-card.svg`.
 
-This is distribution-god **v0.2.0** (scoring rubric version 2). Use exactly
-`0.2.0` wherever the report or card asks for the version. The run date (in
+This is distribution-god **v0.3.0** (scoring rubric version 2). Use exactly
+`0.3.0` wherever the report or card asks for the version. The run date (in
 the report and on the card) is the UTC date the run started (`date -u +%F`);
 cite other dates as their sources give them.
 
@@ -275,7 +275,9 @@ with `Red-team adjustments: Bigness X→Y, Moat A→B` (or "no score changes").
 
 End your reply with the verdict box and the five next actions inline in
 chat — the user should not have to open the file to know the answer — then
-the paths you wrote.
+the paths you wrote. Close with one line offering the next step:
+`/close-gaps` (Codex: `$distribution-god:close-gaps`) researches pragmatic,
+sourced fixes for the report's weakest points.
 
 ## Guardrails
 

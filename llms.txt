@@ -1,8 +1,8 @@
 # distribution-god
 
-> Repo-native AI strategist for Claude Code and OpenAI Codex. Point it at any repository and it writes STRATEGY.md — positioning, market and competitor research, a ranked distribution plan, a gap table, a moat roadmap, and a calibrated Bigness /25 and Moat /25 verdict with crux, falsifier, and kill criteria — plus a shareable strategy-card SVG. MIT licensed. Current version: 0.2.0.
+> Repo-native AI strategist for Claude Code and OpenAI Codex. Point it at any repository and it writes STRATEGY.md — positioning, market and competitor research, a ranked distribution plan, a gap table, a moat roadmap, and a calibrated Bigness /25 and Moat /25 verdict with crux, falsifier, and kill criteria — plus a shareable strategy-card SVG. Its /close-gaps follow-up researches current trends, papers, and look-alike products for pragmatic, testable fixes to the report's weakest points and writes CLOSE-GAPS.md. MIT licensed. Current version: 0.3.0.
 
-Install in Claude Code: `/plugin marketplace add jananthan30/distribution-god` then `/plugin install distribution-god@distribution-god`, then run `/distribution-god` (full run, needs web access) or `/gap-scan` (a quick local audit, no web research).
+Install in Claude Code: `/plugin marketplace add jananthan30/distribution-god` then `/plugin install distribution-god@distribution-god`, then run `/distribution-god` (full run, needs web access), `/close-gaps` (research fixes for the report's weakest points, needs web access), or `/gap-scan` (a quick local audit, no web research).
 
 Install in Codex: `codex plugin marketplace add jananthan30/distribution-god` then `codex plugin add distribution-god@distribution-god`; start Codex with `codex --search` for live web research.
 
@@ -12,6 +12,8 @@ Install in Codex: `codex plugin marketplace add jananthan30/distribution-god` th
 - [Orchestrator skill](https://github.com/jananthan30/distribution-god/blob/main/skills/distribution-god/SKILL.md): phases, execution modes, output contract
 - [Scoring rubrics](https://github.com/jananthan30/distribution-god/blob/main/skills/distribution-god/references/scoring-rubrics.md): Bigness and Moat anchors, bands, calibration rules
 - [Report template](https://github.com/jananthan30/distribution-god/blob/main/skills/distribution-god/references/report-template.md): STRATEGY.md structure
+- [close-gaps skill](https://github.com/jananthan30/distribution-god/blob/main/skills/close-gaps/SKILL.md): the research stage — triage, researchers, pragmatist, output contract
+- [Idea rubric](https://github.com/jananthan30/distribution-god/blob/main/skills/close-gaps/references/idea-rubric.md): target ids, triage, the /20 idea score, top-five rules
 - [Design document](https://github.com/jananthan30/distribution-god/blob/main/docs/DESIGN.md): architecture and decisions
 - [Changelog](https://github.com/jananthan30/distribution-god/blob/main/CHANGELOG.md)
 
