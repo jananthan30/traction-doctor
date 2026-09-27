@@ -397,5 +397,28 @@ class ReferenceTests(unittest.TestCase):
             self.assertTrue((SKILL_DIR / ref).resolve().exists(), f"close-gaps references missing {ref}")
 
 
+class EvalFixtureTests(unittest.TestCase):
+    def seed(self, case: str) -> Path:
+        tmp = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, tmp)
+        subprocess.run(["bash", str(ROOT / "evals" / case / "fixture.sh")], cwd=tmp, check=True,
+                       capture_output=True)
+        return tmp
+
+    def test_report_fixture_passes_the_report_checker(self):
+        import check_report  # the distribution-god sibling check_ideas put on sys.path
+        errors, _ = check_report.check(self.seed("close-gaps-web") / "STRATEGY.md")
+        self.assertEqual(errors, [])
+
+    def test_web_and_offline_fixtures_are_identical(self):
+        web = (ROOT / "evals/close-gaps-web/fixture.sh").read_text()
+        self.assertEqual(web, (ROOT / "evals/close-gaps-offline/fixture.sh").read_text())
+
+    def test_no_report_fixture_has_no_report(self):
+        repo = self.seed("close-gaps-no-report")
+        self.assertTrue((repo / "README.md").exists())
+        self.assertFalse((repo / "STRATEGY.md").exists())
+
+
 if __name__ == "__main__":
     unittest.main()
