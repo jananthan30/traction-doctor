@@ -26,9 +26,12 @@ missing, say which and check what you have.
    four million users may do nothing at zero. If it doesn't transfer, Proof
    is at most 3 and the card must say what differs.
 3. **A test that can't fail.** Could the test pass even if the idea is
-   wrong — a vanity metric, no baseline, a threshold anyone clears? Can the
-   owner read the metric directly? (GitHub code search doesn't index most
-   small repos, so a mention count there reads zero regardless.)
+   wrong — a vanity metric, a threshold anyone clears, or an absolute
+   threshold on a metric that may already clear it? Every Success line
+   states its baseline; when the metric can already be above zero, the
+   threshold must be a change from that baseline. Can the owner read the
+   metric directly? (GitHub code search doesn't index most small repos, so a
+   mention count there reads zero regardless.)
 4. **Hidden costs.** Prerequisites the card treats as present that the repo
    lacks — an audience, billing, telemetry, a skill. Re-score Fit and Cheap.
 5. **Score gaming.** Would success change a real outcome — users,

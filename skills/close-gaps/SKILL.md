@@ -23,8 +23,9 @@ distribution-god skill installed next to it, under
 
 1. **Pragmatic beats impressive.** Every idea starts with a test of at most
    five working days at about $0, cites a precedent showing its mechanism
-   worked somewhere, fits this repo and team, and names a dated stop
-   signal. An idea that misses any of these is cut, however clever.
+   worked somewhere, fits this repo and team, measures success against a
+   stated baseline, and names a dated stop signal. An idea that misses any
+   of these is cut, however clever.
 2. **Research only what nobody knows.** A weak point whose fix the report
    already names goes to *Just do it*; one the outside world sets goes to
    *Can't move now*. Research is for open questions.

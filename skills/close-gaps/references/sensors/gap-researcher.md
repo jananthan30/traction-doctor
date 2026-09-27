@@ -45,6 +45,9 @@ at about $0. Novelty is welcome; impracticality is not.
   claim, fetch the primary page and record a quote of at most 25 words that
   supports it. Never fabricate; memory is not a source; label anything you
   couldn't confirm `unverified`.
+- Give every Success line its baseline — the metric's value today. When
+  the metric can already be above zero, set Success as a change from it
+  ("≥2 more than the day-1 baseline").
 - Ideas the brief lists as already in the report are not new — don't
   return them.
 - Check fit against the repo yourself (Read, Grep, Glob): cite `path:line`

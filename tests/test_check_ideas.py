@@ -236,6 +236,11 @@ class CardTests(CheckIdeasTestCase):
                                    "2 outside links to the page by October 18")
         self.assertCaught(errors, "I4's Success needs a YYYY-MM-DD date")
 
+    def test_success_states_its_baseline(self):
+        errors = self.errors_after("- **Success:** 6 of 10 answer yes by 2026-10-04 (baseline 0)",
+                                   "- **Success:** 6 of 10 answer yes by 2026-10-04")
+        self.assertCaught(errors, "I2's Success must state its baseline")
+
     def test_test_has_at_most_five_steps(self):
         step2 = "  2. Ask one question: did you deploy with acme this week?\n"
         errors = self.errors_after(step2, step2 + "  3. Log it.\n  4. Tally it.\n  5. Share it.\n  6. Decide.\n")
@@ -327,8 +332,8 @@ class TopIdeasTests(CheckIdeasTestCase):
         self.assertCaught(errors, "Do this first must be the top row, I1")
 
     def test_do_this_first_has_success_and_stop(self):
-        errors = self.errors_after("**Success:** 20% of new installs opt in by 2026-10-11. "
-                                   "**Stop if:** under 5% opt in by 2026-10-11.", "")
+        errors = self.errors_after("**Success:** 20% of new installs opt in by 2026-10-11 (baseline 0: no "
+                                   "ping exists today). **Stop if:** under 5% opt in by 2026-10-11.", "")
         self.assertCaught(errors, "Do this first needs its Success and Stop if lines")
 
     def test_table_formatting_variants_are_accepted(self):
@@ -371,6 +376,11 @@ class ReferenceTests(unittest.TestCase):
         for text in (self.template(), rubric):
             for field in check_ideas.FIELDS:
                 self.assertIn(f"**{field}:**", text)
+
+    def test_template_and_rubric_show_the_baseline(self):
+        rubric = (SKILL_DIR / "references" / "idea-rubric.md").read_text()
+        for text in (self.template(), rubric):
+            self.assertRegex(text, r"\*\*Success:\*\*[^\n]*baseline")
 
     def test_rubric_states_the_checked_limits(self):
         rubric = (SKILL_DIR / "references" / "idea-rubric.md").read_text()

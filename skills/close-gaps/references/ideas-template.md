@@ -31,7 +31,7 @@ Top ideas rows in order: `id`, `score`, `kind`, `build`).
 1. <step>
 2. <step>
 
-**Success:** <metric ≥ level> by <date>. **Stop if:** <metric < level> by <date>.
+**Success:** <metric ≥ level> by <date> (baseline: <value today>). **Stop if:** <metric < level> by <date>.
 
 ## Top ideas
 
@@ -57,7 +57,7 @@ Top ideas rows in order: `id`, `score`, `kind`, `build`).
 - **Proof:** <precedent, dated outcome, "quote", link — or `unverified`>
 - **1-week test:** cost: <free | $n>
   1. <step>
-- **Success:** <metric ≥ level> by <YYYY-MM-DD>
+- **Success:** <metric ≥ level> by <YYYY-MM-DD> (baseline: <the metric's value today>)
 - **Stop if:** <metric < level> by <YYYY-MM-DD>
 - **If it works:** <next step> · **Full build:** <S | M | L>
 - **Score:** Impact <a> · Proof <b> · Fit <c> · Cheap <d> = <n>/20

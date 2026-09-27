@@ -16,7 +16,7 @@
 2. After the fifth deploy, print a one-line opt-in prompt for the anonymous ping.
 3. Ship both in the next Homebrew release.
 
-**Success:** 20% of new installs opt in by 2026-10-11. **Stop if:** under 5% opt in by 2026-10-11.
+**Success:** 20% of new installs opt in by 2026-10-11 (baseline 0: no ping exists today). **Stop if:** under 5% opt in by 2026-10-11.
 
 ## Top ideas
 
@@ -50,7 +50,7 @@
   1. Add `acme status --week`, printing the last seven days of deploys.
   2. After the fifth deploy, print a one-line opt-in prompt for the anonymous ping.
   3. Ship both in the next Homebrew release.
-- **Success:** 20% of new installs opt in by 2026-10-11
+- **Success:** 20% of new installs opt in by 2026-10-11 (baseline 0: no ping exists today)
 - **Stop if:** under 5% opt in by 2026-10-11
 - **If it works:** report week-4 retention from the ping · **Full build:** S
 - **Score:** Impact 5 · Proof 4 · Fit 5 · Cheap 3 = 17/20
@@ -64,7 +64,7 @@
 - **1-week test:** cost: free
   1. Email the ten first-10 teams on day 7.
   2. Ask one question: did you deploy with acme this week?
-- **Success:** 6 of 10 answer yes by 2026-10-04
+- **Success:** 6 of 10 answer yes by 2026-10-04 (baseline 0)
 - **Stop if:** fewer than 3 answer yes by 2026-10-04
 - **If it works:** repeat on day 28 · **Full build:** S
 - **Score:** Impact 1 · Proof 1 · Fit 5 · Cheap 5 = 12/20
@@ -84,7 +84,7 @@
 - **1-week test:** cost: free
   1. Write `acme init`, covering every step in docs/setup.md.
   2. Ask five new users to run it and time them.
-- **Success:** 4 of 5 deploy within 10 minutes by 2026-10-09
+- **Success:** 4 of 5 deploy within 10 minutes by 2026-10-09 (baseline: nobody without `acme init` today)
 - **Stop if:** 2 or fewer deploy within 10 minutes by 2026-10-09
 - **If it works:** make `acme init` the README's first command · **Full build:** M
 - **Score:** Impact 3 · Proof 3 · Fit 5 · Cheap 4 = 15/20
@@ -106,7 +106,7 @@
   1. Time ten deploys each with acme-cli and ExampleDeploy.
   2. Publish the numbers and the script as one page.
   3. Share it in the Rust edge-runtime channel the report names.
-- **Success:** 2 outside links to the page by 2026-10-18
+- **Success:** 2 outside links to the page by 2026-10-18 (baseline 0: the page doesn't exist yet)
 - **Stop if:** no outside link by 2026-10-25
 - **If it works:** rerun the benchmark on every release · **Full build:** L
 - **Score:** Impact 3 · Proof 3 · Fit 3 · Cheap 4 = 13/20

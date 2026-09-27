@@ -78,7 +78,7 @@ now*.
 - **Proof:** <precedent, dated outcome, "quote", link — or `unverified`>
 - **1-week test:** cost: <free | $n>
   1. <step>
-- **Success:** <metric ≥ level> by <YYYY-MM-DD>
+- **Success:** <metric ≥ level> by <YYYY-MM-DD> (baseline: <the metric's value today>)
 - **Stop if:** <metric < level> by <YYYY-MM-DD>
 - **If it works:** <next step> · **Full build:** <S | M | L>
 - **Score:** Impact <a> · Proof <b> · Fit <c> · Cheap <d> = <n>/20
@@ -96,6 +96,12 @@ now*.
   days of work, with the cost stated (`cost: free` or `cost: $<n>`).
 - **Dates.** The Success and Stop-if dates fall after the run date and no
   more than 28 days after it: a week of work, then time to read the result.
+- **Baseline.** Every Success line states the metric's value today. When
+  the metric can already be above zero — mentions, stars, downloads,
+  citations — the threshold is a change from that baseline ("≥2 more than
+  the day-1 baseline of 1"), so the test can't pass without the idea
+  working. For events that can't have happened yet (a first sale, an
+  outside repo's first run), write "(baseline 0)".
 - **Full build.** S is at most a week, M at most a month, L more. L marks a
   *big bet*.
 

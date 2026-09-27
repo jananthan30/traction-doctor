@@ -8,8 +8,9 @@ Checks that the file is complete and internally consistent:
   - no unfilled template slots
   - every idea card has every field; scores add up and no part is 0; Kind
     agrees with Proof; a proof is linked, or `unverified` and capped at 1
-  - success and stop dates fall after the run and within 28 days of it; a
-    first test has one to five steps and states its cost
+  - success and stop dates fall after the run and within 28 days of it, and
+    success states its baseline; a first test has one to five steps and
+    states its cost
   - the Top ideas table and `cg.top` agree with the cards and follow the
     top-five rules; Do this first is the top row
   - a local-only run is marked NOT RESEARCHED and stays at Proof 1
@@ -339,6 +340,10 @@ def check_cards(cards: list[dict], cg: dict | None, text: str, errors: list[str]
                 elif (when - run).days > MAX_DAYS:
                     errors.append(f"{cid}'s {name} date {day} is more than {MAX_DAYS} days after "
                                   f"the run ({run})")
+
+        if "Success" in fields and not re.search(r"\bbaseline\b", fields["Success"], re.I):
+            errors.append(f"{cid}'s Success must state its baseline — the metric's value today, e.g. "
+                          "'(baseline 0)', or a change from it, e.g. '≥2 more than the day-1 baseline'")
 
         if "1-week test" in fields:
             steps = len(card["steps"])

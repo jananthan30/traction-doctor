@@ -347,7 +347,7 @@ Every surviving idea is a card; cut ideas appear only as one-line rows in
 - **Fits:** <prerequisites present, with path:line; the missing piece, if any>
 - **Proof:** <precedent, dated outcome, "quote ≤25 words", link> — or `unverified`
 - **1-week test:** <≤5 numbered steps; cost: free | $<n>>
-- **Success:** <metric ≥ level> by <YYYY-MM-DD>
+- **Success:** <metric ≥ level> by <YYYY-MM-DD> (baseline: <the metric's value today>)
 - **Stop if:** <metric < level> by <YYYY-MM-DD>
 - **If it works:** <next step> · **Full build:** S | M | L
 - **Score:** Impact <a> · Proof <b> · Fit <c> · Cheap <d> = <n>/20
@@ -361,6 +361,10 @@ Every surviving idea is a card; cut ideas appear only as one-line rows in
   *big bet*.
 - **Dates:** Success and Stop-if dates fall after the run date and no more
   than 28 days after it (a week of work, then time to read the result).
+- **Baseline** (added 2026-09-27, after the `close-gaps-web` eval's judge
+  caught an absolute threshold on a metric that could already clear it):
+  every Success line states the metric's value today; when the metric can
+  already be above zero, the threshold is a change from that baseline.
 
 ### 7.2 Score (/20)
 
@@ -428,7 +432,7 @@ Template (`skills/close-gaps/references/ideas-template.md`); target under
 1. <step>
 2. <step>
 
-**Success:** <metric ≥ level> by <date>. **Stop if:** <metric < level> by <date>.
+**Success:** <metric ≥ level> by <date> (baseline: <value today>). **Stop if:** <metric < level> by <date>.
 
 ## Top ideas
 
@@ -500,8 +504,9 @@ error, not a traceback). Usage: `python3 check_ideas.py CLOSE-GAPS.md
    and the pragmatist's proof check.)
 7. A Proof with neither a link nor `unverified`; `unverified` with Proof > 1.
 8. A Success or Stop-if date missing, not after the run date, or more than
-   28 days after it; a 1-week test with more than five steps or no stated
-   cost; Cheap ≥ 3 with a cost other than free.
+   28 days after it; a Success line that doesn't state its baseline; a
+   1-week test with more than five steps or no stated cost; Cheap ≥ 3 with
+   a cost other than free.
 9. Top-ideas table: more than five rows; a row without a card; a score,
    kind, or build that disagrees with its card; not sorted by score; more
    than one L; a target that has cards but no row (rule 1); no `fresh` row
