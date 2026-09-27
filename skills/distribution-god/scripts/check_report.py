@@ -296,6 +296,23 @@ def bullet_groups(block: str) -> list[tuple[str, list[str]]]:
     return groups
 
 
+def unfilled_slots(text: str) -> list[str]:
+    """Template slots left in the text. Autolinks, email addresses and HTML
+    tags are fine; code spans and HTML comments (e.g. the dg line) are skipped."""
+    problems = []
+    for n, line in enumerate(strip_code(text).splitlines(), 1):
+        if "{{" in line or "}}" in line:
+            problems.append(f"line {n}: unfilled '{{{{…}}}}' slot")
+        for sm in SLOT.finditer(line):
+            inner = sm.group(2)
+            if "://" in inner or inner.lower().startswith("mailto:") or re.fullmatch(r"[^\s@]+@[^\s@]+\.\w+", inner):
+                continue
+            tag = re.match(r"[A-Za-z]+", inner).group(0).lower()
+            if tag not in HTML_TAGS:
+                problems.append(f"line {n}: unfilled slot {sm.group(0)!r}")
+    return problems
+
+
 def numbered(block: str) -> list[str]:
     return [p for p, _ in bullet_groups(block) if re.match(r"\d+\. ", p)]
 
@@ -422,16 +439,7 @@ def check(path: Path) -> tuple[list[str], list[str]]:
     check_breakdown(section(text, r"## 7\. Moat roadmap"), MOAT_ROWS, "moat_rows", "moat", "Moat today")
 
     # Unfilled template slots (autolinks like <https://…> are fine).
-    for n, line in enumerate(strip_code(text).splitlines(), 1):
-        if "{{" in line or "}}" in line:
-            errors.append(f"line {n}: unfilled '{{{{…}}}}' slot")
-        for sm in SLOT.finditer(line):
-            inner = sm.group(2)
-            if "://" in inner or inner.lower().startswith("mailto:") or re.fullmatch(r"[^\s@]+@[^\s@]+\.\w+", inner):
-                continue
-            tag = re.match(r"[A-Za-z]+", inner).group(0).lower()
-            if tag not in HTML_TAGS:
-                errors.append(f"line {n}: unfilled slot {sm.group(0)!r}")
+    errors.extend(unfilled_slots(text))
 
     # Market: labels, sources, arithmetic; no-web runs say so.
     market = section(text, r"## 2\. Market")
