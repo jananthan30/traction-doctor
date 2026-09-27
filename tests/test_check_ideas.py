@@ -157,5 +157,127 @@ class StructureTests(CheckIdeasTestCase):
         self.assertNotIn("Traceback", run.stderr)
 
 
+class CardTests(CheckIdeasTestCase):
+    def test_missing_field(self):
+        errors = self.errors_after("- **Stop if:** fewer than 3 answer yes by 2026-10-04\n", "")
+        self.assertCaught(errors, "I2 is missing 'Stop if'")
+
+    def test_closes_must_name_a_target(self):
+        errors = self.errors_after("- **Closes:** `moat.brand` 0 → 1", "- **Closes:** `moat.switching` 0 → 1")
+        self.assertCaught(errors, r"I4 closes `moat\.switching`, which isn't in cg\.targets")
+
+    def test_score_must_add_up(self):
+        self.assertCaught(self.errors_after("Cheap 3 = 17/20", "Cheap 3 = 18/20"),
+                          "I1's score parts add up to 17, not 18")
+
+    def test_a_zero_cuts_the_idea(self):
+        errors = self.errors_after("Impact 1 · Proof 1 · Fit 5 · Cheap 5 = 12/20",
+                                   "Impact 0 · Proof 1 · Fit 5 · Cheap 5 = 11/20")
+        self.assertCaught(errors, "I2 has a 0 in Impact")
+
+    def test_parts_are_zero_to_five(self):
+        self.assertCaught(self.errors_after("Fit 5 · Cheap 4 = 15/20", "Fit 6 · Cheap 4 = 16/20"),
+                          "score parts must be 0–5")
+
+    def test_score_line_must_be_readable(self):
+        errors = self.errors_after("- **Score:** Impact 3 · Proof 3 · Fit 3 · Cheap 4 = 13/20",
+                                   "- **Score:** 13/20")
+        self.assertCaught(errors, "I4's Score must read")
+
+    def test_score_format_variants_are_accepted(self):
+        for variant in ("Impact: 3, Proof: 3, Fit: 5, Cheap: 4 = 15/20",
+                        "**Impact** 3 · **Proof** 3 · **Fit** 5 · **Cheap** 4 = 15/20"):
+            with self.subTest(variant=variant):
+                self.assertEqual(self.errors_after("Impact 3 · Proof 3 · Fit 5 · Cheap 4 = 15/20", variant), [])
+
+    def test_proven_needs_proof_three(self):
+        errors = self.errors_after("Impact 3 · Proof 3 · Fit 3 · Cheap 4 = 13/20",
+                                   "Impact 3 · Proof 2 · Fit 3 · Cheap 4 = 12/20")
+        self.assertCaught(errors, "I4 is proven but Proof is 2")
+
+    def test_reasoned_is_proof_one(self):
+        errors = self.errors_after("Impact 1 · Proof 1 · Fit 5 · Cheap 5 = 12/20",
+                                   "Impact 1 · Proof 3 · Fit 5 · Cheap 5 = 14/20")
+        self.assertCaught(errors, "I2 is reasoned, so Proof must be 1")
+
+    def test_fresh_needs_a_recent_date(self):
+        self.assertCaught(self.errors_after("a 2026-03 study", "a 2023-03 study"),
+                          "I3 is fresh but its Proof's latest date 2023-03 isn't within 24 months")
+        self.assertCaught(self.errors_after("a 2026-03 study", "a study"),
+                          "I3 is fresh but its Proof has no date")
+
+    def test_fresh_year_in_the_run_year_is_accepted(self):
+        self.assertEqual(self.errors_after("a 2026-03 study", "a 2026 study"), [])
+
+    def test_kind_is_checked(self):
+        self.assertCaught(self.errors_after("- **Kind:** fresh", "- **Kind:** novel"),
+                          "Kind must be proven, fresh or reasoned")
+
+    def test_proof_needs_a_link_or_unverified(self):
+        errors = self.errors_after("([habits](https://example.com/habits))", "(habit research)")
+        self.assertCaught(errors, "I2's Proof needs a link or 'unverified'")
+
+    def test_unverified_caps_proof(self):
+        errors = self.errors_after("([post](https://example.com/weekly-summary))", "(unverified)")
+        self.assertCaught(errors, "I1's Proof is `unverified`, so it scores at most 1")
+
+    def test_dates_fall_within_28_days(self):
+        errors = self.errors_after("4 of 5 deploy within 10 minutes by 2026-10-09",
+                                   "4 of 5 deploy within 10 minutes by 2026-11-30")
+        self.assertCaught(errors, "I3's Success date 2026-11-30 is more than 28 days")
+
+    def test_dates_follow_the_run(self):
+        errors = self.errors_after("fewer than 3 answer yes by 2026-10-04",
+                                   "fewer than 3 answer yes by 2026-09-20")
+        self.assertCaught(errors, "I2's Stop if date 2026-09-20 is not after the run date")
+
+    def test_dates_are_iso(self):
+        errors = self.errors_after("2 outside links to the page by 2026-10-18",
+                                   "2 outside links to the page by October 18")
+        self.assertCaught(errors, "I4's Success needs a YYYY-MM-DD date")
+
+    def test_test_has_at_most_five_steps(self):
+        step2 = "  2. Ask one question: did you deploy with acme this week?\n"
+        errors = self.errors_after(step2, step2 + "  3. Log it.\n  4. Tally it.\n  5. Share it.\n  6. Decide.\n")
+        self.assertCaught(errors, "I2's 1-week test has 6 steps")
+
+    def test_test_states_its_cost(self):
+        errors = self.errors_after("- **1-week test:** cost: free\n  1. Write `acme init`",
+                                   "- **1-week test:**\n  1. Write `acme init`")
+        self.assertCaught(errors, "I3's 1-week test must state its cost")
+
+    def test_cheap_three_or_more_is_free(self):
+        errors = self.errors_after("- **1-week test:** cost: free\n  1. Add `acme status --week`",
+                                   "- **1-week test:** cost: $40\n  1. Add `acme status --week`")
+        self.assertCaught(errors, r"I1 scores Cheap 3 but its test costs \$40")
+
+    def test_build_is_checked(self):
+        self.assertCaught(self.errors_after("· **Full build:** M", "· **Full build:** XL"),
+                          "Full build must be S, M or L")
+
+    def test_card_ids_are_unique(self):
+        self.assertCaught(self.errors_after("### I2. Day-7 check-in email", "### I1. Day-7 check-in email"),
+                          "duplicate card id I1")
+
+    def test_local_only_run_caps_kind_and_proof(self):
+        self.assertCaught(self.errors_for(offline(self.text)),
+                          "local-only run: I1 must be reasoned with Proof 1")
+
+    def test_local_only_proof_may_cite_references(self):
+        text = offline(self.text).replace("([habits](https://example.com/habits))",
+                                          "(references/moat-frameworks.md, Switching costs)")
+        errors = self.errors_for(text)
+        self.assertFalse(any("I2" in e for e in errors), errors)
+
+    def test_weakness_without_cards_is_a_warning(self):
+        start, end = self.text.index("### I4."), self.text.index("## Can't move now")
+        text = (self.text[:start] + "No practical fix found: every benchmark idea needed an audience first.\n\n"
+                + self.text[end:]).replace(I4_ROW, "").replace(I4_TOP, "")
+        errors = self.errors_for(text)
+        self.assertEqual(errors, [])
+        warnings = check_ideas.check(self.path)[1]
+        self.assertTrue(any("Weakness 3 has no idea cards" in w for w in warnings), warnings)
+
+
 if __name__ == "__main__":
     unittest.main()
