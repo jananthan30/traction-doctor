@@ -387,6 +387,15 @@ class ReferenceTests(unittest.TestCase):
                        f"{check_ideas.MAX_DAYS} days", f"{check_ideas.FRESH_MONTHS} months", "$100"):
             self.assertIn(phrase, rubric)
 
+    def test_skill_references_exist(self):
+        texts = [p.read_text() for p in [SKILL_DIR / "SKILL.md", *SKILL_DIR.glob("references/**/*.md")]]
+        refs = set(re.findall(r"((?:\.\./distribution-god/)?(?:references|scripts)/[\w./-]+\.(?:md|py))",
+                              "\n".join(texts)))
+        self.assertIn("scripts/check_ideas.py", refs)
+        self.assertIn("../distribution-god/references/scoring-rubrics.md", refs)
+        for ref in refs:
+            self.assertTrue((SKILL_DIR / ref).resolve().exists(), f"close-gaps references missing {ref}")
+
 
 if __name__ == "__main__":
     unittest.main()
