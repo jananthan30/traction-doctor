@@ -61,6 +61,35 @@ A strategy tool that flatters you is worthless. This one is built to say
 **On other repos:** see [`examples/`](examples/) — full reports on public
 projects, each stamped with the commit, date, model, and run mode.
 
+## It prescribed for itself
+
+`/close-gaps` run on that report, unedited — from [CLOSE-GAPS.md](CLOSE-GAPS.md)
+(25 minutes, 80 web calls, parallel mode):
+
+<!-- close-gaps:start -->
+**Do this first**
+
+**I1. A release-triggered workflow that re-runs the report and opens a Delta PR, offered after giving each author a free report** — closes `crux+bigness.wedge` — 13/20
+
+1. After the `main` merge (see *Just do it*), write `examples/workflows/distribution-god-on-release.yml`: `anthropics/claude-code-action@v1` with `plugin_marketplaces`, `plugins: distribution-god@distribution-god` and the prompt `/distribution-god:distribution-god`, triggered by a release, a `v*` tag, a `.claude-plugin/plugin.json` change, or by hand.
+2. Run it here by hand. Drop the idea if the PR's report has no Delta or `check_report.py` can't run inside the Action.
+3. Give first: run the report on the report's First-10 plugins (STRATEGY.md §5) and open one issue each linking it.
+4. In the same issue, ask whether they want it re-run on every release, naming the cost: the Claude GitHub App plus their own Claude token.
+5. For every yes, open one PR with the report as `STRATEGY.md` plus the workflow, so its first run writes a Delta.
+
+**Success:** ≥2 outside repos show a successful distribution-god workflow run in their public Actions tab by 2026-10-25. **Stop if:** 0 successful outside runs by 2026-10-25.
+
+**Top ideas**
+
+| # | Idea | Closes | Kind | First test | Build | Score |
+|---|---|---|---|---|---|---|
+| I1 | Release-triggered re-run workflow, offered after a free report | `crux+bigness.wedge` | proven | give 10 authors a report, then offer the workflow | S | 13/20 |
+| I4 | Refundable $29 pre-order for a paid Launch Kit skill pack | `bigness.delivery` | proven | README Pricing section with a Polar/Gumroad checkout | S | 12/20 |
+| I5 | Paid companion skill on the Agensi marketplace | `bigness.delivery` | fresh | list a $12 `launch-kit` skill, link it from the README | S | 12/20 |
+| I6 | Link every report, card and badge back, and ask arrivals how they found it | `bigness.expansion` | proven | ship the links in the release I1 installs | S | 11/20 |
+| I2 | No-model reminder Action for due kill criteria and new releases | `crux+bigness.wedge` | proven | offer it in I1's issues as the no-key option | S | 11/20 |
+<!-- close-gaps:end -->
+
 ```
 sensors (parallel)              strategist              check
 ┌─ repo-intel    ─┐
@@ -78,7 +107,7 @@ STRATEGY.md ──► triage ──► gap-researcher × ≤3 ──► ranking 
 | Command | What you get | Time |
 |---|---|---|
 | `/distribution-god` (Codex: `$distribution-god:distribution-god`) | Full run: market + rivals research, distribution plan, gaps, moat, verdict → `STRATEGY.md` + `assets/strategy-card.svg` | ~15–20 min (measured in sequential mode on four repos; parallel is faster) |
-| `/close-gaps` (Codex: `$distribution-god:close-gaps`) | After a full run: researches trends, papers, and look-alike products for the report's weakest points → `CLOSE-GAPS.md`, at most five ideas, each with a linked precedent, a one-week test, and a stop signal | ~10–15 min (ESTIMATE until measured) |
+| `/close-gaps` (Codex: `$distribution-god:close-gaps`) | After a full run: researches trends, papers, and look-alike products for the report's weakest points → `CLOSE-GAPS.md`, at most five ideas, each with a linked precedent, a one-week test, and a stop signal | ~25 min (measured in parallel mode on this repo) |
 | `/gap-scan` (Codex: `$distribution-god:gap-scan`) | Local-only audit of your distribution surface — prioritized gap table in chat | about a minute on a small repo, a few on a large one |
 
 Also usable piecemeal in Claude Code: `@agent-distribution-god:rival-scout`
@@ -91,8 +120,8 @@ these ideas") — or type `@` and pick the agent from the list.
 ### Before you run
 
 - **Web permissions.** The full run makes roughly 20–30 web searches plus a
-  similar number of page fetches; `/close-gaps` makes roughly 40–90 web calls
-  across its researchers (ESTIMATE). For an unattended run, choose "don't ask
+  similar number of page fetches; `/close-gaps` made 80 web calls
+  on this repo (measured). For an unattended run, choose "don't ask
   again" on the first WebSearch/WebFetch prompt, or allow both in
   `~/.claude/settings.json`:
   `"permissions": {"allow": ["WebSearch", "WebFetch"]}`. Without web access
@@ -101,8 +130,9 @@ these ideas") — or type `@` and pick the agent from the list.
   `web_search = "live"` in `~/.codex/config.toml`. The default cached search
   returns stale results.
 - **Cost.** A full run uses up to four high-effort agents on your current
-  model; expect it to cost more than a normal coding task. `/gap-scan` is
-  cheap.
+  model; expect it to cost more than a normal coding task. `/close-gaps`
+  used about $10 of model usage on this repo (four high-effort agents, 80
+  web calls; measured 2026-09-27). `/gap-scan` is cheap.
 - **What it writes.** `STRATEGY.md` and `assets/strategy-card.svg` — plus
   `assets/strategy-card.png` only if you ask for it — and it never commits.
   Files it didn't create are never overwritten: next to your own
