@@ -346,5 +346,47 @@ class TopIdeasTests(CheckIdeasTestCase):
         self.assertEqual(self.errors_for(text), [])
 
 
+class ReferenceTests(unittest.TestCase):
+    """The skill's references and the checker describe one contract."""
+
+    def template(self) -> str:
+        text = (SKILL_DIR / "references" / "ideas-template.md").read_text()
+        m = re.search(r"```markdown\n(.*?)\n```", text, re.S)
+        self.assertIsNotNone(m, "ideas-template.md must hold the template in one ```markdown block")
+        return m.group(1)
+
+    def test_template_has_every_checked_section(self):
+        block = self.template()
+        for pattern in check_ideas.SECTIONS:
+            self.assertRegex(block, re.compile(rf"^{pattern}\s*$", re.M))
+        self.assertRegex(block, re.compile(r"^## Weakness <k>: .*\(`<target id>`\)", re.M))
+
+    def test_template_cg_line_has_every_checked_key(self):
+        cg = re.search(r"<!-- cg: (.*) -->", self.template()).group(1)
+        for key in check_ideas.CG_KEYS + check_ideas.REPORT_KEYS + check_ideas.TOP_KEYS:
+            self.assertIn(f'"{key}":', cg)
+
+    def test_template_and_rubric_cards_have_every_field(self):
+        rubric = (SKILL_DIR / "references" / "idea-rubric.md").read_text()
+        for text in (self.template(), rubric):
+            for field in check_ideas.FIELDS:
+                self.assertIn(f"**{field}:**", text)
+
+    def test_rubric_states_the_checked_limits(self):
+        rubric = (SKILL_DIR / "references" / "idea-rubric.md").read_text()
+        for part in check_ideas.PARTS:
+            self.assertIn(f"**{part}**", rubric)
+        for kind in check_ideas.KINDS:
+            self.assertIn(f"`{kind}`", rubric)
+        for key in check_ideas.BIGNESS_KEYS:
+            self.assertIn(f"`bigness.{key}`", rubric)
+        for key in check_ideas.MOAT_KEYS:
+            self.assertIn(f"`moat.{key}`", rubric)
+        self.assertEqual((check_ideas.MAX_TARGETS, check_ideas.MAX_STEPS, check_ideas.TOP_MAX), (3, 5, 5))
+        for phrase in ("at most three targets", "five numbered steps", "five working days",
+                       f"{check_ideas.MAX_DAYS} days", f"{check_ideas.FRESH_MONTHS} months", "$100"):
+            self.assertIn(phrase, rubric)
+
+
 if __name__ == "__main__":
     unittest.main()
