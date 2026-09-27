@@ -19,6 +19,11 @@ reports=(STRATEGY.md tests/fixtures/sample-report/STRATEGY.md)
 while IFS= read -r f; do reports+=("$f"); done < <(find examples -name STRATEGY.md 2>/dev/null | sort)
 python3 "${SCRIPTS}/check_report.py" "${reports[@]}" || fail "report checker"
 
+step "idea files pass the idea checker"
+ideas=(tests/fixtures/sample-ideas/CLOSE-GAPS.md)
+while IFS= read -r f; do ideas+=("$f"); done < <(find . -name CLOSE-GAPS.md -not -path './tests/*' -not -path './.git/*' 2>/dev/null | sort)
+python3 skills/close-gaps/scripts/check_ideas.py "${ideas[@]}" || fail "idea checker"
+
 step "strategy cards parse"
 while IFS= read -r svg; do
   python3 "${SCRIPTS}/strategy_card.py" check "${svg}" || fail "${svg}"

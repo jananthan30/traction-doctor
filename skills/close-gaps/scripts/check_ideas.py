@@ -363,6 +363,101 @@ def check_cards(cards: list[dict], cg: dict | None, text: str, errors: list[str]
                             "found' and why")
 
 
+# --- Top ideas ----------------------------------------------------------------
+
+ROW_ID = re.compile(r"I\d+")
+TOP_MAX = 5
+
+
+def top_rows(text: str) -> list[dict] | None:
+    """The Top ideas table as dicts (id, score, kind, build), or None without a table."""
+    found = tables(section(text, r"## Top ideas"))
+    if not found:
+        return None
+    header = [c.replace("*", "").strip().lower() for c in found[0][0]]
+    rows = []
+    for raw in found[0][1:]:
+        cells = {h: (raw[i].replace("*", "").strip() if i < len(raw) else "")
+                 for i, h in enumerate(header)}
+        ident = ROW_ID.search(cells.get("#", ""))
+        score = re.search(r"(\d+)\s*/\s*20", cells.get("score", ""))
+        rows.append({
+            "id": ident.group(0) if ident else cells.get("#", ""),
+            "score": int(score.group(1)) if score else None,
+            "kind": cells.get("kind", "").strip("` ").lower(),
+            "build": cells.get("build", "").strip("` ").upper(),
+        })
+    return rows
+
+
+def check_top(text: str, cards: list[dict], cg: dict | None, errors: list[str]) -> None:
+    by_id = {c["id"]: c for c in cards}
+    rows = top_rows(text)
+    if rows is None:
+        if cards:
+            errors.append("Top ideas needs a table: # | Idea | Closes | Kind | First test | "
+                          "Build | Score")
+        elif not section(text, r"## Top ideas").strip():
+            errors.append("Top ideas is empty — with no research targets, say so in one line")
+        rows = []
+
+    ids = [r["id"] for r in rows]
+    if len(rows) > TOP_MAX:
+        errors.append(f"Top ideas lists {len(rows)} rows; at most {TOP_MAX}")
+    if len(set(ids)) != len(ids):
+        errors.append("Top ideas lists an idea twice")
+    for row in rows:
+        card = by_id.get(row["id"])
+        if card is None:
+            errors.append(f"Top ideas row {row['id']} has no card")
+            continue
+        for key, label in (("score", "Score"), ("kind", "Kind"), ("build", "Build")):
+            if row[key] != card[key]:
+                errors.append(f"Top ideas row {row['id']} says {label} {row[key]} but its card "
+                              f"says {card[key]}")
+    scores = [r["score"] for r in rows if r["score"] is not None]
+    if scores != sorted(scores, reverse=True):
+        errors.append("Top ideas must be sorted by score, highest first")
+    if sum(1 for r in rows if r["build"] == "L") > 1:
+        errors.append("Top ideas may hold at most one big bet (Full build L)")
+
+    listed = [by_id[i] for i in ids if i in by_id]
+    for target in dict.fromkeys(c["target"] for c in cards if c["target"]):
+        if not any(c["target"] == target for c in listed):
+            errors.append(f"`{target}` has idea cards but none in Top ideas — each target's best "
+                          "idea goes in")
+    if cg is not None and cg.get("web") is True and any(c["kind"] == "fresh" for c in cards) \
+            and not any(c["kind"] == "fresh" for c in listed):
+        errors.append("a fresh idea survived but none is in Top ideas — keep one fresh slot")
+    if len(rows) < TOP_MAX:
+        has_big_bet = any(r["build"] == "L" for r in rows)
+        for card in cards:
+            if card["id"] not in ids and not (card["build"] == "L" and has_big_bet):
+                errors.append(f"{card['id']} survived but isn't in Top ideas ({len(rows)} rows) — "
+                              "fill up to five before leaving an idea out")
+
+    if cg is not None:
+        want = [(r["id"], r["score"], r["kind"], r["build"]) for r in rows]
+        got = [(e.get("id"), e.get("score"), e.get("kind"), e.get("build")) for e in cg["top"]]
+        if want != got:
+            errors.append("cg.top disagrees with the Top ideas table (ids, order, scores, kinds, "
+                          "builds)")
+
+    first = section(text, r"## Do this first")
+    if rows:
+        named = re.search(r"\*\*(I\d+)\.", first)
+        if not named or named.group(1) != rows[0]["id"]:
+            errors.append(f"Do this first must be the top row, {rows[0]['id']} "
+                          f"(it names {named.group(1) if named else 'no idea'})")
+        if not re.search(r"^\d+\.\s", first, re.M):
+            errors.append("Do this first needs its test as numbered steps")
+        if "Success:" not in first or "Stop if:" not in first:
+            errors.append("Do this first needs its Success and Stop if lines")
+    elif not first.strip():
+        errors.append("Do this first is empty — with no research targets, name the first "
+                      "'Just do it' row")
+
+
 # --- The check ----------------------------------------------------------------
 
 def check(path: Path) -> tuple[list[str], list[str]]:
@@ -373,6 +468,7 @@ def check(path: Path) -> tuple[list[str], list[str]]:
     check_structure(text, cg, errors, warnings)
     cards = parse_cards(text)
     check_cards(cards, cg, text, errors, warnings)
+    check_top(text, cards, cg, errors)
     return errors, warnings
 
 

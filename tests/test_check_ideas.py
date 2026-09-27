@@ -279,5 +279,72 @@ class CardTests(CheckIdeasTestCase):
         self.assertTrue(any("Weakness 3 has no idea cards" in w for w in warnings), warnings)
 
 
+class TopIdeasTests(CheckIdeasTestCase):
+    def test_row_needs_a_card(self):
+        self.assertCaught(self.errors_after("| I1 | Weekly deploy summary |", "| I9 | Weekly deploy summary |"),
+                          "Top ideas row I9 has no card")
+
+    def test_row_matches_its_card(self):
+        errors = self.errors_after("| publish one benchmark page | L | 13/20 |",
+                                   "| publish one benchmark page | M | 13/20 |")
+        self.assertCaught(errors, "row I4 says Build M but its card says L")
+
+    def test_rows_are_sorted(self):
+        i3 = "| I3 | One-command setup | `bigness.delivery` | fresh | time five new users on `acme init` | M | 15/20 |\n"
+        self.assertCaught(self.errors_after(i3 + I4_ROW, I4_ROW + i3), "sorted by score")
+
+    def test_at_most_five_rows(self):
+        i2 = "| I2 | Day-7 check-in email | `crux` | reasoned | email the first ten teams on day 7 | S | 12/20 |\n"
+        self.assertCaught(self.errors_after(i2, i2 * 3), "at most 5")
+
+    def test_at_most_one_big_bet(self):
+        text = (self.text.replace("· **Full build:** M", "· **Full build:** L")
+                .replace("| M | 15/20 |", "| L | 15/20 |")
+                .replace('"score":15,"kind":"fresh","build":"M"', '"score":15,"kind":"fresh","build":"L"'))
+        self.assertCaught(self.errors_for(text), "at most one big bet")
+
+    def test_every_target_gets_a_row(self):
+        text = self.text.replace(I4_ROW, "").replace(I4_TOP, "")
+        self.assertCaught(self.errors_for(text), "`moat.brand` has idea cards but none in Top ideas")
+
+    def test_a_fresh_idea_keeps_its_slot(self):
+        i3 = "| I3 | One-command setup | `bigness.delivery` | fresh | time five new users on `acme init` | M | 15/20 |\n"
+        text = self.text.replace(i3, "").replace(',{"id":"I3","score":15,"kind":"fresh","build":"M"}', "")
+        self.assertCaught(self.errors_for(text), "a fresh idea survived but none is in Top ideas")
+
+    def test_survivors_fill_the_table(self):
+        i2 = "| I2 | Day-7 check-in email | `crux` | reasoned | email the first ten teams on day 7 | S | 12/20 |\n"
+        text = self.text.replace(i2, "").replace(',{"id":"I2","score":12,"kind":"reasoned","build":"S"}', "")
+        self.assertCaught(self.errors_for(text), "I2 survived but isn't in Top ideas")
+
+    def test_cg_top_matches_the_table(self):
+        self.assertCaught(self.errors_after('{"id":"I2","score":12,', '{"id":"I2","score":11,'),
+                          "cg.top disagrees")
+
+    def test_do_this_first_is_the_top_row(self):
+        errors = self.errors_after("**I1. Weekly deploy summary** — closes `crux` — 17/20",
+                                   "**I3. One-command setup** — closes `bigness.delivery` — 15/20")
+        self.assertCaught(errors, "Do this first must be the top row, I1")
+
+    def test_do_this_first_has_success_and_stop(self):
+        errors = self.errors_after("**Success:** 20% of new installs opt in by 2026-10-11. "
+                                   "**Stop if:** under 5% opt in by 2026-10-11.", "")
+        self.assertCaught(errors, "Do this first needs its Success and Stop if lines")
+
+    def test_table_formatting_variants_are_accepted(self):
+        row = "| I1 | Weekly deploy summary | `crux` | proven | ship `acme status --week` in the next release | S | 17/20 |"
+        bold = "| **I1** | Weekly deploy summary | `crux` | proven | ship `acme status --week` in the next release | S | **17 / 20** |"
+        self.assertEqual(self.errors_after(row, bold), [])
+
+    def test_no_research_targets(self):
+        start, jdi = self.text.index("## Do this first"), self.text.index("## Just do it")
+        weak, cant = self.text.index("## Weakness 1:"), self.text.index("## Can't move now")
+        head = re.sub(r'"targets":\[.*?\],"top":\[.*\]\}', '"targets":[],"top":[]}', self.text[:start])
+        text = (head + "## Do this first\n\n**Add the opt-in anonymous ping** (`gap.1`), the report's "
+                "P0 known fix.\n\n## Top ideas\n\nNo research targets: every weakness has a known fix "
+                "or is structural.\n\n" + self.text[jdi:weak] + self.text[cant:])
+        self.assertEqual(self.errors_for(text), [])
+
+
 if __name__ == "__main__":
     unittest.main()
