@@ -358,6 +358,52 @@ class CheckReportTests(unittest.TestCase):
         self.assertIsNone(check_report.next_band(21, strategy_card.BIGNESS_BANDS))
         self.assertEqual(check_report.next_band(4, strategy_card.MOAT_BANDS), (5, "Early edge"))
 
+    # --- v0.4.0: Pivot options -----------------------------------------------
+
+    def test_pivot_options_are_required_from_v04(self):
+        self.assertCaught(self.errors_after("**Pivot options**", "**Other ideas**"),
+                          "needs a '\\*\\*Pivot options\\*\\*' line")
+
+    def test_pivot_type_must_be_in_the_catalog(self):
+        self.assertCaught(self.errors_after("*zoom-in pivot:*", "*rebrand pivot:*"),
+                          "'rebrand' is not one of the ten pivot types")
+
+    def test_every_pivot_field_is_required(self):
+        self.assertCaught(self.errors_after("- **Keeps:** the whole CLI", "- **Notes:** the whole CLI"),
+                          "Pivot B is missing its \\*\\*Keeps:\\*\\* line")
+
+    def test_pivot_projection_is_an_estimate(self):
+        self.assertCaught(self.errors_after("- **Projected (ESTIMATE):** Market headroom",
+                                            "- **Projected:** Market headroom"),
+                          "Pivot B: label the projection")
+
+    def test_pivot_precedent_needs_a_link_or_unverified(self):
+        errors = self.errors_after("`unverified` — no deploy-tool zoom-in found this run",
+                                   "Heroku, probably")
+        self.assertCaught(errors, "Pivot A: the precedent needs a link")
+
+    def test_pivot_test_states_its_pass_line(self):
+        self.assertCaught(self.errors_after("Pass: 3 agree to a call", "hope 3 agree to a call"),
+                          "Pivot B: the test must state its pass line")
+
+    def test_pivot_names_the_moat_row_it_builds(self):
+        self.assertCaught(self.errors_after("- **Unlocks:** Switching costs — audit logs",
+                                            "- **Unlocks:** happiness — audit logs"),
+                          "Pivot B: name the Moat row")
+
+    def test_a_kill_criterion_must_start_each_pivot(self):
+        self.assertCaught(self.errors_after("run Pivot B's test.", "reconsider."),
+                          "no kill criterion names Pivot B")
+
+    def test_weak_reports_need_two_pivots(self):
+        start = self.text.index("**B. Platform teams**")
+        end = self.text.index("**Persevere if:**")
+        self.report.write_text(self.text[:start] + self.text[end:])
+        self.assertCaught(check_report.check(self.report)[0], "needs 2–3 pivot cards")
+
+    def test_pivots_need_a_persevere_line(self):
+        self.assertCaught(self.errors_after("**Persevere if:**", "**Otherwise:**"), "Persevere if")
+
     def test_malformed_version_is_an_error(self):
         text = self.text.replace('{"v":"0.4.0"', '{"v":"dev"').replace(
             "distribution-god v0.4.0", "distribution-god vdev")

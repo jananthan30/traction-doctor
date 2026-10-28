@@ -15,7 +15,9 @@ Checks that the report is complete and internally consistent:
     the Verdict's Path to the next band states the gap to each next band
     correctly, and its 2–5 moves start at today's scores, raise real rubric
     rows, are labeled outcome or rubric-only (at least one outcome), and
-    project no total
+    project no total; section 9 has 1–3 pivot cards (2+ when the moat or
+    the verdict is weak) of Ries's ten types, each complete, ESTIMATE-
+    labeled, with a precedent, a pass line, and a kill criterion naming it
 
 Usage:
   python3 check_report.py STRATEGY.md [more reports...]
@@ -442,6 +444,79 @@ def path_errors(verdict: str, dg: dict) -> list[str]:
     return problems
 
 
+# --- Pivot options (v0.4.0+) -------------------------------------------------
+
+# Eric Ries's ten pivot types (The Lean Startup), as named in pivot-playbook.md.
+PIVOT_TYPES = ("zoom-in", "zoom-out", "customer-segment", "customer-need", "platform",
+               "business-architecture", "value-capture", "engine-of-growth", "channel",
+               "technology")
+PIVOT_FIELDS = ("Keeps", "Changes", "Unlocks", "Projected", "Precedent", "Test", "Trigger")
+MOAT_WORDS = re.compile(r"network|switching|scale|data|brand|category|cornered|counter-positioning",
+                        re.I)
+PIVOT_HEAD = re.compile(r"^\*\*([A-Z])\.\s+([^*\n]+?)\*\*\s*[—–-]+\s*\*([\w-]+) pivot:?\*:?\s*(.*)$",
+                        re.M)
+
+
+def pivot_errors(block: str, dg: dict) -> list[str]:
+    """Section 9's pivot options: 1–3 complete cards of known types, each
+    started by a kill criterion that names it, and a Persevere-if line."""
+    label = re.search(r"^\*\*Pivot options\*\*", block, re.M)
+    if not label:
+        return ["section 9 needs a '**Pivot options**' line followed by 1–3 pivot cards"]
+    problems = []
+    criteria = " ".join(" ".join([p, *c]) for p, c in bullet_groups(block[: label.start()])
+                        if re.match(r"[-*+]\s", p))
+    persevere = re.search(r"^\*\*Persevere if:?\*\*:?[ \t]*\S", block, re.M)
+    if not persevere:
+        problems.append("pivot options must end with a '**Persevere if:**' line")
+    cards = list(PIVOT_HEAD.finditer(block, label.end()))
+    weak = dg["moat"] <= 4 or dg["bigness"] <= 13
+    floor = 2 if weak else 1
+    if not floor <= len(cards) <= 3:
+        why = " (the moat is Nothing defensible yet or Bigness is 13 or less)" if weak else ""
+        problems.append(f"section 9 needs {floor}–3 pivot cards{why}; found {len(cards)} — "
+                        "each headed '**A. <name>** — *<type> pivot:* <the move>'")
+    letters = [m.group(1) for m in cards]
+    if letters != [chr(ord("A") + i) for i in range(len(letters))]:
+        problems.append(f"pivot cards must be lettered A, B, C in order (found {', '.join(letters)})")
+    end = persevere.start() if persevere else len(block)
+    for i, m in enumerate(cards):
+        letter, kind = m.group(1), m.group(3).lower()
+        if kind not in PIVOT_TYPES:
+            problems.append(f"Pivot {letter}: '{kind}' is not one of the ten pivot types "
+                            f"({', '.join(PIVOT_TYPES)})")
+        if not m.group(4).strip():
+            problems.append(f"Pivot {letter}: state the move after the type")
+        body = block[m.end(): cards[i + 1].start() if i + 1 < len(cards) else max(end, m.end())]
+        fields = {}
+        for parent, children in bullet_groups(body):
+            f = re.match(r"[-*+]\s+\*\*(\w+)\b[^*]*\*\*:?\s*(.*)", parent)
+            if f and f.group(1) in PIVOT_FIELDS:
+                fields[f.group(1)] = " ".join([f.group(2), *children]).strip()
+        for name in PIVOT_FIELDS:
+            if not fields.get(name):
+                problems.append(f"Pivot {letter} is missing its **{name}:** line")
+        if fields.get("Projected") and "ESTIMATE" not in parent_line(body, "Projected"):
+            problems.append(f"Pivot {letter}: label the projection '**Projected (ESTIMATE):**'")
+        if fields.get("Precedent") and not (LINK.search(fields["Precedent"])
+                                            or "unverified" in fields["Precedent"].lower()):
+            problems.append(f"Pivot {letter}: the precedent needs a link or 'unverified'")
+        if fields.get("Test") and not re.search(r"\bpass:", fields["Test"], re.I):
+            problems.append(f"Pivot {letter}: the test must state its pass line ('Pass: …')")
+        if fields.get("Unlocks") and not MOAT_WORDS.search(fields["Unlocks"]):
+            problems.append(f"Pivot {letter}: name the Moat row it builds toward under **Unlocks:**")
+        if not re.search(rf"\bpivot {letter}\b", criteria, re.I):
+            problems.append(f"no kill criterion names Pivot {letter} — say which criterion starts it "
+                            f"(e.g. \"run Pivot {letter}'s test\")")
+    return problems
+
+
+def parent_line(body: str, field: str) -> str:
+    """The raw bullet line that opens a pivot card's field, label included."""
+    m = re.search(rf"^\s*[-*+]\s+\*\*{field}\b[^\n]*", body, re.M)
+    return m.group(0) if m else ""
+
+
 # --- The check ---------------------------------------------------------------
 
 def check(path: Path) -> tuple[list[str], list[str]]:
@@ -565,6 +640,7 @@ def check(path: Path) -> tuple[list[str], list[str]]:
     dg_ok = (scores_ok and isinstance(dg.get("subs"), dict) and isinstance(dg.get("moat_rows"), dict))
     if v4 and dg_ok:
         errors.extend(path_errors(verdict, dg))
+        errors.extend(pivot_errors(section(text, r"## 9\. Kill criteria"), dg))
 
     # Unfilled template slots (autolinks like <https://…> are fine).
     errors.extend(unfilled_slots(text))

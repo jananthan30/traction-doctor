@@ -182,9 +182,26 @@ commitment device, not filler>
 1. <testable condition>
 2. <...>
 
-## 9. Kill criteria
+## 9. Kill criteria and pivot options
 
-- If <metric> < <level> by <date/effort>, <stop/pivot action>.
+- If <metric> < <level> by <date/effort>, <stop, or run Pivot <letter>'s test>.
+
+**Pivot options**
+
+**A. <short name>** — *<type> pivot:* <the move in one line>
+- **Keeps:** <assets from the inventory, with paths or links>
+- **Changes:** <what's different: the buyer, the job, the channel, or how it makes money>
+- **Unlocks:** <the Moat row it builds toward> — <the loop that builds it>
+- **Projected (ESTIMATE):** <which sub-scores would move, from → to, per which anchor, if the test passes>
+- **Precedent:** <a product that made the same move, linked, and what happened — or `unverified`>
+- **Test (≤5 days, ~$0):** <what to do>. Pass: <the result that counts as a pass>
+- **Trigger:** <the kill criterion or checkpoint result that starts it>
+
+**Persevere if:** <the signal that says stay the course>
+
+(Method and rules: pivot-playbook.md. 1–3 cards; at least 2 when Moat today
+is Nothing defensible yet or Bigness is 13 or less; every card is named by a
+kill criterion.)
 
 ## 10. Next 5 actions (this week)
 

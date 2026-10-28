@@ -54,6 +54,7 @@ load all upfront):
 | `references/channel-playbooks.md` | Phase 3 |
 | `references/ai-era-distribution.md` | Phase 3 |
 | `references/moat-frameworks.md` | Phase 4 |
+| `references/pivot-playbook.md` | Phase 4, after the verdict |
 | `references/sensors/red-team.md` | Phase 5 (sequential and generic-subagents modes) |
 | `references/report-template.md` | Phase 5 |
 | `references/strategy-card.md` | Phase 5, after STRATEGY.md |
@@ -217,6 +218,11 @@ Load `references/moat-frameworks.md` and re-read `references/scoring-rubrics.md`
   next band: the gap to each next band, 2–5 moves aimed at next anchors
   (each `outcome` or `rubric-only`), and the caps binding today. It changes
   no score.
+- **Pivot options:** load `references/pivot-playbook.md`. List the asset
+  inventory, then write the kill criteria and the pivots together: 1–3
+  pivot cards (at least 2 when Moat today is *Nothing defensible yet* or
+  Bigness is 13 or less), each started by a kill criterion that names it,
+  and a *Persevere if* line.
 
 ### Phase 5 — Red team, then report
 
@@ -225,8 +231,8 @@ breakdown and Moat today tables with their evidence; the Bigness and Moat
 rubric tables copied verbatim from `references/scoring-rubrics.md`; the
 positioning, wedge, and channel-ranking table; the economics rule (item 2 of
 the channel–product fit rubric in `references/channel-playbooks.md`); the
-Market `ESTIMATE` with its inputs; the moat roadmap; and the Path to the
-next band block.
+Market `ESTIMATE` with its inputs; the moat roadmap; the Path to the
+next band block; and the kill criteria with the pivot options.
 
 - `parallel`: dispatch `distribution-god:red-team` with the payload.
 - `generic-subagents`: spawn a sub-agent whose task is

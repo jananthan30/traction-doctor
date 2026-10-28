@@ -131,9 +131,32 @@ proves the crux.
 1. Week-4 retention of at least 25%
 2. Teams pay for an audit log
 
-## 9. Kill criteria
+## 9. Kill criteria and pivot options
 
-- If weekly installs < 100 by 2026-12-31, stop and open-source as reputation.
+- If weekly installs < 100 by 2026-12-31, run Pivot A's test; if it fails too, stop and open-source as reputation.
+- If week-4 retention < 10% by 2027-01-31, run Pivot B's test.
+
+**Pivot options**
+
+**A. Deploy check** — *zoom-in pivot:* sell only the pre-deploy checks, as a CI step teams add in one line
+- **Keeps:** the config validator (`src/check.rs:1`) and the Homebrew listing
+- **Changes:** from a deploy tool to a CI check — the same team, a narrower job
+- **Unlocks:** Brand / category ownership — every failed check links the docs, so more CI runs → more readers → more installs
+- **Projected (ESTIMATE):** Wedge sharpness 3 → 4 if 3 teams outside the author's network ask for it; Delivery leverage stays 2
+- **Precedent:** `unverified` — no deploy-tool zoom-in found this run
+- **Test (≤5 days, ~$0):** ship the check as a GitHub Action and post it in two Rust forums. Pass: 10 repos add it within the 5 days
+- **Trigger:** the weekly-installs kill criterion (2026-12-31)
+
+**B. Platform teams** — *customer-segment pivot:* the same CLI for platform teams at 50–200 person companies that need offline deploys for compliance
+- **Keeps:** the whole CLI and its offline-first design (`src/main.rs:1`)
+- **Changes:** the buyer — a platform team with a compliance budget, not a 2–10 person team
+- **Unlocks:** Switching costs — audit logs and policies accumulate per company
+- **Projected (ESTIMATE):** Market headroom 2 → 3 if a team price of $1,200/yr holds; Expansion path 2 → 3
+- **Precedent:** [a deploy tool that moved upmarket](https://example.com/precedent)
+- **Test (≤5 days, ~$0):** send a one-page offer to 10 platform leads you already know. Pass: 3 agree to a call
+- **Trigger:** the week-4 retention kill criterion (2027-01-31)
+
+**Persevere if:** weekly installs pass 100 and week-4 retention passes 10% by 2027-01-31.
 
 ## 10. Next 5 actions (this week)
 

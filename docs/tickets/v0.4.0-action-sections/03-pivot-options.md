@@ -10,13 +10,13 @@ team attacks pivot realism; the checker enforces the card contract.
 
 **Blocked by:** 01.
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Pivot playbook reference: when to pivot, asset inventory, the ten
+- [x] Pivot playbook reference: when to pivot, asset inventory, the ten
       types mapped to the moat powers they can unlock, card format
-- [ ] Template and skill (Phase 4) produce the cards; red-team payload
+- [x] Template and skill (Phase 4) produce the cards; red-team payload
       includes them
-- [ ] Checker: type in catalog, every field present, ESTIMATE, link or
+- [x] Checker: type in catalog, every field present, ESTIMATE, link or
       `unverified`, pass line, a kill criterion names each pivot, count
       rules, *Persevere if*
-- [ ] Negative tests for each rule
+- [x] Negative tests for each rule

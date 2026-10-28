@@ -17,6 +17,14 @@ the cached copy until it changes, so every release that touches `skills/` or
   rejected as score gaming, and no move may project a total. The checker
   verifies the arithmetic against the `dg` line, and the red team re-judges
   every move's kind (a new seventh attack surface).
+- **Pivot options**: section 9 becomes *Kill criteria and pivot options*.
+  Each report offers 1–3 pivots from Eric Ries's ten types (at least 2 when
+  the moat is *Nothing defensible yet* or Bigness is 13 or less). Every
+  pivot keeps a named asset from the repo, names the moat power it unlocks,
+  carries an ESTIMATE re-score, a precedent, and a test of at most five days
+  with a pass line, and is started by a kill criterion that names it; a
+  *Persevere if* line says when to stay the course. New reference:
+  `references/pivot-playbook.md`. The red team attacks pivot realism.
 
 ### Changed
 - `check_report.py` reads the report's version from its `dg` line: reports
