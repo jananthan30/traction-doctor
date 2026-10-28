@@ -164,13 +164,29 @@ these ideas") — or type `@` and pick the agent from the list.
   writes `FIRST-CUSTOMERS.md` (beside your own file of that name it writes
   `FIRST-CUSTOMERS.distribution-god.md`); on a re-run it keeps a
   `FIRST-CUSTOMERS.previous.md` copy and carries over your tracker.
-- **Privacy.** Search queries include a one-line description of your
-  product (and, for `/close-gaps`, the weakness being researched). For a stealth project, use `/gap-scan`: it does no web research
-  (at most it reads your repo's own GitHub metadata with `gh`).
-  `FIRST-CUSTOMERS.md` lists strangers' public posts, so keep it out of git:
-  add `FIRST-CUSTOMERS*.md` to your `.gitignore`. The tool never contacts
+- **What it runs.** Only your client's own tools: it reads files and git
+  history, runs `gh repo view` for your repo's GitHub details when `gh` is
+  installed, and runs its bundled Python checkers and card renderer (plus
+  `xmllint`, if installed, to check the card). The optional PNG card is drawn
+  on your machine with headless Chrome or `rsvg-convert`. It never installs
+  packages or runs code it fetched, and it writes the card's data to a temp
+  file outside your repo.
+- **Privacy.** Nothing goes to the plugin's author: there is no server and
+  no telemetry. What leaves your machine is web research, sent by your
+  client's WebSearch and WebFetch tools, with queries built from a one-line
+  description of your product, its category, its rivals and the pain it
+  solves (and, for `/close-gaps`, the weakness being researched). The
+  customer scout also queries three keyless public APIs (GitHub issue
+  search, Hacker News search through Algolia, and Stack Exchange), and
+  `/close-gaps` queries arXiv, OpenAlex and Hugging Face Papers. For a
+  stealth project, use `/gap-scan`: it does no web research (at most it
+  reads your repo's own GitHub metadata with `gh`). `FIRST-CUSTOMERS.md`
+  lists strangers' public posts, so keep it out of git: add
+  `FIRST-CUSTOMERS*.md` to your `.gitignore`. The tool never contacts
   anyone, never records an email or phone number, and writes every draft to
-  say that you built the product.
+  say that you built the product. This repo's `.github/` workflows are its
+  own CI; installing the plugin never runs them. Details:
+  [PRIVACY.md](PRIVACY.md).
 
 ### Update
 
@@ -194,6 +210,23 @@ after the plugin, so invoke `$distribution-god:distribution-god` and
 `$distribution-god` and `$gap-scan`; `--uninstall` removes them. It never
 deletes a skill folder it didn't create — anything in the way is moved to
 `~/.agents/skills-backup/`.
+
+### Troubleshooting
+
+- **The report says `NOT RESEARCHED`.** Web access was off or denied. Allow
+  WebSearch and WebFetch (see *Before you run*) and run it again.
+- **A command or agent is missing.** Plugins load when a session starts, so
+  start a new session after you install or update. `claude plugin list`
+  should show distribution-god as enabled.
+- **"Only N openings found".** That's a finding, not a failure: the people
+  you want rarely ask in public, so the report leads with an offer to make
+  instead of people to reply to.
+- **A file appeared with `.distribution-god` in its name.** It never
+  overwrites a file it didn't create, so it writes beside yours (for
+  example `STRATEGY.distribution-god.md`).
+- **Anything else:** open an
+  [issue](https://github.com/jananthan30/distribution-god/issues) with the
+  command you ran and the last lines of its output.
 
 ## What makes the output trustworthy
 
