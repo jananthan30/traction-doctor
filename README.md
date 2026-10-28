@@ -200,16 +200,23 @@ codex plugin marketplace upgrade && codex plugin add traction-doctor@traction-do
 ```
 
 Coming from **distribution-god**, this plugin's name before v0.5.0? The
-marketplace was renamed too, so swap it in Claude Code:
+marketplace was renamed too, so swap it. In Claude Code, removing the old
+marketplace also uninstalls the plugin it holds:
 
 ```
-claude plugin uninstall distribution-god@distribution-god
 claude plugin marketplace remove distribution-god
 claude plugin marketplace add jananthan30/traction-doctor
 claude plugin install traction-doctor@traction-doctor
 ```
 
-In Codex, add it again with the install commands at the top.
+In Codex:
+
+```
+codex plugin remove distribution-god@distribution-god
+codex plugin marketplace remove distribution-god
+codex plugin marketplace add jananthan30/traction-doctor
+codex plugin add traction-doctor@traction-doctor
+```
 
 ### Install from a clone (Codex fallback)
 
@@ -233,6 +240,9 @@ deletes a skill folder it didn't create — anything in the way is moved to
 - **A command or agent is missing.** Plugins load when a session starts, so
   start a new session after you install or update. `claude plugin list`
   should show traction-doctor as enabled.
+- **`claude plugin uninstall distribution-god@distribution-god` says "not
+  found".** Claude Code has already applied the rename, so that name is
+  gone. Run the swap under *Update*; it works either way.
 - **"Only N openings found".** That's a finding, not a failure: the people
   you want rarely ask in public, so the report leads with an offer to make
   instead of people to reply to.
