@@ -22,7 +22,7 @@ Install in Codex: `codex plugin marketplace add jananthan30/distribution-god` th
 ## Examples
 
 - [Self-analysis](https://github.com/jananthan30/distribution-god/blob/main/STRATEGY.md): the tool run on its own repository
-- [Self-prescription](https://github.com/jananthan30/distribution-god/blob/main/CLOSE-GAPS.md): /close-gaps run on its own strategy report
+- [Self-prescription](https://github.com/jananthan30/distribution-god/blob/main/CLOSE-GAPS.md): /close-gaps run on its 2026-09-26 strategy report
 - [Example reports](https://github.com/jananthan30/distribution-god/tree/main/examples): runs on other public repositories
 
 ## Optional

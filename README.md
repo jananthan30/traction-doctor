@@ -54,29 +54,34 @@ then red-teams its own answer before showing you.
 ## It analyzed itself
 
 The verdict on its own repo, unedited — from [STRATEGY.md](STRATEGY.md)
-(v0.1.0 scored itself 17/25; the anchored v0.2.0 rubric and red team say 12):
+(v0.1.0 scored itself 17/25; the anchored v0.2.0 rubric said 12; v0.4.0, on
+fresher market inputs, says 11):
 
 <img src="assets/strategy-card.svg" alt="Strategy card: distribution-god's own verdict" width="600">
 
 <!-- verdict-table:start -->
 | | |
 |---|---|
-| **Bigness** | **12/25 — Niche tool / lifestyle business** (confidence: Medium) |
-| **Moat today** | **1/25 — Nothing defensible yet:** the rubric is MIT and forkable in a day; one point for anti-hype counter-positioning |
-| **The crux** | Recurring use: do plugin authors re-run it on each release, or run it once and forget it? |
-| **Falsifier** | List it in Anthropic's directory and read the **Usage** tab: share of installing accounts still active 30+ days after install (free, 60–90 days). Until the listing is live: weekly unique cloners from `gh api repos/jananthan30/distribution-god/traffic/clones`, logged to `metrics/traffic.csv` |
+| **Bigness** | **11/25 — Niche tool / lifestyle business** (confidence: Medium) |
+| **Moat today** | **1/25 — Nothing defensible yet:** the method is MIT and forkable in a day; one point for free, anti-hype counter-positioning |
+| **The crux** | Recurring use: do builders come back — a re-run on each release, or fresh openings — or run it once and leave? |
+| **Falsifier** | Now, with no listing needed: give 10 indie plugin authors who have a release coming `/gap-scan` as a per-release check (the full report on request) and count who runs either again on their next release — 3 of 10 by 2027-01-15 means true (free, about 11 weeks). Once listed: the Usage tab's retention and each skill's runs per active account ([docs](https://claude.com/docs/connectors/building/after-publishing#track-published-plugin-usage); up to 90 days, CSV export) |
 <!-- verdict-table:end -->
 
 A strategy tool that flatters you is worthless. This one is built to say
-"this is a feature, not a company" — even about itself.
+"this is a feature, not a company" — even about itself. When v0.4.0 went
+looking for its own first customers, it found only two people asking in
+public, both stuck at the directory's listing step, and the report says
+so.
 
 **On other repos:** see [`examples/`](examples/) — full reports on public
 projects, each stamped with the commit, date, model, and run mode.
 
 ## It prescribed for itself
 
-`/close-gaps` run on that report, unedited — from [CLOSE-GAPS.md](CLOSE-GAPS.md)
-(23 minutes, 83 web calls, parallel mode):
+`/close-gaps` run on the 2026-09-26 report
+([archived](docs/strategy-history/STRATEGY-2026-09-26.md)), unedited — from
+[CLOSE-GAPS.md](CLOSE-GAPS.md) (23 minutes, 83 web calls, parallel mode):
 
 <!-- close-gaps:start -->
 **Do this first**
@@ -119,7 +124,7 @@ STRATEGY.md ──► triage ──► gap-researcher × ≤3 ──► ranking 
 
 | Command | What you get | Time |
 |---|---|---|
-| `/distribution-god` (Codex: `$distribution-god:distribution-god`) | Full run: market + rivals research, distribution plan, gaps, moat, verdict, path to the next band, pivot options → `STRATEGY.md` + `assets/strategy-card.svg`; real first-customer openings with drafted replies → `FIRST-CUSTOMERS.md` (private) | ~15–20 min through the red team (v0.2.0, sequential, four repos), plus the prospecting |
+| `/distribution-god` (Codex: `$distribution-god:distribution-god`) | Full run: market + rivals research, distribution plan, gaps, moat, verdict, path to the next band, pivot options → `STRATEGY.md` + `assets/strategy-card.svg`; real first-customer openings with drafted replies → `FIRST-CUSTOMERS.md` (private) | ~15–20 min through the red team (v0.2.0, sequential, four repos), plus about 4 min of prospecting (measured once) |
 | `/close-gaps` (Codex: `$distribution-god:close-gaps`) | After a full run: researches trends, papers, and look-alike products for the report's weakest points → `CLOSE-GAPS.md`, at most five ideas, each with a linked precedent, a one-week test, and a stop signal | ~25 min (measured twice in parallel mode on this repo: 25 and 23 min) |
 | `/gap-scan` (Codex: `$distribution-god:gap-scan`) | Local-only audit of your distribution surface — prioritized gap table in chat | about a minute on a small repo, a few on a large one |
 

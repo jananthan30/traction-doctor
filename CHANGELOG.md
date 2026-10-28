@@ -59,6 +59,11 @@ the cached copy until it changes, so every release that touches `skills/` or
   "only N found", no email addresses; offline: `NOT RESEARCHED` and no post
   links). `tests/run.sh` checks people files. README, `llms.txt`, the design
   doc and both manifests describe v0.4.0.
+- The self-analysis is regenerated with v0.4.0 (2026-10-28, generic-subagents
+  mode): Bigness 12 → 11 on fresher market inputs, Moat 1, a path to the
+  next band, two pivots, and a first-customers search that found only two
+  public asks — kept in a gitignored `FIRST-CUSTOMERS.md`. The 2026-09-26
+  report and its card are archived in `docs/strategy-history/`.
 
 ## [0.3.0] — 2026-09-27
 

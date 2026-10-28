@@ -7,10 +7,10 @@ first-customers list for this product.
 
 **Blocked by:** 05.
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Prior report archived; new STRATEGY.md + card pass the checker
-- [ ] FIRST-CUSTOMERS.md written, passes the people-file checker, and is
+- [x] Prior report archived; new STRATEGY.md + card pass the checker
+- [x] FIRST-CUSTOMERS.md written, passes the people-file checker, and is
       gitignored in this repo
-- [ ] README's self-analysis and close-gaps text match the new report
-- [ ] `tests/run.sh` green; nothing pushed
+- [x] README's self-analysis and close-gaps text match the new report
+- [x] `tests/run.sh` green; nothing pushed

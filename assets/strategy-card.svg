@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1540" width="1200" height="1540" role="img" aria-label="Strategy card for distribution-god: Bigness 12 of 25, Moat 1 of 25">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1540" width="1200" height="1540" role="img" aria-label="Strategy card for distribution-god: Bigness 11 of 25, Moat 1 of 25">
   <style>
     text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, "Liberation Sans", sans-serif; }
     .kicker { font-size: 20px; letter-spacing: 2.4px; font-weight: 600; fill: #898781; }
@@ -29,18 +29,18 @@
 
   <text x="80" y="92" class="kicker">STRATEGY REPORT · THE TOOL ANALYZED ITS OWN REPO</text>
   <text x="80" y="162" class="h1">distribution-god</text>
-  <text x="80" y="212" class="sub">Repo-native AI strategist for Claude Code &amp; Codex</text>
-  <text x="80" y="248" class="sub-b">Scored, red-teamed, and checked by code</text>
+  <text x="80" y="212" class="sub">Repo-native strategist for Claude Code and Codex</text>
+  <text x="80" y="248" class="sub-b">Scores the repo, then finds who asked for it</text>
 
   <g>
     <rect x="80" y="300" width="510" height="330" rx="16" fill="none" stroke="#ffffff" stroke-opacity="0.10"/>
     <text x="116" y="366" class="label">BIGNESS</text>
     <text x="554" y="366" class="conf" text-anchor="end">MEDIUM CONFIDENCE</text>
-    <text x="116" y="466" class="hero">12<tspan class="hero-d">/25</tspan></text>
+    <text x="116" y="466" class="hero">11<tspan class="hero-d">/25</tspan></text>
     <text x="116" y="512" class="band">Niche tool / lifestyle business</text>
     <rect x="116" y="540" width="430" height="10" rx="5" fill="#2c2c2a"/>
-    <rect x="116" y="540" width="206" height="10" rx="5" fill="#3987e5"/>
-    <text x="116" y="590" class="note">Free, no users yet, nothing to capture</text>
+    <rect x="116" y="540" width="189" height="10" rx="5" fill="#3987e5"/>
+    <text x="116" y="590" class="note">SAM under $50M; nothing captures value</text>
 
     <rect x="610" y="300" width="510" height="330" rx="16" fill="none" stroke="#ffffff" stroke-opacity="0.10"/>
     <text x="646" y="366" class="label">MOAT TODAY</text>
@@ -48,13 +48,13 @@
     <text x="646" y="512" class="band">Nothing defensible yet</text>
     <rect x="646" y="540" width="430" height="10" rx="5" fill="#2c2c2a"/>
     <rect x="646" y="540" width="17" height="10" rx="5" fill="#d03b3b"/>
-    <text x="646" y="590" class="note-c">MIT rubric, forkable in a day</text>
+    <text x="646" y="590" class="note-c">MIT method, forkable in a day</text>
   </g>
 
   <rect x="80" y="676" width="4" height="132" fill="#383835"/>
-  <text x="112" y="712" class="crux">The crux: <tspan class="crux-b">do plugin authors re-run it on each</tspan></text>
-  <text x="112" y="756" class="crux-b">release, or run it once and forget it?</text>
-  <text x="112" y="800" class="crux">Falsifier: directory Usage tab, day-30 retention.</text>
+  <text x="112" y="712" class="crux">The crux: <tspan class="crux-b">Do builders come back — a re-run</tspan></text>
+  <text x="112" y="756" class="crux-b">on each release, or fresh openings?</text>
+  <text x="112" y="800" class="crux">Ten authors' next releases decide it by 2027-01-15.</text>
 
   <text x="80" y="886" class="label">BIGNESS BREAKDOWN</text>
   <g>
@@ -80,27 +80,27 @@
 
     <text x="80" y="1120" class="row">Market headroom</text>
     <rect x="380" y="1110" width="560" height="8" rx="4" fill="#2c2c2a"/>
-    <rect x="380" y="1110" width="112" height="8" rx="4" fill="#3987e5"/>
-    <text x="1120" y="1120" class="num" text-anchor="end">1/5</text>
+    <rect x="380" y="1110" width="0" height="8" rx="4" fill="#3987e5"/>
+    <text x="1120" y="1120" class="num" text-anchor="end">0/5</text>
   </g>
 
   <g>
     <rect x="80" y="1180" width="510" height="180" rx="16" fill="none" stroke="#ffffff" stroke-opacity="0.10"/>
     <text x="112" y="1228" class="bh-a">PRIMARY CHANNEL</text>
-    <text x="112" y="1266" class="body-b">Anthropic's plugin directory</text>
-    <text x="112" y="1298" class="body">Channel and usage meter in one</text>
-    <text x="112" y="1330" class="body">This week: push v0.2.0, submit</text>
+    <text x="112" y="1266" class="body-b">Opt-in reports for indie authors</text>
+    <text x="112" y="1298" class="body">Consent first; count the links</text>
+    <text x="112" y="1330" class="body">This week: offer 5, reply to 3</text>
 
     <rect x="610" y="1180" width="510" height="180" rx="16" fill="none" stroke="#d03b3b" stroke-opacity="0.45"/>
     <text x="646" y="1228" class="bh-k">KILL CRITERIA</text>
-    <text x="646" y="1266" class="body-b">&lt;100 installs by 2026-12-26</text>
-    <text x="646" y="1298" class="body">&lt;10% active at day 30 by 2027-01-31</text>
-    <text x="646" y="1330" class="body">→ stop, or pivot to one-shot audit</text>
+    <text x="646" y="1266" class="body-b">&lt;3 of 10 re-run by 2027-01-15</text>
+    <text x="646" y="1298" class="body">&lt;30 installs 45 days after listing</text>
+    <text x="646" y="1330" class="body">→ run Pivot B, or keep as asset</text>
   </g>
 
   <line x1="80" y1="1396" x2="1120" y2="1396" stroke="#383835"/>
   <rect x="80" y="1416" width="1040" height="56" rx="10" fill="#0d0d0d" stroke="#ffffff" stroke-opacity="0.10"/>
   <text x="102" y="1452" class="mono"><tspan class="mono-d">&gt;</tspan> /plugin marketplace add jananthan30/distribution-god</text>
-  <text x="80" y="1510" class="fp">Generated by distribution-god v0.2.0 · 2026-09-26</text>
+  <text x="80" y="1510" class="fp">Generated by distribution-god v0.4.0 · 2026-10-28</text>
   <text x="1120" y="1510" class="fp-b" text-anchor="end">github.com/jananthan30/distribution-god</text>
 </svg>

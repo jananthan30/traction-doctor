@@ -1,6 +1,6 @@
 # Strategy Card — shareable verdict infographic
 
-After writing STRATEGY.md (Phase 5), also generate `assets/strategy-card.svg`
+After writing STRATEGY.md ("Writing the report"), also generate `assets/strategy-card.svg`
 in the analyzed repo unless the user declined. The card is the report's
 social artifact: README-embeddable (GitHub renders SVG natively), postable,
 and it carries the fingerprint — this is the distribution loop of the tool

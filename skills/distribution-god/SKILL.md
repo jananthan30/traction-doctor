@@ -347,6 +347,7 @@ do. In this order:
   employer or location, and never link one person's accounts across sites.
   Individual posts appear only in `FIRST-CUSTOMERS.md`, never in the report.
 - Runtime: about 15–20 minutes in sequential mode for Phases 0–5 (measured
-  on four public repos, v0.2.0); Phase 6 adds the prospecting time. Parallel
+  on four public repos, v0.2.0); Phase 6's customer scout adds about 4
+  minutes (measured once, on this plugin's own repo, 2026-10-28). Parallel
   mode overlaps the first sensors and is faster. If the user asked a narrower
   question (e.g. only moat), run only the needed phases.
