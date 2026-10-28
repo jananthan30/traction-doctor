@@ -324,8 +324,10 @@ sub-section per `references/first-customers.md`.
 do. In this order:
 
 1. **Contact today:** the top three openings, each linked, with their words
-   and the reply channel (the chat is private; the report isn't). Local-only
-   runs say "re-run with web access to find people" instead.
+   and the reply channel (the chat is private; the report isn't). If fewer
+   than three were found, or none can be contacted yet (help-only, or only
+   after a listing), say so first and lead with the first offer to make
+   instead. Local-only runs say "re-run with web access to find people".
 2. **If a kill criterion fires:** one line per criterion and the pivot it
    starts.
 3. The verdict box, then the five next actions.

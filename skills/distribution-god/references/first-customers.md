@@ -45,7 +45,8 @@ keep only the openings you verified yourself and note
   "I maintain …"). Never pose as a neutral user.
 - No link in the first sentence, and one link at most.
 - A venue whose rule bans self-promotion gets the help-only version: answer
-  the question, and link only if they ask.
+  the question, disclose without naming or linking the product ("I maintain
+  a plugin too"), and say more only if they ask.
 - Observer runs (someone else's repo): write the drafts for the
   maintainers ("I maintain …").
 

@@ -366,10 +366,12 @@ already).
 
 ## 9. Kill criteria and pivot options
 
-- The v0.1.0 criterion fired on 2026-10-08: 0 of the 150 stars it needed.
-  Its action — stop active investment — now governs feature work: no new
-  features until the first channel has run. Everything below ships and
-  distributes what already exists.
+- The v0.1.0 criterion — fewer than 150 stars AND fewer than 10 public
+  fingerprints, 60 days after the Reddit sequence — can't be confirmed:
+  nobody knows whether that sequence ran, and code search reads small
+  repos as zero. Its stars half has tripped counting from publication (0 of
+  150 by about 2026-10-08), so its stop action governs feature work: no new
+  features until the first channel has run.
 - If v0.4.0 isn't on `main` and submitted to the directory by 2026-11-30,
   stop all other work until it is — the plan can't start.
 - If fewer than 3 of the 10 indie authors re-run `/gap-scan` or the report
@@ -416,8 +418,8 @@ already).
 
 ## Dissent
 
-**Red-team adjustments:** Bigness 11→11, Moat 1→1 (no score changes). The
-red team re-derived every sub-score and found none more than a point off.
+**Red-team adjustments:** Bigness 11→11, Moat 1→1 (no score changes); no
+re-derived sub-score was more than a point off.
 
 - **Fatal, rebutted in part and applied in part: the falsifier's metric
   isn't on the Usage tab.** The publish page lists only totals, but the
@@ -431,17 +433,17 @@ red team re-derived every sub-score and found none more than a point off.
 - **Serious, applied: the kill criteria contradicted the win condition and
   skipped a fired criterion.** The install floor (30, 45 days after going
   live) now sits below the 100-install win bar; persevere and kill share
-  one retention line (10%); the fired v0.1.0 criterion is recorded, and its
-  stop action now governs feature work (section 9).
+  one retention line (10%); the v0.1.0 criterion is recorded — its stars
+  half tripped, its fingerprint half is unmeasurable — and its stop action
+  now governs feature work (section 9).
 - **Serious, applied: the primary channel didn't reach the wedge.** Reports
   on famous repos reach those plugins' users, not indie authors, and an
   unsolicited public score is a cold contact. The primary is now opt-in
   reports for indie authors, published with consent; Reach 4 → 3, total
   17 → 16; famous-repo reports are deferred (section 5).
 - **Serious, applied: two moat-loop steps didn't compound.** Reports are
-  private files and verdict checks are voluntary, so the loop now runs only
-  through reports authors choose to publish, and says it's labor-driven
-  (section 7).
+  private and verdict checks voluntary, so the loop now runs only through
+  reports authors publish, and says it's labor-driven (section 7).
 - **Serious, applied: the pivots couldn't discriminate.** Pivot A's test
   repeated the First-10 plan, and the cohort pivot kept only the checkers
   — close to a restart. The red team's missed pivot, `/gap-scan` as a
@@ -453,9 +455,8 @@ red team re-derived every sub-score and found none more than a point off.
   needs an install from outside plugins; move 5 is marked as the hollow
   route to move 2's point; and the block says there's no cheap path to
   Moat's next band (Verdict).
-- **Serious, applied: no answer to the incumbent.** Base case stated as a
-  reputation asset; the hedge is the dated public record of checked
-  verdicts and outcomes (section 7).
+- **Serious, applied: no answer to the incumbent.** Base case: a reputation
+  asset; hedge: the dated public record of checked verdicts (section 7).
 - **Minor, rebutted: counter-positioning 1 → 0.** The anchor names
   incumbents; the paid one here, DimeADozen, sells the one-shot report a
   free local run undercuts. No band effect.
@@ -478,8 +479,9 @@ the scores compare one-for-one.
   directly.
 - **Adoption since 2026-09-26:** still 0 stars, 0 issues; 10 unique
   cloners in 14 days (was 9); 0 page views (was 15).
-- **Kill criteria:** the v0.1.0 criterion (fewer than 150 stars within 60
-  days, due about 2026-10-08) fired — 0 stars. The v0.2.0 criteria aren't
+- **Kill criteria:** the v0.1.0 criterion's stars half tripped (0 of 150
+  by about 2026-10-08); its fingerprint half can't be measured, and whether
+  the Reddit sequence ran is unknown. The v0.2.0 criteria aren't
   due (the first is 2026-11-15), but they can't start: there is no listing
   to measure.
 - **close-gaps' first idea (skills.sh, success due 2026-10-25) never ran:**
