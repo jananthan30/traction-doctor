@@ -1,8 +1,8 @@
-# Distribution God
+# Traction Doctor
 
 **Point it at any repo. Get an investor-grade strategy report.**
 
-[![validate](https://github.com/jananthan30/distribution-god/actions/workflows/validate.yml/badge.svg)](https://github.com/jananthan30/distribution-god/actions/workflows/validate.yml)
+[![validate](https://github.com/jananthan30/traction-doctor/actions/workflows/validate.yml/badge.svg)](https://github.com/jananthan30/traction-doctor/actions/workflows/validate.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-plugin-blueviolet)](https://code.claude.com/docs/en/plugins)
 [![Codex](https://img.shields.io/badge/Codex-plugin-black)](https://developers.openai.com/codex)
@@ -11,19 +11,19 @@
 **Claude Code**
 
 ```
-/plugin marketplace add jananthan30/distribution-god
-/plugin install distribution-god@distribution-god
+/plugin marketplace add jananthan30/traction-doctor
+/plugin install traction-doctor@traction-doctor
 ```
 
 **OpenAI Codex**
 
 ```
-codex plugin marketplace add jananthan30/distribution-god
-codex plugin add distribution-god@distribution-god
+codex plugin marketplace add jananthan30/traction-doctor
+codex plugin add traction-doctor@traction-doctor
 ```
 
-Then, in the repo you want analyzed, run `/distribution-god` (Codex:
-`$distribution-god:distribution-god`, or just ask for a strategy report).
+Then, in the repo you want analyzed, run `/traction-doctor` (Codex:
+`$traction-doctor:traction-doctor`, or just ask for a strategy report).
 
 A repo-native AI strategist for Claude Code and OpenAI Codex. It reads your
 codebase like a data room — license, dependencies, telemetry, onboarding,
@@ -55,9 +55,10 @@ then red-teams its own answer before showing you.
 
 The verdict on its own repo, unedited — from [STRATEGY.md](STRATEGY.md)
 (v0.1.0 scored itself 17/25; the anchored v0.2.0 rubric said 12; v0.4.0, on
-fresher market inputs, says 11):
+fresher market inputs, says 11). These runs predate the rename in v0.5.0,
+so they say distribution-god:
 
-<img src="assets/strategy-card.svg" alt="Strategy card: distribution-god's own verdict" width="600">
+<img src="assets/strategy-card.svg" alt="Strategy card: its own verdict, run as distribution-god" width="600">
 
 <!-- verdict-table:start -->
 | | |
@@ -81,7 +82,8 @@ projects, each stamped with the commit, date, model, and run mode.
 
 `/close-gaps` run on the 2026-09-26 report
 ([archived](docs/strategy-history/STRATEGY-2026-09-26.md)), unedited — from
-[CLOSE-GAPS.md](CLOSE-GAPS.md) (23 minutes, 83 web calls, parallel mode):
+[CLOSE-GAPS.md](CLOSE-GAPS.md) (23 minutes, 83 web calls, parallel mode; also
+run as distribution-god):
 
 <!-- close-gaps:start -->
 **Do this first**
@@ -124,16 +126,16 @@ STRATEGY.md ──► triage ──► gap-researcher × ≤3 ──► ranking 
 
 | Command | What you get | Time |
 |---|---|---|
-| `/distribution-god` (Codex: `$distribution-god:distribution-god`) | Full run: market + rivals research, distribution plan, gaps, moat, verdict, path to the next band, pivot options → `STRATEGY.md` + `assets/strategy-card.svg`; real first-customer openings with drafted replies → `FIRST-CUSTOMERS.md` (private) | ~15–20 min through the red team (v0.2.0, sequential, four repos), plus about 4 min of prospecting (measured once) |
-| `/close-gaps` (Codex: `$distribution-god:close-gaps`) | After a full run: researches trends, papers, and look-alike products for the report's weakest points → `CLOSE-GAPS.md`, at most five ideas, each with a linked precedent, a one-week test, and a stop signal | ~25 min (measured twice in parallel mode on this repo: 25 and 23 min) |
-| `/gap-scan` (Codex: `$distribution-god:gap-scan`) | Local-only audit of your distribution surface — prioritized gap table in chat | about a minute on a small repo, a few on a large one |
+| `/traction-doctor` (Codex: `$traction-doctor:traction-doctor`) | Full run: market + rivals research, distribution plan, gaps, moat, verdict, path to the next band, pivot options → `STRATEGY.md` + `assets/strategy-card.svg`; real first-customer openings with drafted replies → `FIRST-CUSTOMERS.md` (private) | ~15–20 min through the red team (v0.2.0, sequential, four repos), plus about 4 min of prospecting (measured once) |
+| `/close-gaps` (Codex: `$traction-doctor:close-gaps`) | After a full run: researches trends, papers, and look-alike products for the report's weakest points → `CLOSE-GAPS.md`, at most five ideas, each with a linked precedent, a one-week test, and a stop signal | ~25 min (measured twice in parallel mode on this repo: 25 and 23 min) |
+| `/gap-scan` (Codex: `$traction-doctor:gap-scan`) | Local-only audit of your distribution surface — prioritized gap table in chat | about a minute on a small repo, a few on a large one |
 
-Also usable piecemeal in Claude Code: `@agent-distribution-god:rival-scout`
-("who competes with X and how do they grow"), `@agent-distribution-god:red-team`
-("attack this plan"), `@agent-distribution-god:repo-intel`,
-`@agent-distribution-god:market-scout`, `@agent-distribution-god:customer-scout`
-("find people who need X"), `@agent-distribution-god:gap-researcher`
-("find proven ways to fix X"), `@agent-distribution-god:pragmatist` ("attack
+Also usable piecemeal in Claude Code: `@agent-traction-doctor:rival-scout`
+("who competes with X and how do they grow"), `@agent-traction-doctor:red-team`
+("attack this plan"), `@agent-traction-doctor:repo-intel`,
+`@agent-traction-doctor:market-scout`, `@agent-traction-doctor:customer-scout`
+("find people who need X"), `@agent-traction-doctor:gap-researcher`
+("find proven ways to fix X"), `@agent-traction-doctor:pragmatist` ("attack
 these ideas") — or type `@` and pick the agent from the list.
 
 ### Before you run
@@ -156,13 +158,13 @@ these ideas") — or type `@` and pick the agent from the list.
 - **What it writes.** `STRATEGY.md` and `assets/strategy-card.svg` — plus
   `assets/strategy-card.png` only if you ask for it — and it never commits.
   Files it didn't create are never overwritten: next to your own
-  `STRATEGY.md` it writes `STRATEGY.distribution-god.md`, and next to your
-  own card `assets/strategy-card.distribution-god.svg`. Its own previous
+  `STRATEGY.md` it writes `STRATEGY.traction-doctor.md`, and next to your
+  own card `assets/strategy-card.traction-doctor.svg`. Its own previous
   report and card are archived to `docs/strategy-history/`. `/close-gaps`
-  writes only `CLOSE-GAPS.md` (or `CLOSE-GAPS.distribution-god.md` beside your
+  writes only `CLOSE-GAPS.md` (or `CLOSE-GAPS.traction-doctor.md` beside your
   own file) and archives its previous run the same way. The full run also
   writes `FIRST-CUSTOMERS.md` (beside your own file of that name it writes
-  `FIRST-CUSTOMERS.distribution-god.md`); on a re-run it keeps a
+  `FIRST-CUSTOMERS.traction-doctor.md`); on a re-run it keeps a
   `FIRST-CUSTOMERS.previous.md` copy and carries over your tracker.
 - **What it runs.** Only your client's own tools: it reads files and git
   history, runs `gh repo view` for your repo's GitHub details when `gh` is
@@ -193,21 +195,34 @@ these ideas") — or type `@` and pick the agent from the list.
 Installs are pinned to the plugin version, so pull new releases explicitly:
 
 ```
-claude plugin marketplace update distribution-god && claude plugin update distribution-god@distribution-god
-codex plugin marketplace upgrade && codex plugin add distribution-god@distribution-god
+claude plugin marketplace update traction-doctor && claude plugin update traction-doctor@traction-doctor
+codex plugin marketplace upgrade && codex plugin add traction-doctor@traction-doctor
 ```
+
+Coming from **distribution-god**, this plugin's name before v0.5.0? The
+marketplace was renamed too, so swap it in Claude Code:
+
+```
+claude plugin uninstall distribution-god@distribution-god
+claude plugin marketplace remove distribution-god
+claude plugin marketplace add jananthan30/traction-doctor
+claude plugin install traction-doctor@traction-doctor
+```
+
+In Codex, add it again with the install commands at the top.
 
 ### Install from a clone (Codex fallback)
 
 ```
-git clone https://github.com/jananthan30/distribution-god ~/.distribution-god
-~/.distribution-god/install-codex.sh
+git clone https://github.com/jananthan30/traction-doctor ~/.traction-doctor
+~/.traction-doctor/install-codex.sh
 ```
 
 This links the skills into `~/.agents/skills`; Codex names linked skills
-after the plugin, so invoke `$distribution-god:distribution-god` and
-`$distribution-god:gap-scan`. `--copy` installs a frozen snapshot named
-`$distribution-god` and `$gap-scan`; `--uninstall` removes them. It never
+after the plugin, so invoke `$traction-doctor:traction-doctor` and
+`$traction-doctor:gap-scan`. `--copy` installs a frozen snapshot named
+`$traction-doctor` and `$gap-scan`; `--uninstall` removes them. Both also
+clear out what an install before v0.5.0 left under the old name. It never
 deletes a skill folder it didn't create — anything in the way is moved to
 `~/.agents/skills-backup/`.
 
@@ -217,15 +232,15 @@ deletes a skill folder it didn't create — anything in the way is moved to
   WebSearch and WebFetch (see *Before you run*) and run it again.
 - **A command or agent is missing.** Plugins load when a session starts, so
   start a new session after you install or update. `claude plugin list`
-  should show distribution-god as enabled.
+  should show traction-doctor as enabled.
 - **"Only N openings found".** That's a finding, not a failure: the people
   you want rarely ask in public, so the report leads with an offer to make
   instead of people to reply to.
-- **A file appeared with `.distribution-god` in its name.** It never
+- **A file appeared with `.traction-doctor` in its name.** It never
   overwrites a file it didn't create, so it writes beside yours (for
-  example `STRATEGY.distribution-god.md`).
+  example `STRATEGY.traction-doctor.md`).
 - **Anything else:** open an
-  [issue](https://github.com/jananthan30/distribution-god/issues) with the
+  [issue](https://github.com/jananthan30/traction-doctor/issues) with the
   command you ran and the last lines of its output.
 
 ## What makes the output trustworthy
@@ -261,7 +276,7 @@ deletes a skill folder it didn't create — anything in the way is moved to
 ## Layout
 
 ```
-skills/distribution-god/   orchestrator skill
+skills/traction-doctor/    orchestrator skill
   references/              moats · channel playbooks · AI-era channels ·
                            scoring rubrics · pivot playbook · first customers ·
                            report template · strategy card
@@ -295,7 +310,7 @@ Change it in `.claude-plugin/plugin.json`; the unit tests then list every
 other place it's pinned (`SKILL.md`, [CHANGELOG.md](CHANGELOG.md),
 `llms.txt`, the scoring rubric, the card example) until they all agree. Ran it
 on your repo and the verdict aged well (or badly)? Open a
-[verdict check](https://github.com/jananthan30/distribution-god/issues/new?template=verdict-check.yml).
+[verdict check](https://github.com/jananthan30/traction-doctor/issues/new?template=verdict-check.yml).
 
 ## License
 

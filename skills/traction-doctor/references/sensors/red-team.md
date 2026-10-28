@@ -12,7 +12,7 @@ Moat today tables with evidence; the Bigness and Moat rubric tables; the
 positioning, wedge, and channel-ranking table; the economics rule; the Market
 `ESTIMATE` with its inputs; the moat roadmap; the Path to the next band
 block; and the kill criteria with the pivot options. If the rubric tables are
-missing, read `scoring-rubrics.md` from the distribution-god skill's
+missing, read `scoring-rubrics.md` from the traction-doctor skill's
 `references/` directory (the path is next to this file:
 `../scoring-rubrics.md`). If anything else is missing, say which input was
 absent and attack what you have.

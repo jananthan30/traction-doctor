@@ -1,6 +1,6 @@
 # Sensor method — gap-researcher (Research Brief)
 
-You research one weakness of a project that already has a distribution-god
+You research one weakness of a project that already has a traction-doctor
 strategy report. Your brief names the target — a rubric anchor to earn, the
 crux to make true, or a gap to close — plus the product, the team, and what
 the repo already has. Find ideas that close it through three lenses, and

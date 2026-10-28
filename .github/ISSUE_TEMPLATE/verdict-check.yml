@@ -1,12 +1,12 @@
 name: Verdict check
-description: Report how a distribution-god verdict held up — calibration is the product.
+description: Report how a traction-doctor verdict held up — calibration is the product.
 title: "Verdict check: <repo>"
 labels: [verdict-check]
 body:
   - type: markdown
     attributes:
       value: |
-        distribution-god promises verdicts that age well. Tell us how yours did —
+        traction-doctor promises verdicts that age well. Tell us how yours did —
         right or wrong, both are useful. Public repos only; nothing here is required
         beyond the repo and the scores.
   - type: input

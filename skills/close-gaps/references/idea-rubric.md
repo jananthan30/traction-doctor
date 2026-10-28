@@ -33,7 +33,7 @@ rows the report names under *Buildable powers*; every P0 and P1 gap.
 | Bucket | Test | Goes to |
 |---|---|---|
 | Known fix | The report already names a concrete fix, and doing it is the only blocker: push a branch, submit a form, add a file | *Just do it* — no research |
-| Structural | The outside world sets the score, so only a strategy change moves it. By default: `bigness.market` (the market's size) and `bigness.why_now` (external tailwinds) | *Can't move now* — with what would move it, and "re-run /distribution-god after that change" |
+| Structural | The outside world sets the score, so only a strategy change moves it. By default: `bigness.market` (the market's size) and `bigness.why_now` (external tailwinds) | *Can't move now* — with what would move it, and "re-run /traction-doctor after that change" |
 | Unknown fix | Nobody in the report knows the best way to close it | Research candidate |
 
 **Ranking** — research candidates, highest first:
@@ -51,12 +51,13 @@ Keep the top three. A target the user names replaces the ranking and is
 the only target.
 
 **The target itself.** For a sub-score or Moat row: the next anchor up in
-`../distribution-god/references/scoring-rubrics.md`, quoted. When the
+`../traction-doctor/references/scoring-rubrics.md`, quoted. When the
 report's evidence column says what would earn the higher score, carry that
 sentence into the brief. For the crux: the crux coming true. For a gap: the
 gap closed.
 
-**Worked example.** distribution-god's own report (2026-09-26) scored
+**Worked example.** This plugin's own report (2026-09-26, run as
+distribution-god) scored
 Bigness 12, two points below the 14–19 band. The rubric says Wedge
 sharpness 2→3 needs evidence that authors re-run the tool on each release,
 and Delivery leverage 3→4 needs a way to capture value that exists today.

@@ -1,33 +1,33 @@
-# distribution-god
+# traction-doctor
 
-> Repo-native AI strategist for Claude Code and OpenAI Codex. Point it at any repository and it writes STRATEGY.md — positioning, market and competitor research, a ranked distribution plan, a gap table, a moat roadmap, and a calibrated Bigness /25 and Moat /25 verdict with crux, falsifier, and kill criteria — then the path to the next band (moves labeled outcome or rubric-only) and 1–3 pivot options tied to the kill criteria — plus a shareable strategy-card SVG and a private FIRST-CUSTOMERS.md: real, recent public posts where the target customer asked for what the product does, with drafted, disclosed replies the user sends. Its /close-gaps follow-up researches current trends, papers, and look-alike products for pragmatic, testable fixes to the report's weakest points and writes CLOSE-GAPS.md. MIT licensed. Current version: 0.4.0.
+> Repo-native AI strategist for Claude Code and OpenAI Codex. Point it at any repository and it writes STRATEGY.md — positioning, market and competitor research, a ranked distribution plan, a gap table, a moat roadmap, and a calibrated Bigness /25 and Moat /25 verdict with crux, falsifier, and kill criteria — then the path to the next band (moves labeled outcome or rubric-only) and 1–3 pivot options tied to the kill criteria — plus a shareable strategy-card SVG and a private FIRST-CUSTOMERS.md: real, recent public posts where the target customer asked for what the product does, with drafted, disclosed replies the user sends. Its /close-gaps follow-up researches current trends, papers, and look-alike products for pragmatic, testable fixes to the report's weakest points and writes CLOSE-GAPS.md. MIT licensed. Current version: 0.5.0. Called distribution-god before 0.5.0.
 
-Install in Claude Code: `/plugin marketplace add jananthan30/distribution-god` then `/plugin install distribution-god@distribution-god`, then run `/distribution-god` (full run, needs web access), `/close-gaps` (research fixes for the report's weakest points, needs web access), or `/gap-scan` (a quick local audit, no web research).
+Install in Claude Code: `/plugin marketplace add jananthan30/traction-doctor` then `/plugin install traction-doctor@traction-doctor`, then run `/traction-doctor` (full run, needs web access), `/close-gaps` (research fixes for the report's weakest points, needs web access), or `/gap-scan` (a quick local audit, no web research).
 
-Install in Codex: `codex plugin marketplace add jananthan30/distribution-god` then `codex plugin add distribution-god@distribution-god`; start Codex with `codex --search` for live web research.
+Install in Codex: `codex plugin marketplace add jananthan30/traction-doctor` then `codex plugin add traction-doctor@traction-doctor`; start Codex with `codex --search` for live web research.
 
 ## Docs
 
-- [README](https://github.com/jananthan30/distribution-god/blob/main/README.md): install, usage, what the output contains
-- [Orchestrator skill](https://github.com/jananthan30/distribution-god/blob/main/skills/distribution-god/SKILL.md): phases, execution modes, output contract
-- [Scoring rubrics](https://github.com/jananthan30/distribution-god/blob/main/skills/distribution-god/references/scoring-rubrics.md): Bigness and Moat anchors, bands, calibration rules
-- [Report template](https://github.com/jananthan30/distribution-god/blob/main/skills/distribution-god/references/report-template.md): STRATEGY.md structure
-- [Pivot playbook](https://github.com/jananthan30/distribution-god/blob/main/skills/distribution-god/references/pivot-playbook.md): when to pivot, the ten pivot types, the pivot card
-- [First customers](https://github.com/jananthan30/distribution-god/blob/main/skills/distribution-god/references/first-customers.md): the offer, openings, drafts, and the FIRST-CUSTOMERS.md template
-- [close-gaps skill](https://github.com/jananthan30/distribution-god/blob/main/skills/close-gaps/SKILL.md): the research stage — triage, researchers, pragmatist, output contract
-- [Idea rubric](https://github.com/jananthan30/distribution-god/blob/main/skills/close-gaps/references/idea-rubric.md): target ids, triage, the /20 idea score, top-five rules
-- [Design document](https://github.com/jananthan30/distribution-god/blob/main/docs/DESIGN.md): architecture and decisions
-- [Changelog](https://github.com/jananthan30/distribution-god/blob/main/CHANGELOG.md)
+- [README](https://github.com/jananthan30/traction-doctor/blob/main/README.md): install, usage, what the output contains
+- [Orchestrator skill](https://github.com/jananthan30/traction-doctor/blob/main/skills/traction-doctor/SKILL.md): phases, execution modes, output contract
+- [Scoring rubrics](https://github.com/jananthan30/traction-doctor/blob/main/skills/traction-doctor/references/scoring-rubrics.md): Bigness and Moat anchors, bands, calibration rules
+- [Report template](https://github.com/jananthan30/traction-doctor/blob/main/skills/traction-doctor/references/report-template.md): STRATEGY.md structure
+- [Pivot playbook](https://github.com/jananthan30/traction-doctor/blob/main/skills/traction-doctor/references/pivot-playbook.md): when to pivot, the ten pivot types, the pivot card
+- [First customers](https://github.com/jananthan30/traction-doctor/blob/main/skills/traction-doctor/references/first-customers.md): the offer, openings, drafts, and the FIRST-CUSTOMERS.md template
+- [close-gaps skill](https://github.com/jananthan30/traction-doctor/blob/main/skills/close-gaps/SKILL.md): the research stage — triage, researchers, pragmatist, output contract
+- [Idea rubric](https://github.com/jananthan30/traction-doctor/blob/main/skills/close-gaps/references/idea-rubric.md): target ids, triage, the /20 idea score, top-five rules
+- [Design document](https://github.com/jananthan30/traction-doctor/blob/main/docs/DESIGN.md): architecture and decisions
+- [Changelog](https://github.com/jananthan30/traction-doctor/blob/main/CHANGELOG.md)
 
 ## Examples
 
-- [Self-analysis](https://github.com/jananthan30/distribution-god/blob/main/STRATEGY.md): the tool run on its own repository
-- [Self-prescription](https://github.com/jananthan30/distribution-god/blob/main/CLOSE-GAPS.md): /close-gaps run on its 2026-09-26 strategy report
-- [Example reports](https://github.com/jananthan30/distribution-god/tree/main/examples): runs on other public repositories
+- [Self-analysis](https://github.com/jananthan30/traction-doctor/blob/main/STRATEGY.md): the tool run on its own repository
+- [Self-prescription](https://github.com/jananthan30/traction-doctor/blob/main/CLOSE-GAPS.md): /close-gaps run on its 2026-09-26 strategy report
+- [Example reports](https://github.com/jananthan30/traction-doctor/tree/main/examples): runs on other public repositories
 
 ## Optional
 
-- [Moat frameworks](https://github.com/jananthan30/distribution-god/blob/main/skills/distribution-god/references/moat-frameworks.md)
-- [Channel playbooks](https://github.com/jananthan30/distribution-god/blob/main/skills/distribution-god/references/channel-playbooks.md)
-- [AI-era distribution](https://github.com/jananthan30/distribution-god/blob/main/skills/distribution-god/references/ai-era-distribution.md)
-- [Gap scan skill](https://github.com/jananthan30/distribution-god/blob/main/skills/gap-scan/SKILL.md)
+- [Moat frameworks](https://github.com/jananthan30/traction-doctor/blob/main/skills/traction-doctor/references/moat-frameworks.md)
+- [Channel playbooks](https://github.com/jananthan30/traction-doctor/blob/main/skills/traction-doctor/references/channel-playbooks.md)
+- [AI-era distribution](https://github.com/jananthan30/traction-doctor/blob/main/skills/traction-doctor/references/ai-era-distribution.md)
+- [Gap scan skill](https://github.com/jananthan30/traction-doctor/blob/main/skills/gap-scan/SKILL.md)

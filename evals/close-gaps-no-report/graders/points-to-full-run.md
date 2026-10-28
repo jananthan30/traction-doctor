@@ -1,6 +1,6 @@
 ---
 type: regex
 target: last_message
-pattern: 'distribution-god'
+pattern: 'traction-doctor'
 flags: i
 ---

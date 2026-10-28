@@ -1,6 +1,6 @@
-# Privacy policy — distribution-god
+# Privacy policy — traction-doctor
 
-Effective 2026-10-28. distribution-god is an open-source plugin (skills and
+Effective 2026-10-28. traction-doctor is an open-source plugin (skills and
 agents) for Claude Code and OpenAI Codex. It runs inside your own AI coding
 client, with that client's tools and permission settings.
 
@@ -28,7 +28,7 @@ Only these requests, made by your client's own tools:
 
 The searches and API queries happen during a full run, during `/close-gaps`,
 or when you call one of its research agents directly (for example
-`@agent-distribution-god:rival-scout`). `/gap-scan` does no web research: at
+`@agent-traction-doctor:rival-scout`). `/gap-scan` does no web research: at
 most it reads your repository's GitHub details with `gh`.
 
 Your code is read by your AI client, and your model provider processes it
@@ -71,5 +71,5 @@ The plugin is not intended for people under 18.
 ## Contact and changes
 
 Questions: open an issue at
-<https://github.com/jananthan30/distribution-god/issues>. Changes to this
+<https://github.com/jananthan30/traction-doctor/issues>. Changes to this
 policy are recorded in this file's git history.

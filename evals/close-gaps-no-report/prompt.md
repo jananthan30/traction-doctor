@@ -1,5 +1,5 @@
 ---
-description: With no strategy report in the repo, close-gaps must stop, point to /distribution-god, and write nothing.
+description: With no strategy report in the repo, close-gaps must stop, point to /traction-doctor, and write nothing.
 tags: [close-gaps, preflight]
 runs: 1
 max_turns: 25

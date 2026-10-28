@@ -1,14 +1,17 @@
 {
-  "name": "distribution-god",
+  "name": "traction-doctor",
   "description": "Repo-native AI strategist plugin: point it at any repository and get an investor-grade strategy report — market, rivals, distribution plan, gaps, moat roadmap, path to the next band, pivot options — plus real first-customer openings with drafted replies.",
   "owner": {
     "name": "Jananthan Paramsothy"
   },
   "plugins": [
     {
-      "name": "distribution-god",
+      "name": "traction-doctor",
       "source": "./",
       "description": "Repo-native AI strategist: business strategy, distribution plan, gap analysis, market/competitor research, moat roadmap, pivot options, and first customers for any repository."
     }
-  ]
+  ],
+  "renames": {
+    "distribution-god": "traction-doctor"
+  }
 }

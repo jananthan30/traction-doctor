@@ -1,10 +1,11 @@
 # Example reports
 
-Full distribution-god v0.2.0 runs on public repositories, each unedited and
-stamped with the commit analyzed, the run date, the model, and the mode.
+Full v0.2.0 runs (the plugin was called distribution-god then) on public
+repositories, each unedited and stamped with the commit analyzed, the run
+date, the model, and the mode.
 They are automated analyses from public information only — not affiliated
 with or endorsed by the projects. Every report passes
-`skills/distribution-god/scripts/check_report.py` (CI re-checks them).
+`skills/traction-doctor/scripts/check_report.py` (CI re-checks them).
 
 | Report | Repository | Bigness | Moat today |
 |---|---|---|---|

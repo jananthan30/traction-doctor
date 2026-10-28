@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Seed the tiny quickcsv repo plus a distribution-god STRATEGY.md for it
+# Seed the tiny quickcsv repo plus a v0.2.0 STRATEGY.md for it (from when the
+# plugin was called distribution-god, so close-gaps must accept that name)
 # (a synthetic report that passes check_report.py), so close-gaps has a
 # diagnosis to prescribe for. Keep this file identical across the
 # close-gaps-web and close-gaps-offline cases (tests/test_check_ideas.py).

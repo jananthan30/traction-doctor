@@ -6,7 +6,7 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "${ROOT}"
-SCRIPTS="skills/distribution-god/scripts"
+SCRIPTS="skills/traction-doctor/scripts"
 status=0
 step() { printf '\n== %s\n' "$1"; }
 fail() { echo "FAIL: $1" >&2; status=1; }

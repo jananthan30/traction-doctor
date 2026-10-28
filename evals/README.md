@@ -13,7 +13,7 @@ output.
 | `offline-full-run` | Without web tools the full run still writes a complete `STRATEGY.md` + card with no unfilled slots and five actions, marks sections 2–3 `NOT RESEARCHED`, records `"web": false`, uses the PROVISIONAL headline, still writes the path and pivots, writes a `FIRST-CUSTOMERS.md` whose Openings say `NOT RESEARCHED` and that links no individual post, and gets `check_report.py` to print ok |
 | `close-gaps-web` | With web tools, `/close-gaps` researches (3+ searches), cites at least one paper link, puts the report's known-fix P0 (the missing LICENSE) under *Just do it*, keeps its top ideas specific (LLM-judged), gets `check_ideas.py` to print ok, and creates or edits no other file |
 | `close-gaps-offline` | Without web tools, `/close-gaps` still writes a `CLOSE-GAPS.md` that passes `check_ideas.py`, drawn from the plugin's playbooks: `NOT RESEARCHED` markers, `"web": false`, no links, and the known fix under *Just do it* |
-| `close-gaps-no-report` | With no `STRATEGY.md`, `/close-gaps` stops, points to `/distribution-god`, and writes nothing |
+| `close-gaps-no-report` | With no `STRATEGY.md`, `/close-gaps` stops, points to `/traction-doctor`, and writes nothing |
 
 Run from the repo root (the fixture scripts are ours, so `--scaffold` is safe):
 

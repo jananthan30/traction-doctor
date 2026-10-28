@@ -1,7 +1,7 @@
-# Distribution God — Design Document
+# Traction Doctor — Design Document
 
-**Date:** 2026-08-09 (updated 2026-09-25 for v0.2.0, 2026-09-27 for v0.3.0, 2026-10-28 for v0.4.0)
-**Status:** v0.4.0
+**Date:** 2026-08-09 (updated 2026-09-25 for v0.2.0, 2026-09-27 for v0.3.0, 2026-10-28 for v0.4.0 and v0.5.0)
+**Status:** v0.5.0
 
 ## What it is
 
@@ -48,7 +48,7 @@ sensor methods run as generic sub-agents or in sequence).
 ### Architecture (chosen)
 
 ```
-                    /distribution-god  (skill = orchestrator)
+                    /traction-doctor   (skill = orchestrator)
                             |
         +-------------------+-------------------+
         v                   v                   v
@@ -76,10 +76,10 @@ the red team is the check.** Synthesis stays where full context lives.
 
 ## Components
 
-- `skills/distribution-god/SKILL.md` — orchestrator: phases, execution modes
+- `skills/traction-doctor/SKILL.md` — orchestrator: phases, execution modes
   (`parallel` / `generic-subagents` / `sequential`), red-team disposition,
   output contract.
-- `skills/distribution-god/references/` — the actual IP:
+- `skills/traction-doctor/references/` — the actual IP:
   - `moat-frameworks.md` — 7 Powers mapped to software reality, moat sequencing
   - `channel-playbooks.md` — channel–product-fit matrix by product type
   - `ai-era-distribution.md` — GEO, agent-installability, 2026 channels
@@ -93,12 +93,12 @@ the red team is the check.** Synthesis stays where full context lives.
     re-runs, and the FIRST-CUSTOMERS.md template
   - `sensors/` — the method for each sensor, the red team and the customer
     scout; the single source of truth for every mode
-- `skills/distribution-god/scripts/` — `strategy_card.py` renders the card
+- `skills/traction-doctor/scripts/` — `strategy_card.py` renders the card
   from JSON (escaping, width budgets, rubric bands); `check_report.py` lints
   STRATEGY.md against the contract (version-gated: each report is held to
   the contract of the version that wrote it); `check_customers.py` lints
   FIRST-CUSTOMERS.md, including privacy.
-- `skills/distribution-god/assets/strategy-card.template.svg` — card template.
+- `skills/traction-doctor/assets/strategy-card.template.svg` — card template.
 - `skills/gap-scan/SKILL.md` — fast local-only gap check (no web), for iteration.
 - `skills/close-gaps/` (v0.3.0) — the research stage. `SKILL.md` orchestrates
   triage → one `gap-researcher` per weakness → ranking → `pragmatist`;
@@ -187,6 +187,17 @@ Full design: `docs/superpowers/specs/2026-10-28-action-sections-design.md`.
   venues, never posts; the people live in FIRST-CUSTOMERS.md, which the
   user is told to gitignore. The checker rejects contact details, unlinked
   or undated openings, and drafts that don't disclose authorship.
+
+### Decisions added in v0.5.0
+
+- **Renamed to traction-doctor** (the owner's call, 2026-10-28), before
+  the directory submission: nothing depended on the old name yet, and a
+  submission can't change its repository later.
+- **Old files stay valid.** A fingerprint names the plugin as it was at
+  the stamped version. `tool_for()` in `strategy_card.py` is that one rule,
+  and the report, card, people-file and idea checkers all use it. Dated
+  records (the self-reports, examples and archives) keep the old name,
+  and the `dg` and `cg` data lines keep their keys.
 
 ## Non-negotiable product values
 

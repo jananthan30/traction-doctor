@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
-# Install distribution-god skills into OpenAI Codex (Agent Skills standard).
+# Install traction-doctor skills into OpenAI Codex (Agent Skills standard).
 #
 # Preferred: Codex's native plugin install (see README), which needs no clone.
 # This script is the fallback for a local clone: it links (or copies) the
 # skills into ~/.agents/skills, where every Codex session discovers them.
 # Codex follows a link back into this clone, sees .claude-plugin/ above it, and
-# names the skills $distribution-god:distribution-god / $distribution-god:gap-scan /
-# $distribution-god:close-gaps; a --copy has no manifest above it, so its names
-# are $distribution-god / $gap-scan / $close-gaps. close-gaps reads files from
-# the distribution-god skill next to it, so the skills install together.
+# names the skills $traction-doctor:traction-doctor / $traction-doctor:gap-scan /
+# $traction-doctor:close-gaps; a --copy has no manifest above it, so its names
+# are $traction-doctor / $gap-scan / $close-gaps. close-gaps reads files from
+# the traction-doctor skill next to it, so the skills install together.
 #
 # It only ever replaces or removes entries it created itself: a symlink into
 # this clone, or a copy carrying the marker file below. Anything else already
@@ -19,8 +19,12 @@ set -euo pipefail
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TARGET_DIR="${HOME}/.agents/skills"
 BACKUP_DIR="${HOME}/.agents/skills-backup"
-SKILLS=(distribution-god gap-scan close-gaps)
-MARKER=".installed-by-distribution-god"
+SKILLS=(traction-doctor gap-scan close-gaps)
+MARKER=".installed-by-traction-doctor"
+# Before 0.5.0 the plugin was distribution-god: an earlier install left its
+# orchestrator under that name, and its copies carry the old marker.
+FORMER_SKILL="distribution-god"
+FORMER_MARKER=".installed-by-distribution-god"
 
 usage() {
   cat <<'EOF'
@@ -52,7 +56,7 @@ owned() {
   if [[ -L "${dst}" ]]; then
     [[ "$(readlink "${dst}")" == "${REPO_DIR}/skills/"* ]]
   else
-    [[ -f "${dst}/${MARKER}" ]]
+    [[ -f "${dst}/${MARKER}" || -f "${dst}/${FORMER_MARKER}" ]]
   fi
 }
 
@@ -74,6 +78,16 @@ clear_target() {
   fi
 }
 
+# Remove the orchestrator an install before 0.5.0 left under the old name, if
+# this script made it; anything else under that name is left alone.
+clear_former() {
+  local dst="${TARGET_DIR}/${FORMER_SKILL}"
+  if [[ -e "${dst}" || -L "${dst}" ]] && owned "${dst}"; then
+    rm -rf "${dst}"
+    echo "removed ${dst} (the plugin's name before 0.5.0)"
+  fi
+}
+
 if [[ "${mode}" == "uninstall" ]]; then
   for skill in "${SKILLS[@]}"; do
     dst="${TARGET_DIR}/${skill}"
@@ -81,10 +95,12 @@ if [[ "${mode}" == "uninstall" ]]; then
       clear_target "${dst}" uninstall && echo "removed ${dst}"
     fi
   done
+  clear_former
   exit 0
 fi
 
 mkdir -p "${TARGET_DIR}"
+clear_former
 
 for skill in "${SKILLS[@]}"; do
   src="${REPO_DIR}/skills/${skill}"
@@ -104,10 +120,10 @@ done
 # The dollar signs are literal Codex invocation syntax, not shell expansions.
 # shellcheck disable=SC2016
 if [[ "${mode}" == "copy" ]]; then
-  full='$distribution-god' scan='$gap-scan' gaps='$close-gaps'
+  full='$traction-doctor' scan='$gap-scan' gaps='$close-gaps'
 else
-  full='$distribution-god:distribution-god' scan='$distribution-god:gap-scan'
-  gaps='$distribution-god:close-gaps'
+  full='$traction-doctor:traction-doctor' scan='$traction-doctor:gap-scan'
+  gaps='$traction-doctor:close-gaps'
 fi
 printf '\nDone. In Codex, invoke with:\n  %-36s full strategist run (needs web access)\n  %-36s fast local-only gap audit\n  %-36s research fixes for the weakest points in STRATEGY.md (needs web access)\n' \
   "${full}" "${scan}" "${gaps}"
