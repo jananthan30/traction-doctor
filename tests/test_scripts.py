@@ -289,6 +289,21 @@ class CheckReportTests(unittest.TestCase):
         self.assertCaught(errors, "shows Bigness 13.*re-render")
         self.assertCaught(errors, "Market headroom shows 3/5")
 
+    def test_malformed_version_is_an_error(self):
+        text = self.text.replace('{"v":"0.4.0"', '{"v":"dev"').replace(
+            "distribution-god v0.4.0", "distribution-god vdev")
+        self.report.write_text(text)
+        self.assertCaught(check_report.check(self.report)[0], "dg.v must be the plugin version")
+
+    def test_line_budget_follows_the_report_version(self):
+        # 480 lines: over the old 450 budget, under v0.4's 500.
+        padded = self.text.replace("## Sources", "\n" * (480 - self.text.count("\n")) + "## Sources")
+        self.report.write_text(padded)
+        self.assertFalse(any("lines;" in w for w in check_report.check(self.report)[1]))
+        self.report.write_text(padded.replace('{"v":"0.4.0"', '{"v":"0.3.0"').replace(
+            "distribution-god v0.4.0", "distribution-god v0.3.0"))
+        self.assertTrue(any("~450" in w for w in check_report.check(self.report)[1]))
+
 
 class ArithmeticTests(unittest.TestCase):
     CASES = [  # (text, should_pass) — includes the reviewers' reproductions

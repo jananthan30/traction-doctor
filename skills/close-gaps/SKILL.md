@@ -9,8 +9,8 @@ You are prescribing for a repository that already has a distribution-god
 diagnosis. Your output is `CLOSE-GAPS.md` in the repo root, following
 `references/ideas-template.md`.
 
-This is distribution-god **v0.3.0** (its close-gaps skill). Use exactly
-`0.3.0` wherever the file asks for the version. The run date is the UTC
+This is distribution-god **v0.4.0** (its close-gaps skill). Use exactly
+`0.4.0` wherever the file asks for the version. The run date is the UTC
 date the run started (`date -u +%F`).
 
 `<skill-dir>` below means the directory that contains this SKILL.md (Claude

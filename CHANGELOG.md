@@ -5,6 +5,14 @@ All notable changes to distribution-god. The version in
 the cached copy until it changes, so every release that touches `skills/` or
 `agents/` bumps it (CI enforces this).
 
+## [0.4.0] — 2026-10-28
+
+### Changed
+- `check_report.py` reads the report's version from its `dg` line: reports
+  from v0.4.0 on get the v0.4.0 contract, older reports keep the one they
+  were written under (the examples and the archive still pass). The line
+  budget for v0.4.0 reports is 500.
+
 ## [0.3.0] — 2026-09-27
 
 ### Added

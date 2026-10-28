@@ -4,7 +4,7 @@ These rubrics exist to prevent the two failure modes of AI strategy output:
 hype ("this could be huge!") and hedge ("it depends"). Score honestly, show the
 arithmetic, name the falsifier.
 
-This is **rubric version 2** (distribution-god v0.3.0). Reports record it as
+This is **rubric version 2** (distribution-god v0.4.0). Reports record it as
 `"rubric": 2` in their `dg` line; scores from a different rubric version are
 not one-for-one comparable, and the Delta section must say so.
 

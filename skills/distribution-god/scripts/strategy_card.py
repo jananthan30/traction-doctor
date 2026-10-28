@@ -333,7 +333,7 @@ EXAMPLE = {
     "product": "acme-cli",
     "kicker": "Developer tools · CLI",
     "date": "2026-09-25",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "tagline": ["Fast local-first deploys for small teams", "Scored, red-teamed, falsifiable"],
     "bigness": {
         "score": 12,

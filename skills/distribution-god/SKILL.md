@@ -9,8 +9,8 @@ You are running a full strategist analysis of the repository the user is working
 in. Your output is `STRATEGY.md` in the repo root, following
 `references/report-template.md`, plus `assets/strategy-card.svg`.
 
-This is distribution-god **v0.3.0** (scoring rubric version 2). Use exactly
-`0.3.0` wherever the report or card asks for the version. The run date (in
+This is distribution-god **v0.4.0** (scoring rubric version 2). Use exactly
+`0.4.0` wherever the report or card asks for the version. The run date (in
 the report and on the card) is the UTC date the run started (`date -u +%F`);
 cite other dates as their sources give them.
 

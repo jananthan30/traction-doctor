@@ -8,12 +8,12 @@ report that still passes.
 
 **Blocked by:** None (can start immediately).
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] A v0.2.0 or v0.3.0 report passes exactly as before (examples, the
+- [x] A v0.2.0 or v0.3.0 report passes exactly as before (examples, the
       self-report, the archive)
-- [ ] The fixture is stamped v0.4.0 (report, card re-rendered from its JSON)
+- [x] The fixture is stamped v0.4.0 (report, card re-rendered from its JSON)
       and passes
-- [ ] A test proves a pre-0.4 report skips the v0.4 checks
-- [ ] Every version pin agrees on 0.4.0 (`test_versions_agree`)
-- [ ] Line budget is 500 for v0.4 reports
+- [x] A test proves a pre-0.4 report skips the v0.4 checks
+- [x] Every version pin agrees on 0.4.0 (`test_versions_agree`)
+- [x] Line budget is 500 for v0.4 reports
