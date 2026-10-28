@@ -63,7 +63,7 @@ valid example.
 | `product` | Product name | ≤ 28 chars |
 | `kicker` | Context, e.g. `Developer tools · CLI` or `The tool analyzed its own repo` (uppercased for you) | ≤ 33 chars |
 | `date` | The run's UTC date — the same date as the report's `dg` line (shown in the footer) | `YYYY-MM-DD` |
-| `version` | This plugin's version — the `v…` stated at the top of `SKILL.md` | `0.2.0` |
+| `version` | This plugin's version — the `v…` stated at the top of `SKILL.md` | `MAJOR.MINOR.PATCH` |
 | `tagline` | 2 lines: what it is · the sharpest claim | ≤ 70 / 62 chars |
 | `bigness.score` | Headline Bigness /25 — must equal the sum of `breakdown` | 0–25 |
 | `bigness.confidence` | `High` / `Medium` / `Low` (Low renders `LOW · PROVISIONAL`) | — |
