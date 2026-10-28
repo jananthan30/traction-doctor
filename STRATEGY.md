@@ -474,9 +474,8 @@ the scores compare one-for-one.
     sensitivity note predicted this drop.
   - Why-now 3 → 3, Wedge 2 → 2, Expansion 3 → 3, Delivery 3 → 3.
 - **Moat 1 → 1.**
-- **Crux:** unchanged (recurring use). **Falsifier:** sharpened — the
-  directory's Usage tab now documents run counts, which measure re-use
-  directly.
+- **Crux:** unchanged (recurring use). **Falsifier:** now testable before
+  any listing (ten authors' next releases), then Usage-tab retention.
 - **Adoption since 2026-09-26:** still 0 stars, 0 issues; 10 unique
   cloners in 14 days (was 9); 0 page views (was 15).
 - **Kill criteria:** the v0.1.0 criterion's stars half tripped (0 of 150
