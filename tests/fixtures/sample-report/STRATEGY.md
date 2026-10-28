@@ -32,6 +32,17 @@
 A real pain in a crowded field. Keep it small and profitable unless retention
 proves the crux.
 
+**Path to the next band:** Bigness 12 → 14 (Strong business possible) needs +2 · Moat 2 → 5 (Early edge) needs +3
+
+| # | Move | Raises | Now → next | The next point needs | Kind | Effort |
+|---|---|---|---|---|---|---|
+| 1 | Replace the manual setup doc with one `acme init` command | Delivery leverage | 2 → 3 | "Standard SaaS/library economics" — install to first deploy with no human step | outcome | S |
+| 2 | Get 3 Rust edge teams outside the author's network deploying weekly | Wedge sharpness | 3 → 4 | "requests or threads from at least 3 different people or orgs" — their issues or posts, linked | outcome | M |
+| 3 | Publish the offline-deploy benchmark in This Week in Rust | Brand / category ownership | 0 → 1 | "Recognized in one niche community" — the newsletter item, linked | outcome | S |
+| 4 | Open GitHub Discussions | Network economies | 0 → 1 | "Users interact, but value doesn't grow with count" — threads, but no user gains from another | rubric-only | S |
+
+**Locked by caps:** Wedge sharpness stays at 3 until people in the wedge other than the author use it; Delivery leverage can't pass 3 without value capture that exists today (no billing code).
+
 ## 1. What the repo says (product intelligence)
 
 - **Product:** a deploy CLI (`src/main.rs:1`)

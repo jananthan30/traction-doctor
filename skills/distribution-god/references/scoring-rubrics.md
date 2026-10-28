@@ -137,6 +137,44 @@ release cadence rivals demonstrably can't match).
 - **10–16 — Real moat forming**
 - **17–25 — Durable moat**
 
+## Path to the next band
+
+The scores are the diagnosis; this is the prescription the report puts right
+under them (the **Path to the next band** block in `## Verdict`). It changes
+no score: Bigness and Moat stay as scored today, and `check_report.py`
+checks the block against them.
+
+1. **Gap arithmetic.** For Bigness and for Moat: the next band's floor minus
+   today's total, written `Bigness 12 → 14 (Strong business possible) needs
+   +2`. In a top band, write `Bigness 21 — top band: <what would lose it>`.
+2. **Moves.** 2–5 moves, cheapest per point first, each aimed at one
+   sub-score's next anchor. Quote the anchor text the move would satisfy and
+   name the evidence that would prove it. Draw them from the report's own
+   evidence column ("4 needs…"), its gaps and its moat roadmap, then check
+   each against the anchor, not against intuition. Raise Bigness dimensions
+   and Moat rows by their exact names (at least one of each unless that score
+   is already in its top band).
+3. **Kind.** Label every move:
+   - `outcome` — it earns the point by changing users, retention, revenue, or
+     defensibility: people in the wedge using it, a tier someone pays for, a
+     published comparison that names the product.
+   - `rubric-only` — it meets the anchor's wording without changing any of
+     those. Example: a `FUNDING.yml` lifts Delivery leverage's cap but brings
+     no user. Keep one only when it is nearly free, and say what it doesn't
+     do.
+
+   At least one move must be `outcome`. If every cheap move is
+   `rubric-only`, that is score gaming: say there is no cheap path to the
+   next band instead.
+4. **Caps.** On a `**Locked by caps:**` line, name each cap that binds a
+   score today and what would unlock it: Wedge sharpness ≤ 3 without
+   evidence from the wedge ICP itself; Delivery leverage ≤ 3 without value
+   capture that exists today. Write `none` when no cap binds.
+5. **No projected totals.** Never add the moves' lifts into a projected score
+   or band ("these would make it 15/25") — not in the block, not elsewhere in
+   the report, not on the card, never in the `dg` line. A point is earned
+   when its evidence exists, and the next run scores it.
+
 ## Gap severity
 
 - **P0** — blocks the PRIMARY channel. The distribution plan cannot start.

@@ -289,6 +289,75 @@ class CheckReportTests(unittest.TestCase):
         self.assertCaught(errors, "shows Bigness 13.*re-render")
         self.assertCaught(errors, "Market headroom shows 3/5")
 
+    # --- v0.4.0: Path to the next band ---------------------------------------
+
+    def test_path_block_is_required_from_v04(self):
+        errors = self.errors_after("**Path to the next band:**", "**Next steps:**")
+        self.assertCaught(errors, "needs a '\\*\\*Path to the next band:\\*\\*' block")
+
+    def as_version(self, text: str, version: str) -> str:
+        """The report re-stamped as another version, with its card re-rendered to match."""
+        data = json.loads((self.tmp / "card.json").read_text())
+        data["version"] = version
+        (self.tmp / "assets" / "strategy-card.svg").write_text(strategy_card.render_svg(data))
+        return text.replace('{"v":"0.4.0"', f'{{"v":"{version}"').replace(
+            "distribution-god v0.4.0", f"distribution-god v{version}")
+
+    def test_pre_v04_report_skips_the_action_checks(self):
+        start = self.text.index("**Path to the next band:**")
+        end = self.text.index("\n", self.text.index("**Locked by caps:**"))
+        self.report.write_text(self.as_version(self.text[:start] + self.text[end:], "0.3.0"))
+        self.assertEqual(check_report.check(self.report)[0], [])
+
+    def test_path_gap_arithmetic(self):
+        self.assertCaught(self.errors_after("needs +2", "needs +3"), "Bigness arithmetic is off")
+        self.assertCaught(self.errors_after("Moat 2 → 5 (Early edge)", "Moat 2 → 10 (Real moat forming)"),
+                          "Moat arithmetic is off.*Moat 2 → 5 \\(Early edge\\) needs \\+3")
+
+    def test_path_move_starts_at_todays_score_and_raises_it(self):
+        self.assertCaught(self.errors_after("| Wedge sharpness | 3 → 4 |", "| Wedge sharpness | 2 → 3 |"),
+                          "Wedge sharpness is 3 today, not 2")
+        self.assertCaught(self.errors_after("| Wedge sharpness | 3 → 4 |", "| Wedge sharpness | 3 → 3 |"),
+                          "must raise the score")
+
+    def test_path_move_names_a_real_rubric_row(self):
+        self.assertCaught(self.errors_after("| Wedge sharpness | 3 → 4 |", "| Wedge | 3 → 4 |"),
+                          "not a Bigness dimension or Moat row")
+
+    def test_path_kinds_are_honest_labels(self):
+        self.assertCaught(self.errors_after("| outcome | M |", "| vibes | M |"), "Kind must be")
+        self.report.write_text(self.text.replace("| outcome |", "| rubric-only |"))
+        self.assertCaught(check_report.check(self.report)[0], "score gaming")
+
+    def test_path_needs_a_bigness_and_a_moat_move(self):
+        text = self.text.replace("| Brand / category ownership | 0 → 1 |", "| Expansion path | 2 → 3 |").replace(
+            "| Network economies | 0 → 1 |", "| Market headroom | 2 → 3 |")
+        self.report.write_text(text)
+        self.assertCaught(check_report.check(self.report)[0], "raises a Moat row")
+
+    def test_path_rows_cannot_spoof_the_verdict_tables(self):
+        # The breakdown and Verdict checks key on a row's first cell; a move
+        # row must start with its number so it can never be read as one of them.
+        errors = self.errors_after("| 4 | Open GitHub Discussions |", "| Total | Open GitHub Discussions |")
+        self.assertCaught(errors, "must start with a move number")
+
+    def test_path_projects_no_total(self):
+        errors = self.errors_after("— their issues or posts, linked", "— which would make it 14/25")
+        self.assertCaught(errors, "must not project a total")
+
+    def test_path_ends_with_the_caps_line(self):
+        self.assertCaught(self.errors_after("**Locked by caps:**", "**Caps:**"), "Locked by caps")
+
+    def test_path_in_a_top_band(self):
+        dg = {"bigness": 21, "moat": 2, "subs": {"market": 5, "why_now": 4, "wedge": 4, "expansion": 4,
+                                                  "delivery": 4},
+              "moat_rows": {"network": 0, "switching": 1, "scale_data": 0, "brand": 0, "cornered_counter": 1}}
+        block = ("**Path to the next band:** Bigness 21 → 25 (Venture-scale possible) needs +4 · "
+                 "Moat 2 → 5 (Early edge) needs +3\n")
+        self.assertTrue(any("top band" in e for e in check_report.path_errors(block, dg)))
+        self.assertIsNone(check_report.next_band(21, strategy_card.BIGNESS_BANDS))
+        self.assertEqual(check_report.next_band(4, strategy_card.MOAT_BANDS), (5, "Early edge"))
+
     def test_malformed_version_is_an_error(self):
         text = self.text.replace('{"v":"0.4.0"', '{"v":"dev"').replace(
             "distribution-god v0.4.0", "distribution-god vdev")
@@ -300,8 +369,7 @@ class CheckReportTests(unittest.TestCase):
         padded = self.text.replace("## Sources", "\n" * (480 - self.text.count("\n")) + "## Sources")
         self.report.write_text(padded)
         self.assertFalse(any("lines;" in w for w in check_report.check(self.report)[1]))
-        self.report.write_text(padded.replace('{"v":"0.4.0"', '{"v":"0.3.0"').replace(
-            "distribution-god v0.4.0", "distribution-god v0.3.0"))
+        self.report.write_text(self.as_version(padded, "0.3.0"))
         self.assertTrue(any("~450" in w for w in check_report.check(self.report)[1]))
 
 

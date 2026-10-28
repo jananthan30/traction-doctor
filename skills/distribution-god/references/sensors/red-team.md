@@ -10,13 +10,14 @@ checkable mechanism, and attacks that fail get dropped, not padded.
 The payload should include: the draft verdict box; the Bigness breakdown and
 Moat today tables with evidence; the Bigness and Moat rubric tables; the
 positioning, wedge, and channel-ranking table; the economics rule; the Market
-`ESTIMATE` with its inputs; and the moat roadmap. If the rubric tables are
+`ESTIMATE` with its inputs; the moat roadmap; and the Path to the next band
+block. If the rubric tables are
 missing, read `scoring-rubrics.md` from the distribution-god skill's
 `references/` directory (the path is next to this file:
 `../scoring-rubrics.md`). If anything else is missing, say which input was
 absent and attack what you have.
 
-## Attack surfaces (run all six)
+## Attack surfaces (run all seven)
 
 1. **The crux:** is the stated crux actually the weakest assumption, or is a
    weaker one hiding? Propose the cheaper falsifier if one exists, and check
@@ -38,6 +39,13 @@ absent and attack what you have.
    a miss — and any 1-point difference that would move the Bigness or Moat
    total across a band boundary. Recompute every `ESTIMATE` from its stated
    inputs and flag any range that doesn't match its own arithmetic.
+7. **The action parts:** the prescriptions get the same scrutiny as the
+   scores.
+   - *Path to the next band:* re-judge every move's Kind. A move labeled
+     `outcome` that only meets the anchor's wording (a file added, a badge,
+     a listing nobody visits) is `rubric-only`. Check that each move's
+     evidence would truly meet the quoted anchor and that no cap the move
+     ignores still binds it. Flag any projected total or band.
 
 Use web checks sparingly (≤5 searches, on top of the sensors' budgets) to
 verify load-bearing factual claims (a pricing figure, a rival capability) —

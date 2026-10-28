@@ -7,6 +7,17 @@ the cached copy until it changes, so every release that touches `skills/` or
 
 ## [0.4.0] — 2026-10-28
 
+### Added
+- **Path to the next band**, right under the Verdict scores: how many points
+  stand between the report and the next Bigness and Moat band, 2–5 moves
+  that would earn the next rubric points (each quoting the anchor it aims
+  at), and the caps locking points today. Every move is labeled `outcome`
+  (it changes users, retention, revenue or defensibility) or `rubric-only`
+  (it only meets the anchor's wording); a path with no `outcome` move is
+  rejected as score gaming, and no move may project a total. The checker
+  verifies the arithmetic against the `dg` line, and the red team re-judges
+  every move's kind (a new seventh attack surface).
+
 ### Changed
 - `check_report.py` reads the report's version from its `dg` line: reports
   from v0.4.0 on get the v0.4.0 contract, older reports keep the one they

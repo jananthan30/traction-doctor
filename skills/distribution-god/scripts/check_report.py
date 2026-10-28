@@ -11,6 +11,11 @@ Checks that the report is complete and internally consistent:
   - every rival row has a source; exactly one PRIMARY channel; five actions;
     a red-team record in Dissent
   - the linked strategy card exists, parses, and shows the same scores
+  - from v0.4.0 (read off the dg line; older reports keep their contract):
+    the Verdict's Path to the next band states the gap to each next band
+    correctly, and its 2–5 moves start at today's scores, raise real rubric
+    rows, are labeled outcome or rubric-only (at least one outcome), and
+    project no total
 
 Usage:
   python3 check_report.py STRATEGY.md [more reports...]
@@ -332,6 +337,111 @@ def version_tuple(v) -> tuple[int, int, int] | None:
     return tuple(int(x) for x in m.groups()) if m else None
 
 
+# --- Path to the next band (v0.4.0+) -----------------------------------------
+
+PATH_KINDS = ("outcome", "rubric-only")
+ARROW = r"\s*(?:→|->)\s*"
+
+
+def next_band(score: int, bands: list[tuple[int, str]]) -> tuple[int, str] | None:
+    """The band above `score` as (floor, label), or None in the top band."""
+    above = [(floor, label) for floor, label in bands if floor > score]
+    return min(above) if above else None
+
+
+def path_errors(verdict: str, dg: dict) -> list[str]:
+    """The Verdict's Path to the next band block: its gap arithmetic matches
+    the dg line, every move starts at today's score and names a real rubric
+    row, kinds are honest labels, and no projected total sneaks in."""
+    head = re.search(r"^\*\*Path to the next band:?\*\*:?[ \t]*(?P<rest>.*)$", verdict, re.M)
+    if not head:
+        return ["## Verdict needs a '**Path to the next band:**' block under the scores"]
+    problems = []
+    caps = re.search(r"^\*\*Locked by caps:?\*\*:?[ \t]*\S.*$", verdict[head.end():], re.M)
+    block = verdict[head.start(): head.end() + caps.end()] if caps else verdict[head.start():]
+    if not caps:
+        problems.append("the path block must end with a '**Locked by caps:**' line (or 'none')")
+    rest = head.group("rest")
+    for name, total, bands in (("Bigness", dg["bigness"], BIGNESS_BANDS), ("Moat", dg["moat"], MOAT_BANDS)):
+        nb = next_band(total, bands)
+        if nb is None:
+            top = re.search(rf"\b{name}\s+(\d+)\s*[—–-]+\s*top band", rest, re.I)
+            if not top or int(top.group(1)) != total:
+                problems.append(f"{name} {total} is in its top band: the path line must say "
+                                f"'{name} {total} — top band: …'")
+            continue
+        want = f"'{name} {total} → {nb[0]} ({nb[1]}) needs +{nb[0] - total}'"
+        m = re.search(rf"\b{name}\s+(\d+){ARROW}(\d+)\s*\(([^)]+)\)\s*needs\s*\+\s*(\d+)", rest)
+        if not m:
+            problems.append(f"the path line must state {want}")
+        elif (int(m.group(1)), int(m.group(2)), m.group(3).strip(), int(m.group(4))) != (
+                total, nb[0], nb[1], nb[0] - total):
+            problems.append(f"the path line's {name} arithmetic is off: it should read {want}")
+    if re.search(r"\b\d{1,2}\s*/\s*25\b", block):
+        problems.append("the path block must not project a total (…/25): a point counts once its "
+                        "evidence exists, and the next run scores it")
+
+    moves = [t for t in tables(block) if t and any(c.replace("*", "").strip().lower() == "raises"
+                                                     for c in t[0])]
+    if not moves:
+        return problems + ["the path block needs its moves table (columns #, Move, Raises, "
+                           "Now → next, The next point needs, Kind, Effort)"]
+    header = [c.replace("*", "").strip().lower() for c in moves[0][0]]
+
+    def col(prefix: str) -> int | None:
+        return next((i for i, c in enumerate(header) if c.startswith(prefix)), None)
+
+    idx = {k: col(k) for k in ("raises", "now", "the next point", "kind", "effort")}
+    if None in idx.values():
+        missing = [k for k, v in idx.items() if v is None]
+        return problems + [f"the path table is missing columns: {', '.join(missing)}"]
+    rows = moves[0][1:]
+    if not 2 <= len(rows) <= 5:
+        problems.append(f"the path table needs 2–5 moves (found {len(rows)})")
+    raised, kinds = set(), []
+    for r in rows:
+        cell = lambda k: r[idx[k]].strip() if idx[k] < len(r) else ""  # noqa: E731
+        num = r[0].strip()
+        if not re.fullmatch(r"\d+", num):
+            problems.append(f"path table rows must start with a move number, not {num[:30]!r}")
+            continue
+        target = cell("raises").replace("*", "").strip()
+        if target in SUB_KEYS:
+            today, raised_kind = dg["subs"].get(SUB_KEYS[target]), "bigness"
+        elif target in MOAT_ROWS:
+            today, raised_kind = dg["moat_rows"].get(MOAT_ROWS[target]), "moat"
+        else:
+            problems.append(f"path move {num} raises {target!r}, which is not a Bigness dimension "
+                            "or Moat row (use the exact name)")
+            continue
+        raised.add(raised_kind)
+        step = re.fullmatch(rf"(\d){ARROW}(\d)", cell("now").replace("*", ""))
+        if not step:
+            problems.append(f"path move {num}: 'Now → next' must read like '2 → 3'")
+        else:
+            a, b = int(step.group(1)), int(step.group(2))
+            if a != today:
+                problems.append(f"path move {num}: {target} is {today} today, not {a}")
+            if not a < b <= 5:
+                problems.append(f"path move {num}: {a} → {b} must raise the score, to at most 5")
+        if not cell("the next point"):
+            problems.append(f"path move {num}: quote the anchor the move would meet")
+        kind = cell("kind").strip("`*_ ").lower()
+        kinds.append(kind)
+        if kind not in PATH_KINDS:
+            problems.append(f"path move {num}: Kind must be 'outcome' or 'rubric-only', not {kind!r}")
+        if cell("effort").strip("*") not in ("S", "M", "L"):
+            problems.append(f"path move {num}: Effort must be S, M or L")
+    if kinds and "outcome" not in kinds:
+        problems.append("every path move is rubric-only: that's score gaming — add an outcome move "
+                        "or say there is no cheap path")
+    if next_band(dg["bigness"], BIGNESS_BANDS) and "bigness" not in raised:
+        problems.append("the path needs at least one move that raises a Bigness dimension")
+    if next_band(dg["moat"], MOAT_BANDS) and "moat" not in raised:
+        problems.append("the path needs at least one move that raises a Moat row")
+    return problems
+
+
 # --- The check ---------------------------------------------------------------
 
 def check(path: Path) -> tuple[list[str], list[str]]:
@@ -450,6 +560,11 @@ def check(path: Path) -> tuple[list[str], list[str]]:
 
     check_breakdown(verdict, SUB_KEYS, "subs", "bigness", "Bigness breakdown")
     check_breakdown(section(text, r"## 7\. Moat roadmap"), MOAT_ROWS, "moat_rows", "moat", "Moat today")
+
+    # v0.4.0+: the action parts.
+    dg_ok = (scores_ok and isinstance(dg.get("subs"), dict) and isinstance(dg.get("moat_rows"), dict))
+    if v4 and dg_ok:
+        errors.extend(path_errors(verdict, dg))
 
     # Unfilled template slots (autolinks like <https://…> are fine).
     errors.extend(unfilled_slots(text))

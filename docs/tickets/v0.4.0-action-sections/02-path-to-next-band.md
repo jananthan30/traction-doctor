@@ -9,12 +9,12 @@ checker verifies its arithmetic against the `dg` line.
 
 **Blocked by:** 01.
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Rubric file explains the method (gap arithmetic, anchors, kinds, caps,
+- [x] Rubric file explains the method (gap arithmetic, anchors, kinds, caps,
       no projected totals) without changing rubric version 2
-- [ ] Template and skill produce the block inside `## Verdict`
-- [ ] Checker: header arithmetic, top-band form, `Now → next` starts at the
+- [x] Template and skill produce the block inside `## Verdict`
+- [x] Checker: header arithmetic, top-band form, `Now → next` starts at the
       `dg` value and ends higher ≤ 5, kinds, ≥1 `outcome`, *Locked by caps*
-- [ ] The block can't spoof the Verdict, breakdown or Total checks (test)
-- [ ] Red team's seventh attack covers rubric-only moves dressed as outcomes
+- [x] The block can't spoof the Verdict, breakdown or Total checks (test)
+- [x] Red team's seventh attack covers rubric-only moves dressed as outcomes

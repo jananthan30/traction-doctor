@@ -212,6 +212,11 @@ Load `references/moat-frameworks.md` and re-read `references/scoring-rubrics.md`
   one line of evidence each; sum to /25; state the band, confidence, the
   single crux, the falsifier, kill criteria, and "what would have to be true"
   for the top-band outcome.
+- **Path to the next band:** with the scores settled, write the block that
+  turns them into moves, per `references/scoring-rubrics.md` → Path to the
+  next band: the gap to each next band, 2–5 moves aimed at next anchors
+  (each `outcome` or `rubric-only`), and the caps binding today. It changes
+  no score.
 
 ### Phase 5 — Red team, then report
 
@@ -220,7 +225,8 @@ breakdown and Moat today tables with their evidence; the Bigness and Moat
 rubric tables copied verbatim from `references/scoring-rubrics.md`; the
 positioning, wedge, and channel-ranking table; the economics rule (item 2 of
 the channel–product fit rubric in `references/channel-playbooks.md`); the
-Market `ESTIMATE` with its inputs; and the moat roadmap.
+Market `ESTIMATE` with its inputs; the moat roadmap; and the Path to the
+next band block.
 
 - `parallel`: dispatch `distribution-god:red-team` with the payload.
 - `generic-subagents`: spawn a sub-agent whose task is

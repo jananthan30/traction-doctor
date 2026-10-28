@@ -56,6 +56,19 @@ research ran), `bigness`, `subs` (the five Bigness sub-scores), `confidence`,
 <Three sentences max: the strategist's summary a smart friend would give.
 Plain words. No hedging padding — one load-bearing caveat allowed.>
 
+**Path to the next band:** Bigness <n> → <next band's floor> (<next band's label>) needs +<gap> · Moat <n> → <next band's floor> (<next band's label>) needs +<gap>
+
+| # | Move | Raises | Now → next | The next point needs | Kind | Effort |
+|---|---|---|---|---|---|---|
+| 1 | <one concrete move> | <a Bigness dimension or Moat row, by its exact name> | <today's score> → <the point it earns> | "<the anchor, quoted from the rubric>" — <the evidence that proves it> | outcome / rubric-only | S/M/L |
+
+**Locked by caps:** <each cap binding a score today and what unlocks it, or "none">
+
+(Method: scoring-rubrics.md → Path to the next band. 2–5 moves, at least one
+`outcome`; the first column is the move number. A score already in its top
+band reads `Bigness <n> — top band: <what would lose it>`. Never add the
+lifts into a projected total.)
+
 ## 1. What the repo says (product intelligence)
 
 - **Scope:** <only when Phase 0 made a call: which package of a monorepo,
