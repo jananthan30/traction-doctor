@@ -8,3 +8,8 @@ eval-report.html
 
 # Python bytecode from tests/scripts
 __pycache__/
+
+# First-customers files list strangers' public posts: private by design.
+# Root-anchored so the synthetic fixture under tests/ stays tracked.
+/FIRST-CUSTOMERS*.md
+/examples/**/FIRST-CUSTOMERS*.md

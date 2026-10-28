@@ -17,7 +17,11 @@ Checks that the report is complete and internally consistent:
     rows, are labeled outcome or rubric-only (at least one outcome), and
     project no total; section 9 has 1–3 pivot cards (2+ when the moat or
     the verdict is weak) of Ries's ten types, each complete, ESTIMATE-
-    labeled, with a precedent, a pass line, and a kill criterion naming it
+    labeled, with a precedent, a pass line, and a kill criterion naming it;
+    section 5's First customers sub-section has the offer, venues with
+    their self-promotion rules and search links, no individual posts, and
+    a link to FIRST-CUSTOMERS.md — checked with check_customers.py when
+    present (a missing file is a warning: it's meant to stay private)
 
 Usage:
   python3 check_report.py STRATEGY.md [more reports...]
@@ -517,6 +521,73 @@ def parent_line(body: str, field: str) -> str:
     return m.group(0) if m else ""
 
 
+# --- First customers (v0.4.0+) -----------------------------------------------
+
+def first_customers_errors(plan: str, dg: dict, report: Path) -> tuple[list[str], list[str]]:
+    """Section 5's First customers sub-section: the offer, the venues with
+    their self-promotion rules and search links, no individual posts, and a
+    link to the private people file, which is checked when it's present."""
+    import check_customers  # imported here: check_customers imports this module
+
+    head = re.search(r"^### First customers\s*$", plan, re.M)
+    if not head:
+        return ["section 5 needs a '### First customers' sub-section"], []
+    rest = plan[head.end():]
+    nxt = re.search(r"^### ", rest, re.M)
+    sub = rest[: nxt.start()] if nxt else rest
+    problems: list[str] = []
+    notes: list[str] = []
+    offline = dg.get("web") is False
+    if not re.search(r"^\*\*The offer:?\*\*:?[ \t]*\S", sub, re.M):
+        problems.append("First customers needs a '**The offer:**' line")
+    if offline and "NOT RESEARCHED" not in sub:
+        problems.append("dg.web is false but First customers does not say 'NOT RESEARCHED'")
+    if not offline and "NOT RESEARCHED" in sub:
+        problems.append("First customers says 'NOT RESEARCHED' but dg.web isn't false")
+
+    venues = [t for t in tables(sub)
+              if t and any("self-promotion" in c.replace("*", "").lower() for c in t[0])]
+    if not venues:
+        problems.append("First customers needs its venue table (Venue, Openings found, "
+                        "Self-promotion rule, Search it yourself)")
+    else:
+        header = [c.replace("*", "").strip().lower() for c in venues[0][0]]
+        i_rule = next(i for i, c in enumerate(header) if "self-promotion" in c)
+        i_search = next((i for i, c in enumerate(header) if c.startswith("search")), None)
+        i_found = next((i for i, c in enumerate(header) if c.startswith("openings")), None)
+        if venues[0][1:] == []:
+            problems.append("the First customers venue table lists no venues")
+        for r in venues[0][1:]:
+            name = r[0].replace("*", "").strip()[:40]
+            rule = r[i_rule] if i_rule < len(r) else ""
+            if not (LINK.search(rule) or "unverified" in rule.lower()):
+                problems.append(f"venue '{name}': give its self-promotion rule with a link, "
+                                "or 'unverified'")
+            if i_search is None or i_search >= len(r) or not LINK.search(r[i_search]):
+                problems.append(f"venue '{name}': add a search link the user can open")
+            if i_found is not None and not offline and i_found < len(r) and not re.fullmatch(
+                    r"\d+", r[i_found].replace("*", "").strip()):
+                problems.append(f"venue '{name}': 'Openings found' must be a count")
+    for m in check_customers.POST_URL.finditer(sub):
+        problems.append(f"First customers links an individual post ({m.group(0)}…): people belong "
+                        "in FIRST-CUSTOMERS.md, which stays private — the report names venues")
+
+    link = re.search(r"\]\((FIRST-CUSTOMERS(?:\.distribution-god)?\.md)\)", sub)
+    if not link:
+        problems.append("First customers must link the people file: "
+                        "[FIRST-CUSTOMERS.md](FIRST-CUSTOMERS.md)")
+    else:
+        people = report.parent / link.group(1)
+        if people.exists():
+            errs, warns = check_customers.check(people, dg)
+            problems.extend(f"{link.group(1)}: {e}" for e in errs)
+            notes.extend(f"{link.group(1)}: {w}" for w in warns)
+        else:
+            notes.append(f"{link.group(1)} is linked but not here — expected when it's kept "
+                         "private; check it where it lives with check_customers.py")
+    return problems, notes
+
+
 # --- The check ---------------------------------------------------------------
 
 def check(path: Path) -> tuple[list[str], list[str]]:
@@ -641,6 +712,10 @@ def check(path: Path) -> tuple[list[str], list[str]]:
     if v4 and dg_ok:
         errors.extend(path_errors(verdict, dg))
         errors.extend(pivot_errors(section(text, r"## 9\. Kill criteria"), dg))
+        fc_errors, fc_notes = first_customers_errors(section(text, r"## 5\. Distribution plan"),
+                                                     dg, path)
+        errors.extend(fc_errors)
+        warnings.extend(fc_notes)
 
     # Unfilled template slots (autolinks like <https://…> are fine).
     errors.extend(unfilled_slots(text))

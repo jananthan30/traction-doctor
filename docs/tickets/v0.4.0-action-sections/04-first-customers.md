@@ -12,17 +12,17 @@ RESEARCHED, with no people.
 **Blocked by:** 01 (path and pivots are independent; build after 02–03 to
 avoid edit conflicts in the same files).
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Sensor method + agent file (web and read-only tools only)
-- [ ] Skill: Phase 6, briefing with the final wedge and watering holes,
+- [x] Sensor method + agent file (web and read-only tools only)
+- [x] Skill: Phase 6, briefing with the final wedge and watering holes,
       brief checks (spot-check openings), file collision and re-run rules,
       allowed writes, chat reply order, gitignore advice
-- [ ] File template + report sub-section template
-- [ ] People-file checker: structure, privacy (emails, phones — narrow),
+- [x] File template + report sub-section template
+- [x] People-file checker: structure, privacy (emails, phones — narrow),
       openings, drafts' disclosure, tracker, offline rules; standalone CLI;
       called from the report checker when the linked file exists
-- [ ] Report checker: sub-section present, offer, venue table, link to the
+- [x] Report checker: sub-section present, offer, venue table, link to the
       file, no individual post links
-- [ ] Fixture people file + tests, including false-positive tests for the
+- [x] Fixture people file + tests, including false-positive tests for the
       phone pattern

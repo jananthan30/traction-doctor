@@ -102,6 +102,21 @@ proves the crux.
 - Month 3: retention review → all → week-4 retention
 - **Week-12 checkpoint:** 100 weekly installs and 10% week-4 retention
 
+### First customers
+
+**The offer:** a 20-minute call where I set acme-cli up on your repo, in exchange for honest feedback and a re-try in week 4.
+
+| Venue | Openings found | Self-promotion rule | Search it yourself |
+|---|---|---|---|
+| Example forum | 1 | [community guidelines](https://forum.example.com/guidelines) | [search](https://forum.example.com/search?q=offline%20deploy) |
+| Example tracker | 1 | `unverified` — read the sidebar before posting | [search](https://tracker.example.com/search?q=offline+deploy) |
+| Example Q&A | 1 | [self-promotion policy](https://qa.example.com/help/promotion) | [search](https://qa.example.com/search?q=deploy+no+control+plane) |
+
+3 openings found across 3 venues, posted in the last 30 days. The people,
+the message drafts, a 14-day plan and a tracker are in
+[FIRST-CUSTOMERS.md](FIRST-CUSTOMERS.md) — a private working file: add
+`FIRST-CUSTOMERS*.md` to `.gitignore`.
+
 ## 6. Gaps
 
 | Gap | Severity | Blocks channel | Fix | Effort |

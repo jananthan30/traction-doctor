@@ -25,6 +25,29 @@ the cached copy until it changes, so every release that touches `skills/` or
   with a pass line, and is started by a kill criterion that names it; a
   *Persevere if* line says when to stay the course. New reference:
   `references/pivot-playbook.md`. The red team attacks pivot realism.
+- **First customers**: the tool now does the prospecting. A new research
+  sensor, `customer-scout` (web and read-only tools only — no shell, no
+  writes), runs in a new Phase 6, after the red team settles the wedge. It
+  finds real, recent public posts — GitHub issues, Hacker News, Stack
+  Exchange, forums — where the wedge customer asked for what the product
+  does, each with its URL, post and fetch dates, and the person's own words,
+  plus every venue's self-promotion rule (karma minimums, megathreads) and a
+  search link. The strategist writes **`FIRST-CUSTOMERS.md`**, a private
+  working file: who to look for, the offer, the openings, message drafts
+  that always disclose authorship, a 14-day plan, a tracker, and the rules
+  (one message per person, no follow-ups). The report's section 5 gains a
+  *First customers* sub-section that names venues, never people. Re-runs
+  keep the user's own file, carry over tracker rows, and never re-suggest
+  someone already contacted. Local-only runs give search links and drafts,
+  marked NOT RESEARCHED, with no people.
+- `scripts/check_customers.py` enforces the people file: structure, no email
+  addresses or phone numbers, each opening's link, dates and short quote,
+  drafts' disclosure, a tracker that covers every opening. `check_report.py`
+  rejects individual post links in the report and checks the linked people
+  file when present (a missing one is a warning — it's meant to stay
+  private).
+- The reply in chat leads with who to contact today and which pivot each
+  kill criterion starts, then the verdict.
 
 ### Changed
 - `check_report.py` reads the report's version from its `dg` line: reports

@@ -141,7 +141,7 @@ info given">
 commitment device, not filler>
 
 **Sequence:**
-- **First 10:** <hand-to-hand actions, named surfaces>
+- **First 10:** <hand-to-hand actions, named surfaces — the openings in First customers below>
 - **First 100:** <ignition event + unscalable primary-channel motion>
 - **First 1,000:** <systematized primary channel, cadence, metric>
 
@@ -151,6 +151,24 @@ commitment device, not filler>
 - Month 2: <...>
 - Month 3: <...>
 - **Week-12 checkpoint:** <numbers that decide double-down vs pivot>
+
+### First customers
+
+**The offer:** <what the first ten get · what it costs them · what you ask back>
+
+| Venue | Openings found | Self-promotion rule | Search it yourself |
+|---|---|---|---|
+| <named venue> | <count> | <the rule, with a link — or `unverified`> | <a search link> |
+
+<N> openings found across <M> venues, posted in the last <D> days. The people,
+the message drafts, a 14-day plan and a tracker are in
+[FIRST-CUSTOMERS.md](FIRST-CUSTOMERS.md) — a private working file: add
+`FIRST-CUSTOMERS*.md` to `.gitignore`.
+
+(Method: first-customers.md. Name venues, never people: no links to
+individual posts here. Local-only: write `NOT RESEARCHED — re-run with web
+access` under the heading and `—` for the counts; the file still has the
+search links and drafts.)
 
 ## 6. Gaps
 

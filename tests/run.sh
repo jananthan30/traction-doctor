@@ -19,6 +19,13 @@ reports=(STRATEGY.md tests/fixtures/sample-report/STRATEGY.md)
 while IFS= read -r f; do reports+=("$f"); done < <(find examples -name STRATEGY.md 2>/dev/null | sort)
 python3 "${SCRIPTS}/check_report.py" "${reports[@]}" || fail "report checker"
 
+step "first-customers files pass the people-file checker"
+# Real people files are gitignored (they list strangers' posts), so CI sees only
+# the fixture; locally this also checks any you have.
+people=(tests/fixtures/sample-report/FIRST-CUSTOMERS.md)
+while IFS= read -r f; do people+=("$f"); done < <(find . -name 'FIRST-CUSTOMERS*.md' -not -name '*.previous.md' -not -path './tests/*' -not -path './.git/*' 2>/dev/null | sort)
+python3 "${SCRIPTS}/check_customers.py" "${people[@]}" || fail "people-file checker"
+
 step "idea files pass the idea checker"
 ideas=(tests/fixtures/sample-ideas/CLOSE-GAPS.md)
 while IFS= read -r f; do ideas+=("$f"); done < <(find . -name CLOSE-GAPS.md -not -path './tests/*' -not -path './.git/*' 2>/dev/null | sort)
