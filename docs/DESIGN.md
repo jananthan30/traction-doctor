@@ -1,7 +1,7 @@
 # Distribution God — Design Document
 
-**Date:** 2026-08-09 (updated 2026-09-25 for v0.2.0, 2026-09-27 for v0.3.0)
-**Status:** v0.3.0
+**Date:** 2026-08-09 (updated 2026-09-25 for v0.2.0, 2026-09-27 for v0.3.0, 2026-10-28 for v0.4.0)
+**Status:** v0.4.0
 
 ## What it is
 
@@ -62,11 +62,13 @@ sensor methods run as generic sub-agents or in sequence).
         positioning, wedge, channel ranking,
         gap analysis, moat roadmap, verdict
                             v
-                        red-team          <- adversarial subagent attacks the draft
+                        red-team          <- adversarial subagent attacks the draft,
+                            v                including the path and the pivots
+                     customer-scout       <- v0.4.0: real openings for the FINAL wedge
                             v
-                       STRATEGY.md        <- written into the analyzed repo
+          STRATEGY.md + FIRST-CUSTOMERS.md   <- report (public) + people file (private)
                             v
-             check_report.py + strategy_card.py   <- deterministic checks
+   check_report.py + check_customers.py + strategy_card.py   <- deterministic checks
 ```
 
 Design principle: **subagents are sensors, the main loop is the strategist,
@@ -85,11 +87,17 @@ the red team is the check.** Synthesis stays where full context lives.
     severity, calibration rules
   - `report-template.md` — STRATEGY.md structure, including the `dg` line
   - `strategy-card.md` — the shareable card's data schema and steps
-  - `sensors/` — the method for each sensor and the red team; the single
-    source of truth for every mode
+  - `pivot-playbook.md` — when to pivot, the asset inventory, Ries's ten
+    pivot types mapped to the moat powers they unlock, the pivot card
+  - `first-customers.md` — the offer, picking openings, drafting rules,
+    re-runs, and the FIRST-CUSTOMERS.md template
+  - `sensors/` — the method for each sensor, the red team and the customer
+    scout; the single source of truth for every mode
 - `skills/distribution-god/scripts/` — `strategy_card.py` renders the card
   from JSON (escaping, width budgets, rubric bands); `check_report.py` lints
-  STRATEGY.md against the contract.
+  STRATEGY.md against the contract (version-gated: each report is held to
+  the contract of the version that wrote it); `check_customers.py` lints
+  FIRST-CUSTOMERS.md, including privacy.
 - `skills/distribution-god/assets/strategy-card.template.svg` — card template.
 - `skills/gap-scan/SKILL.md` — fast local-only gap check (no web), for iteration.
 - `skills/close-gaps/` (v0.3.0) — the research stage. `SKILL.md` orchestrates
@@ -99,7 +107,7 @@ the red team is the check.** Synthesis stays where full context lives.
   `scripts/check_ideas.py` enforces the `CLOSE-GAPS.md` contract. Full
   design: `docs/superpowers/specs/2026-09-27-close-gaps-design.md`.
 - `agents/` (Claude Code) — `repo-intel`, `market-scout`, `rival-scout`,
-  `red-team`, `gap-researcher`, `pragmatist`: thin wrappers that load their
+  `red-team`, `customer-scout`, `gap-researcher`, `pragmatist`: thin wrappers that load their
   method from their skill's `references/sensors/` via `${CLAUDE_PLUGIN_ROOT}`.
 - `.claude-plugin/plugin.json` + `marketplace.json` — repo doubles as its own
   marketplace; Codex reads the same marketplace file.
@@ -150,6 +158,35 @@ the red team is the check.** Synthesis stays where full context lives.
 - **Keyless paper search.** arXiv, OpenAlex and Hugging Face Papers answer
   without API keys (checked 2026-09-27); Semantic Scholar refuses keyless
   calls and is left out.
+
+### Decisions added in v0.4.0
+
+The owner's critique of v0.3.0: "it's just scores." The report diagnosed in
+depth and prescribed in one bullet. v0.4.0 adds three action parts.
+Full design: `docs/superpowers/specs/2026-10-28-action-sections-design.md`.
+
+- **Inside the existing sections, never renumbered.** close-gaps addresses
+  gap rows as `gap.<n>` in §6 and the checker and evals key on §7 and §10,
+  so the path block lives in the Verdict, *First customers* is a `###`
+  sub-section of §5, and pivots join §9 (whose heading keeps its prefix).
+- **Version-gated contract.** The checker applies the v0.4.0 checks only to
+  reports stamped 0.4.0 or later; the rubric stays version 2, so close-gaps
+  and every older report keep working.
+- **Prescriptions can't game the score.** Path moves are labeled `outcome`
+  or `rubric-only`, at least one must be an outcome, and no projected total
+  may appear anywhere; the red team re-judges every label.
+- **Pivots answer kill criteria.** Each pivot is started by a named kill
+  criterion, keeps a named asset, and has a test that can fail — so a weak
+  verdict ends in a decision rule, not a shrug.
+- **Prospecting runs last.** The customer scout needs the final wedge,
+  which the red-team disposition can change, and the market scout's
+  watering holes — so it runs after the red team, not alongside the first
+  sensors. It has no shell and no write access: it reads the most hostile
+  pages of any agent.
+- **People are private.** STRATEGY.md is often committed, so it names
+  venues, never posts; the people live in FIRST-CUSTOMERS.md, which the
+  user is told to gitignore. The checker rejects contact details, unlinked
+  or undated openings, and drafts that don't disclose authorship.
 
 ## Non-negotiable product values
 

@@ -54,6 +54,11 @@ the cached copy until it changes, so every release that touches `skills/` or
   from v0.4.0 on get the v0.4.0 contract, older reports keep the one they
   were written under (the examples and the archive still pass). The line
   budget for v0.4.0 reports is 500.
+- The full-run evals grade the new parts: the path block, pivot options, the
+  First customers sub-section and the people file (web: real openings or
+  "only N found", no email addresses; offline: `NOT RESEARCHED` and no post
+  links). `tests/run.sh` checks people files. README, `llms.txt`, the design
+  doc and both manifests describe v0.4.0.
 
 ## [0.3.0] — 2026-09-27
 

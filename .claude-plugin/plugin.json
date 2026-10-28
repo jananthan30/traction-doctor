@@ -1,7 +1,7 @@
 {
   "name": "distribution-god",
   "version": "0.4.0",
-  "description": "Repo-native AI strategist: analyzes any repository like a master strategist and distribution expert — business strategy, market and competitor research, distribution plan, gap analysis, and moat roadmap, written to STRATEGY.md with calibrated verdicts — then researches trends, papers, and look-alike products for pragmatic, testable fixes to its weakest points.",
+  "description": "Repo-native AI strategist: analyzes any repository like a master strategist and distribution expert — business strategy, market and competitor research, distribution plan, gap analysis, and moat roadmap, written to STRATEGY.md with calibrated verdicts, the path to the next band, and pivot options — finds real people who recently asked for what you built and drafts the replies you send (a private FIRST-CUSTOMERS.md), then researches trends, papers, and look-alike products for pragmatic, testable fixes to its weakest points.",
   "author": {
     "name": "Jananthan Paramsothy",
     "url": "https://github.com/jananthan30"
@@ -20,6 +20,8 @@
     "claude-code",
     "codex",
     "agent-skills",
-    "geo"
+    "geo",
+    "pivot",
+    "first-customers"
   ]
 }

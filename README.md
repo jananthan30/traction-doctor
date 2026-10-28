@@ -30,10 +30,22 @@ codebase like a data room — license, dependencies, telemetry, onboarding,
 release cadence are all strategy evidence — then researches your live market
 and competitors on the web, and writes `STRATEGY.md`: positioning, a ranked
 distribution plan, a prioritized gap table, a moat roadmap, and a calibrated
-"how big can this get" verdict with explicit kill criteria. Then
-`/close-gaps` turns the diagnosis into a prescription: it researches
-current trends, papers, and products that fixed the same weakness, and keeps
-only ideas you can test within a week.
+"how big can this get" verdict with explicit kill criteria.
+
+Then it tells you what to do about it:
+
+- **Path to the next band** — how many points you need for the next band,
+  and the moves that would earn them, each marked as a real outcome or a
+  rubric-only box-tick.
+- **Pivot options** — if the moat won't come: 1–3 pivots that keep what you
+  built, each with a five-day test and the kill criterion that triggers it.
+- **First customers** — real people who recently asked, in public, for what
+  you built, with drafted replies you send yourself, in a private
+  `FIRST-CUSTOMERS.md`.
+
+`/close-gaps` goes deeper on the weakest points: it researches current
+trends, papers, and products that fixed the same weakness, and keeps only
+ideas you can test within a week.
 
 Not another GTM prompt pack. Existing packs help revenue teams write emails.
 This one starts from your code and tells you what business it can become —
@@ -91,11 +103,12 @@ projects, each stamped with the commit, date, model, and run mode.
 <!-- close-gaps:end -->
 
 ```
-sensors (parallel)              strategist              check
+sensors (parallel)    strategist     check        prospecting
 ┌─ repo-intel    ─┐
-├─ market-scout  ─┼──►  synthesis in main loop  ──►  red-team  ──►  STRATEGY.md
-└─ rival-scout   ─┘     (positioning, channels,                     + strategy card
-                         gaps, moat, verdict)
+├─ market-scout  ─┼──► synthesis ──► red-team ──► customer-scout ──► STRATEGY.md + card
+└─ rival-scout   ─┘    (verdict,     (attacks     (real people,      FIRST-CUSTOMERS.md
+                        path,         the draft)   final wedge)      (private)
+                        pivots)
 
 then, on request — /close-gaps
 STRATEGY.md ──► triage ──► gap-researcher × ≤3 ──► ranking ──► pragmatist ──► CLOSE-GAPS.md
@@ -106,21 +119,23 @@ STRATEGY.md ──► triage ──► gap-researcher × ≤3 ──► ranking 
 
 | Command | What you get | Time |
 |---|---|---|
-| `/distribution-god` (Codex: `$distribution-god:distribution-god`) | Full run: market + rivals research, distribution plan, gaps, moat, verdict → `STRATEGY.md` + `assets/strategy-card.svg` | ~15–20 min (measured in sequential mode on four repos; parallel is faster) |
+| `/distribution-god` (Codex: `$distribution-god:distribution-god`) | Full run: market + rivals research, distribution plan, gaps, moat, verdict, path to the next band, pivot options → `STRATEGY.md` + `assets/strategy-card.svg`; real first-customer openings with drafted replies → `FIRST-CUSTOMERS.md` (private) | ~15–20 min through the red team (v0.2.0, sequential, four repos), plus the prospecting |
 | `/close-gaps` (Codex: `$distribution-god:close-gaps`) | After a full run: researches trends, papers, and look-alike products for the report's weakest points → `CLOSE-GAPS.md`, at most five ideas, each with a linked precedent, a one-week test, and a stop signal | ~25 min (measured twice in parallel mode on this repo: 25 and 23 min) |
 | `/gap-scan` (Codex: `$distribution-god:gap-scan`) | Local-only audit of your distribution surface — prioritized gap table in chat | about a minute on a small repo, a few on a large one |
 
 Also usable piecemeal in Claude Code: `@agent-distribution-god:rival-scout`
 ("who competes with X and how do they grow"), `@agent-distribution-god:red-team`
 ("attack this plan"), `@agent-distribution-god:repo-intel`,
-`@agent-distribution-god:market-scout`, `@agent-distribution-god:gap-researcher`
+`@agent-distribution-god:market-scout`, `@agent-distribution-god:customer-scout`
+("find people who need X"), `@agent-distribution-god:gap-researcher`
 ("find proven ways to fix X"), `@agent-distribution-god:pragmatist` ("attack
 these ideas") — or type `@` and pick the agent from the list.
 
 ### Before you run
 
 - **Web permissions.** The full run makes roughly 20–30 web searches plus a
-  similar number of page fetches; `/close-gaps` made 80–83 web calls
+  similar number of page fetches before prospecting, and the customer scout
+  adds about 10 searches plus API fetches; `/close-gaps` made 80–83 web calls
   on this repo (two measured runs). For an unattended run, choose "don't ask
   again" on the first WebSearch/WebFetch prompt, or allow both in
   `~/.claude/settings.json`:
@@ -129,7 +144,7 @@ these ideas") — or type `@` and pick the agent from the list.
 - **Codex:** start with live search — `codex --search`, or
   `web_search = "live"` in `~/.codex/config.toml`. The default cached search
   returns stale results.
-- **Cost.** A full run uses up to four high-effort agents on your current
+- **Cost.** A full run uses up to five high-effort agents on your current
   model; expect it to cost more than a normal coding task. `/close-gaps`
   used about $10 of model usage per run on this repo (four high-effort
   agents, 80–83 web calls; two runs measured 2026-09-27). `/gap-scan` is cheap.
@@ -140,10 +155,17 @@ these ideas") — or type `@` and pick the agent from the list.
   own card `assets/strategy-card.distribution-god.svg`. Its own previous
   report and card are archived to `docs/strategy-history/`. `/close-gaps`
   writes only `CLOSE-GAPS.md` (or `CLOSE-GAPS.distribution-god.md` beside your
-  own file) and archives its previous run the same way.
+  own file) and archives its previous run the same way. The full run also
+  writes `FIRST-CUSTOMERS.md` (beside your own file of that name it writes
+  `FIRST-CUSTOMERS.distribution-god.md`); on a re-run it keeps a
+  `FIRST-CUSTOMERS.previous.md` copy and carries over your tracker.
 - **Privacy.** Search queries include a one-line description of your
   product (and, for `/close-gaps`, the weakness being researched). For a stealth project, use `/gap-scan`: it does no web research
   (at most it reads your repo's own GitHub metadata with `gh`).
+  `FIRST-CUSTOMERS.md` lists strangers' public posts, so keep it out of git:
+  add `FIRST-CUSTOMERS*.md` to your `.gitignore`. The tool never contacts
+  anyone, never records an email or phone number, and writes every draft to
+  say that you built the product.
 
 ### Update
 
@@ -185,18 +207,30 @@ deletes a skill folder it didn't create — anything in the way is moved to
 - **Adversarial by design.** A red team re-derives every score from the
   rubric and recomputes the market math; each serious objection is applied
   or rebutted on the record in the Dissent section.
+- **Action, not just scores.** The path to the next band labels every move
+  `outcome` or `rubric-only` and never projects a total, so it can't steer
+  you into gaming the score. Every pivot keeps a named asset and has a test
+  that can fail.
+- **Honest outreach.** First-customer openings are real posts fetched during
+  the run — linked, dated, quoted — never invented. One message per person,
+  no follow-ups, authorship always disclosed.
 - **Checked before you see it.** `scripts/check_report.py` rejects a report
   with missing sections, unfilled blanks, scores that don't add up, unsourced
-  rivals, or a broken card.
+  rivals, a broken card, path arithmetic that's off, or an incomplete pivot;
+  `scripts/check_customers.py` rejects a people file with contact details,
+  an undated or unlinked opening, or an undisclosed draft.
 
 ## Layout
 
 ```
 skills/distribution-god/   orchestrator skill
   references/              moats · channel playbooks · AI-era channels ·
-                           scoring rubrics · report template · strategy card
-  references/sensors/      repo-intel · market-scout · rival-scout · red-team methods
-  scripts/                 strategy_card.py (renders the card) · check_report.py
+                           scoring rubrics · pivot playbook · first customers ·
+                           report template · strategy card
+  references/sensors/      repo-intel · market-scout · rival-scout · red-team ·
+                           customer-scout methods
+  scripts/                 strategy_card.py (renders the card) · check_report.py ·
+                           check_customers.py (the FIRST-CUSTOMERS.md contract)
   assets/                  strategy-card template
 skills/gap-scan/           fast local audit
 skills/close-gaps/         research stage: triage → gap-researchers → pragmatist
