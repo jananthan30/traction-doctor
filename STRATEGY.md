@@ -483,9 +483,8 @@ the scores compare one-for-one.
   by about 2026-10-08); its fingerprint half can't be measured, and whether
   the Reddit sequence ran is unknown. The v0.2.0 criteria aren't
   due (the first is 2026-11-15), but they can't start: there is no listing
-  to measure.
-- **close-gaps' first idea (skills.sh, success due 2026-10-25) never ran:**
-  its first step was the merge to `main`.
+  to measure. close-gaps' first idea (skills.sh, due 2026-10-25) never ran:
+  its first step was the merge.
 - **Gaps closed (on the branch only):** `examples/` is committed (three
   reports) and CI exists. **Still open:** the unmerged versions (P0), no
   directory submission (P0), demo GIF, social preview, release tag,
